@@ -365,7 +365,7 @@ GET /api/v1/public/meta/getMetaData
 
 
 <a id="schemametadata"></a>
-### Global metadata
+### schemametadata
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -377,7 +377,7 @@ GET /api/v1/public/meta/getMetaData
 
 
 <a id="schemamultichain"></a>
-### Cross-chain withdrawal related class
+### schemamultichain
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -389,7 +389,7 @@ GET /api/v1/public/meta/getMetaData
 
 
 <a id="schemachain"></a>
-### Wrapper class for parsing data
+### schemachain
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -413,7 +413,7 @@ GET /api/v1/public/meta/getMetaData
 
 
 <a id="schemamultichaintoken"></a>
-### Cross-chain related token types
+### schemamultichaintoken
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -429,7 +429,7 @@ GET /api/v1/public/meta/getMetaData
 
 
 <a id="schemacontract"></a>
-### Perpetual contract meta information
+### schemacontract
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -471,7 +471,7 @@ GET /api/v1/public/meta/getMetaData
 
 
 <a id="schemarisktier"></a>
-### Risk limit tier information
+### schemarisktier
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -485,7 +485,7 @@ GET /api/v1/public/meta/getMetaData
 
 
 <a id="schemacoin"></a>
-### Coin meta information
+### schemacoin
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -498,7 +498,7 @@ GET /api/v1/public/meta/getMetaData
 |starkExResolution|string|false|none|starkex processing precision. If empty, it means it does not exist|
 
 <a id="schemaglobal"></a>
-### Global meta information
+### schemaglobal
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -526,7 +526,7 @@ GET /api/v1/public/meta/getMetaData
 
 
 <a id="getservertime"></a>
-### GetServerTime
+### getservertime
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -538,7 +538,7 @@ GET /api/v1/public/meta/getMetaData
 |traceId|string|false|none|Call traceId|
 
 
-### Server time
+### schemagetservertime
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|

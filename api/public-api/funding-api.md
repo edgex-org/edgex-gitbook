@@ -125,7 +125,7 @@ GET /api/v1/public/funding/getFundingRatePage
 # Data Models
 
 <a id="pagedatafundingrate"></a>
-### Funding Rate page data Response
+### pagedatafundingrate
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -138,7 +138,7 @@ GET /api/v1/public/funding/getFundingRatePage
 
 
 <a id="schemapagedatafundingrate"></a>
-### Funding rate pagination
+### schemapagedatafundingrate
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -146,7 +146,7 @@ GET /api/v1/public/funding/getFundingRatePage
 |nextPageOffsetData|string|false|none|Offset data to retrieve the next page. Empty string if there is no next page|
 
 <a id="listfundingrate"></a>
-### Funding rate List Response
+### listfundingrate
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -159,7 +159,7 @@ GET /api/v1/public/funding/getFundingRatePage
 
 
 <a id="schemafundingrate"></a>
-### Funding Rate
+### schemafundingrate
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|

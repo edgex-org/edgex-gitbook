@@ -371,7 +371,7 @@ GET /api/v1/public/quote/getDepth
 # Data Models
 
 <a id="schemaresultlistdepth"></a>
-### Depth List Response
+### schemaresultlistdepth
 
 | Name        | Type                   | Required | Constraints | Chinese Name | Description                                   |
 |-------------|------------------------|----------|-------------|--------------|-----------------------------------------------|
@@ -383,7 +383,7 @@ GET /api/v1/public/quote/getDepth
 | traceId     | string                 | false    | none        |              | Call trace ID                              |
 
 <a id="schemadepth"></a>
-### Depth
+### schemadepth
 
 | Name        | Type                | Required | Constraints | Chinese Name | Description          |
 |-------------|---------------------|----------|-------------|--------------|----------------------|
@@ -407,7 +407,7 @@ GET /api/v1/public/quote/getDepth
 
 
 <a id="schemabookorder"></a>
-### Order Book Information
+### schemabookorder
 
 | Name  | Type           | Required | Constraints | Chinese Name | Description |
 |-------|----------------|----------|-------------|--------------|-------------|
@@ -417,7 +417,7 @@ GET /api/v1/public/quote/getDepth
 
 <a id="schemaresultpagedatakline"></a>
 
-### Kline Page Data Response
+### schemaresultpagedatakline
 
 | Name        | Type                 | Required | Constraints | Chinese Name | Description                                  |
 |-------------|----------------------|----------|-------------|--------------|----------------------------------------------|
@@ -430,7 +430,7 @@ GET /api/v1/public/quote/getDepth
 
 
 <a id="schemapagedatakline"></a>
-### Kline List
+### schemapagedatakline
 
 | Name               | Type             | Required | Constraints | Chinese Name | Description                          |
 |--------------------|------------------|----------|-------------|--------------|--------------------------------------|
@@ -439,7 +439,7 @@ GET /api/v1/public/quote/getDepth
 
 
 <a id="schemakline"></a>
-### K-Line
+### schemakline
 
 | Name        | Type                | Required | Constraints | Chinese Name | Description            |
 |-------------|---------------------|----------|-------------|--------------|------------------------|
@@ -489,7 +489,7 @@ GET /api/v1/public/quote/getDepth
 
 
 <a id="schemaresultlistcontractkline"></a>
-### Contract Kline Response
+### schemaresultlistcontractkline
 
 | Name        | Type                  | Required | Constraints | Chinese Name | Description                                   |
 |-------------|-----------------------|----------|-------------|--------------|-----------------------------------------------|
@@ -502,7 +502,7 @@ GET /api/v1/public/quote/getDepth
 
 
 <a id="schemacontractmultikline"></a>
-### Multiple K-Lines for a Contract
+### schemacontractmultikline
 
 | Name        | Type                | Required | Constraints | Chinese Name | Description               |
 |-------------|---------------------|----------|-------------|--------------|---------------------------|
@@ -512,7 +512,7 @@ GET /api/v1/public/quote/getDepth
 
 
 <a id="schemaresultlistticker"></a>
-### Ticker List Response
+### schemaresultlistticker
 
 | Name        | Type                   | Required | Constraints | Chinese Name | Description                                   |
 |-------------|------------------------|----------|-------------|--------------|-----------------------------------------------|
@@ -524,7 +524,7 @@ GET /api/v1/public/quote/getDepth
 | traceId     | string                 | false    | none        |              | Call trace ID                              |
 
 <a id="schematicker"></a>
-### 24-Hour Quotes
+### schematicker
 
 | Name            | Type           | Required | Constraints | Chinese Name | Description                    |
 |-----------------|----------------|----------|-------------|--------------|--------------------------------|
@@ -553,7 +553,7 @@ GET /api/v1/public/quote/getDepth
 
 
 <a id="gettickersummarymodel"></a>
-### Get Ticker Summary Response
+### gettickersummarymodel
 
 | Name        | Type                      | Required | Constraints | Chinese Name | Description                               |
 |-------------|---------------------------|----------|-------------|--------------|-------------------------------------------|
@@ -566,7 +566,7 @@ GET /api/v1/public/quote/getDepth
 
 
 <a id="schemagettickersummary"></a>
-### Ticker Summary List
+### schemagettickersummary
 
 | Name          | Type                 | Required | Constraints | Chinese Name | Description      |
 |---------------|----------------------|----------|-------------|--------------|------------------|
@@ -574,7 +574,7 @@ GET /api/v1/public/quote/getDepth
 
 
 <a id="schematickersummary"></a>
-### Ticker Summary
+### schematickersummary
 
 | Name         | Type   | Required | Constraints | Chinese Name | Description              |
 |--------------|--------|----------|-------------|--------------|--------------------------|

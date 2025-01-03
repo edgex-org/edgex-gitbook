@@ -95,7 +95,7 @@ GET /api/v1/private/account/getPositionTransactionPage
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#PositiontransactionPage) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#positiontransactionpage) |
 
 <a id="opIdgetPositionTransactionById"></a>
 
@@ -675,7 +675,7 @@ GET /api/v1/private/account/getAccountPage
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#account) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#schemaresultaccount) |
 
 <a id="opIdgetAccountDeleverageLight"></a>
 
@@ -1044,13 +1044,13 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model                                        |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#accountassetsnapshot>>) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#accountassetsnapshot>) |
 
 # Data Models
 
 
 <a id="accountassetsnapshot"></a>
-### Properties
+### accountassetsnapshot
 
 | Name           | Type                               | Required | Constraints | Description              | Notes                                                                    |
 | -------------- | ---------------------------------- | -------- | ----------- | ------------------------ | ------------------------------------------------------------------------ |
@@ -1063,7 +1063,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | traceId        | string                             | false    | none        | Trace ID                | Invocation trace ID                                                     |
 
 <a id="schemapagedataaccountassetsnapshot"></a>
-### Generic Paginated Response
+### schemapagedataaccountassetsnapshot
 
 | Name               | Type                               | Required | Constraints | Description                 | Notes                                                               |
 | ------------------ | ---------------------------------- | -------- | ----------- | --------------------------- | ------------------------------------------------------------------- |
@@ -1071,7 +1071,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | nextPageOffsetData | string                             | false    | none        | Next Page Offset        | Offset for retrieving the next page. If no next page data, empty string. |
 
 <a id="schemaaccountassetsnapshot"></a>
-### Account historical asset snapshot information
+### schemaaccountassetsnapshot
 
 | Name             | Type            | Required | Constraints | Description                         | Notes                                                                     |
 | ---------------- | --------------- | -------- | ----------- | ----------------------------------- | ------------------------------------------------------------------------- |
@@ -1085,8 +1085,8 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | unrealizePnl     | string          | false    | none        | Unrealized PnL                      | Unrealized PnL                                                            |
 | totalRealizePnl  | string          | false    | none        | Total Realized PnL                 | Total realized PnL of the position                                          |
 
-<a id="schemaresult<getaccountasset>"></a>
-### getaccountasset
+<a id="schemaresultgetaccountasset"></a>
+### schemaresultgetaccountasset
 
 | Name           | Type                            | Required | Constraints | Description              | Notes                                                                  |
 | -------------- | ------------------------------- | -------- | ----------- | ------------------------ | ---------------------------------------------------------------------- |
@@ -1099,7 +1099,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemagetaccountasset"></a>
-### Response structure for fetching account asset data
+### schemagetaccountasset
 
 | Name                  | Type                                | Required | Constraints | Description                                                                                      | Notes                                                                                          |
 | --------------------- | ----------------------------------- | -------- | ----------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
@@ -1112,7 +1112,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | oraclePriceList       | [[IndexPrice](#schemaindexprice)]   | false    | none        | Oracle Price List                                                  | List of all oracle prices used to calculate assets (only those used).                                                          |
 
 <a id="schemaindexprice"></a>
-### Price information
+### schemaindexprice
 
 | Name                  | Type                  | Required | Constraints | Description                        | Notes                                                                            |
 | --------------------- | --------------------- | -------- | ----------- | ---------------------------------- | -------------------------------------------------------------------------------- |
@@ -1136,7 +1136,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | priceType | UNRECOGNIZED              |
 
 <a id="schemaoraclepricesignature"></a>
-### Oracle price signature information
+### schemaoraclepricesignature
 
 | Name             | Type                    | Required | Constraints | Description                                                              | Notes                                                                                                    |
 | ---------------- | ----------------------- | -------- | ----------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
@@ -1148,7 +1148,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | timestamp        | string(int64)           | false    | none        | Signature Creation Time                                                | The time the signature was created.                                                                     |
 
 <a id="schemal2signature"></a>
-### L2 signature information
+### schemal2signature
 
 | Name | Type   | Required | Constraints | Description      | Notes                  |
 | ---- | ------ | -------- | ----------- | ---------------- | ---------------------- |
@@ -1157,7 +1157,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | v    | string | false    | none        | V Value          | Bigint for hex string |
 
 <a id="schemacollateralasset"></a>
-### Collateral asset information
+### schemacollateralasset
 
 | Name                    | Type          | Required | Constraints | Description                                                                      | Notes                                                                              |
 | ----------------------- | ------------- | -------- | ----------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
@@ -1174,7 +1174,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | availableAmount         | string        | false    | none        | Available Amount                                                                | The amount of collateral available for use.                                           |
 
 <a id="schemapositionasset"></a>
-### Asset information related to a position
+### schemapositionasset
 
 | Name                    | Type          | Required | Constraints | Description                            | Notes                                                                          |
 | ----------------------- | ------------- | -------- | ----------- | -------------------------------------- | ------------------------------------------------------------------------------ |
@@ -1196,7 +1196,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | totalRealizePnl        | string        | false    | none        | Total Realized PnL                   | Total realized PnL of the position.                                         |
 
 <a id="schemaposition"></a>
-### Perpetual contract position information
+### schemaposition
 
 | Name                | Type          | Required | Constraints | Description                                                         | Notes                                                                                      |
 | ------------------- | ------------- | -------- | ----------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
@@ -1223,7 +1223,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemapositionstat"></a>
-### Cumulative statistics for a position
+### schemapositionstat
 
 | Name            | Type   | Required | Constraints | Description              | Notes                                                               |
 | --------------- | ------ | -------- | ----------- | ------------------------ | ------------------------------------------------------------------- |
@@ -1237,7 +1237,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | cumLiquidateFee | string | false    | none        | Cumulative Liquidate Fee| Cumulative liquidation fees.                                          |
 
 <a id="schemacollateral"></a>
-### Collateral information
+### schemacollateral
 
 | Name                  | Type            | Required | Constraints | Description                                   | Notes                                                                    |
 | --------------------- | --------------- | -------- | ----------- | --------------------------------------------- | ------------------------------------------------------------------------ |
@@ -1259,7 +1259,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | updatedTime           | string(int64)   | false    | none        | Update Time                                    | Update time.                                                                  |
 
 <a id="schemaaccount"></a>
-### Account information data
+### schemaaccount
 
 | Name                    | Type                | Required | Constraints | Description                                                                                                                                  | Notes                                                                                     |
 | ----------------------- | ------------------- | -------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
@@ -1295,7 +1295,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | status   | UNRECOGNIZED          |
 
 <a id="schematradesetting"></a>
-### Trade settings
+### schematradesetting
 
 | Name              | Type            | Required | Constraints | Description                                                                                    | Notes                                                                                          |
 | ----------------- | --------------- | -------- | ----------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
@@ -1309,8 +1309,8 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | maxLeverage       | string(decimal) | false    | none        | Maximum Leverage                                                                             | Maximum trading leverage.                                                                          |
 
 
-<a id="schemaresult<account>"></a>
-### account
+<a id="schemaresultaccount"></a>
+### schemaresultaccount
 
 | Name           | Type                                 | Required | Constraints | Description                | Notes                                                                    |
 | -------------- | ------------------------------------ | -------- | ----------- | -------------------------- | ------------------------------------------------------------------------ |
@@ -1491,7 +1491,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemapagedatacollateraltransaction"></a>
-### Generic Paginated Response
+### schemapagedatacollateraltransaction
 
 | Name               | Type                             | Required | Constraints | Description                 | Notes                                                               |
 | ------------------ | -------------------------------- | -------- | ----------- | --------------------------- | ------------------------------------------------------------------- |
@@ -1512,7 +1512,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 
 
 <a id="positionterm"></a>
-### Properties
+### positionterm
 
 | Name           | Type                                   | Required | Constraints | Description                | Notes                                                                    |
 | -------------- | -------------------------------------- | -------- | ----------- | -------------------------- | ------------------------------------------------------------------------ |
@@ -1525,7 +1525,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemapagedatapositionterm"></a>
-### Generic Paginated Response
+### schemapagedatapositionterm
 
 | Name               | Type                           | Required | Constraints | Description                 | Notes                                                               |
 | ------------------ | ------------------------------ | -------- | ----------- | --------------------------- | ------------------------------------------------------------------- |
@@ -1534,7 +1534,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemapositionterm"></a>
-### Position term information
+### schemapositionterm
 
 | Name            | Type          | Required | Constraints | Description                         | Notes                                                                        |
 | --------------- | ------------- | -------- | ----------- | ----------------------------------- | ---------------------------------------------------------------------------- |
@@ -1570,7 +1570,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemapositiontransaction"></a>
-### Perpetual contract position transaction details
+### schemapositiontransaction
 
 | Name                    | Type          | Required | Constraints | Description                                                                              | Notes                                                                                            |
 | ----------------------- | ------------- | -------- | ----------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -1643,8 +1643,8 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | censorStatus | UNRECOGNIZED                  |
 
 
-<a id="PositiontransactionPage"></a>
-### PositiontransactionPage
+<a id="positiontransactionpage"></a>
+### positiontransactionpage
 
 | Name           | Type                                       | Required | Constraints | Description                        | Notes                                                                  |
 | -------------- | ------------------------------------------ | -------- | ----------- | ---------------------------------- | ---------------------------------------------------------------------- |
@@ -1657,7 +1657,7 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemapagedatapositiontransaction"></a>
-### Generic Paginated Response
+### schemapagedatapositiontransaction
 
 | Name               | Type                                  | Required | Constraints | Description                 | Notes                                                               |
 | ------------------ | ------------------------------------- | -------- | ----------- | --------------------------- | ------------------------------------------------------------------- |

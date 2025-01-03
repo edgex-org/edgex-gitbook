@@ -20,11 +20,12 @@ This document outlines the WebSocket API for both private (user account) and pub
 *   **05.** Authentication:
     *   **Web:**
         *   Browsers don't allow custom headers during WebSocket connections, so special handling is required.
-        *   Use the same authentication logic as HTTP. Create a JSON string using the `X-Edgex-Api-Key`, `X-Edgex-Passphrase`, `X-Edgex-Signature`, and `X-Edgex-Timestamp` key-value pairs, for example: `{"X-Edgex-Api-Key": "ff072a89-78a9-b4e8-27b2-32bd774c0786", "X-Edgex-Passphrase": "BEomwWBDjPqj7yifePhY2Q", "X-Edgex-Signature": "69ce1a38fd65afc49ae81eaccca81bfddb6a73cb3936b7d53abf48003514c253", "X-Edgex-Timestamp": "1705720068228"}`.
+        *   Use the same authentication logic as HTTP. Create a JSON string using the `X-edgeX-Api-Signature`, `X-edgeX-Api-Timestamp` key-value pairs, for example: `{"X-edgeX-Api-Signature": "00e6b34cf9c3c0ca407cc2fe149fad836206c97201f236137c0e89fd079760470672b5257fa372710b5863d1ec6e0215e5bd6b2c3a319eda88886250a100524706ea3dd81a7fc864893c8c6f674e4a4510c369f939bdc0259a0980dfde882c2d", "X-edgeX-Api-Timestamp": "1705720068228"}`.
         *   Base64 encode this JSON string.
         *   During the WebSocket request, pass the base64 encoded value in the `SEC_WEBSOCKET_PROTOCOL` header.
-    *   **App:**
-        *   App WebSocket connections can use custom headers. Therefore, Apps can continue using the same authentication logic as HTTP, or they can use the Web authentication method described above.
+    *   **App/API:**
+        *   App/API WebSocket connections can use [custom](authentication.md#private-api) headers. Therefore, Apps/API can continue using the same authentication logic as HTTP, or they can use the Web authentication method described above.
+        *   WebSocket is a GET request and there is no need to sign the request body.
 
 ### URL: `/api/v1/private/ws`
 

@@ -47,7 +47,7 @@ POST /api/v1/private/order/getMaxCreateOrderSize
 
 |Status Code|Status Code Description|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|default response|[Result](#getmaxcreateordersize)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|default response|[Result](#schemaresultgetmaxcreateordersize)|
 
 <a id="opIdcreateOrder"></a>
 
@@ -1292,7 +1292,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemaresultlistorderfilltransaction"></a>
-### Properties
+### schemaresultlistorderfilltransaction
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1305,7 +1305,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemaorderfilltransaction"></a>
-### Order fill transaction details
+### schemaorderfilltransaction
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1372,7 +1372,7 @@ GET /api/v1/private/order/getActiveOrderPage
 |censorStatus|UNRECOGNIZED|
 
 <a id="schemaresultpagedataorderfilltransaction"></a>
-### Order Fill Transaction Response
+### schemaresultpagedataorderfilltransaction
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1385,7 +1385,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemapagedataorderfilltransaction"></a>
-### Order Fill Transaction List
+### schemapagedataorderfilltransaction
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1394,7 +1394,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemaresultpagedataorder"></a>
-### Order Response
+### schemaresultpagedataorder
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1407,7 +1407,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemapagedataorder"></a>
-### Order List
+### schemapagedataorder
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1416,7 +1416,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemaorder"></a>
-### Perpetual contract order information
+### schemaorder
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1539,7 +1539,7 @@ GET /api/v1/private/order/getActiveOrderPage
 |cancelReason|UNRECOGNIZED|
 
 <a id="schemal2signature"></a>
-### L2 signature information.
+### schemal2signature
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1549,7 +1549,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemaopentpsl"></a>
-### Opening order take-profit/stop-loss parameters
+### schemaopentpsl
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1586,7 +1586,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemaresultlistorder"></a>
-### Order List
+### schemaresultlistorder
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1599,7 +1599,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemacancelallorderparam"></a>
-### Request parameters for canceling all orders under an account
+### schemacancelallorderparam
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1612,7 +1612,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemacancelorderbyclientorderid"></a>
-<### Response for canceling orders by client order IDs
+<### schemacancelorderbyclientorderid
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1635,7 +1635,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemaresultcancelorder"></a>
-### Cancel Order Response
+### schemaresultcancelorder
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1648,7 +1648,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemacancelorder"></a>
-### Response for canceling orders
+### schemacancelorder
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1668,7 +1668,7 @@ GET /api/v1/private/order/getActiveOrderPage
 |**additionalProperties**|UNRECOGNIZED|
 
 <a id="schemacancelorderbyidparam"></a>
-### Request parameters for canceling an order
+### schemacancelorderbyidparam
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1677,7 +1677,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemaresultcreateorder"></a>
-###  Creating orders Response
+###  schemaresultcreateorder
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1689,7 +1689,7 @@ GET /api/v1/private/order/getActiveOrderPage
 |traceId|string|false|none|Call trace ID.|
 
 <a id="schemacreateorder"></a>
-### Response for creating orders
+### schemacreateorder
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1697,7 +1697,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemacreateorderparam"></a>
-### Request parameters for creating an order
+### schemacreateorderparam
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1761,7 +1761,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemaopentpslparam"></a>
-### Take-profit/stop-loss parameters for opening order.
+### schemaopentpslparam
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1797,8 +1797,8 @@ GET /api/v1/private/order/getActiveOrderPage
 |triggerPriceType|UNRECOGNIZED|
 
 
-<a id="schemaresult<getmaxcreateordersize>"></a>
-### Getting the maximum order size Response
+<a id="schemaresultgetmaxcreateordersize"></a>
+### schemaresultgetmaxcreateordersize
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1811,7 +1811,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemagetmaxcreateordersize"></a>
-### Getting the maximum order size Data
+### schemagetmaxcreateordersize
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|
@@ -1822,7 +1822,7 @@ GET /api/v1/private/order/getActiveOrderPage
 
 
 <a id="schemagetmaxcreateordersizeparam"></a>
-### Request parameters for getting the maximum order size
+### schemagetmaxcreateordersizeparam
 
 |Name|Type|Required|Constraints|Description|
 |---|---|---|---|---|

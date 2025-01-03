@@ -241,7 +241,7 @@ GET /api/v1/private/transfer/getTransferInById
 
 
 <a id="schemaresultpagedatatransferin"></a>
-### Transfer In Response
+### schemaresultpagedatatransferin
 
 | Name | Type | Required | Constraints | Description |
 |---|---|---|---|---|
@@ -254,7 +254,7 @@ GET /api/v1/private/transfer/getTransferInById
 
 
 <a id="schemapagedatatransferin"></a>
-### Transfer In Data List
+### schemapagedatatransferin
 
 | Name | Type | Required | Constraints | Description |
 |---|---|---|---|---|
@@ -262,7 +262,7 @@ GET /api/v1/private/transfer/getTransferInById
 | nextPageOffsetData | string | false | none | Offset to retrieve the next page. If no next page data, the value will be an empty string |
 
 <a id="schematransferin"></a>
-### Transfer In
+### schematransferin
 
 | Name | Type | Required | Constraints | Description |
 |---|---|---|---|---|
@@ -320,7 +320,7 @@ GET /api/v1/private/transfer/getTransferInById
 
 
 <a id="schemaresultpagedatatransferout"></a>
-### Transfer Out Response
+### schemaresultpagedatatransferout
 
 | Name | Type | Required | Constraints | Description |
 |---|---|---|---|---|
@@ -333,7 +333,7 @@ GET /api/v1/private/transfer/getTransferInById
 
 
 <a id="schemapagedatatransferout"></a>
-### Transfer Out Data List
+### schemapagedatatransferout
 
 | Name | Type | Required | Constraints | Description |
 |---|---|---|---|---|
@@ -342,7 +342,7 @@ GET /api/v1/private/transfer/getTransferInById
 
 
 <a id="schematransferout"></a>
-### Transfer Out Order
+### schematransferout
 
 | Name | Type | Required | Constraints | Description |
 |---|---|---|---|---|
@@ -402,7 +402,7 @@ GET /api/v1/private/transfer/getTransferInById
 | status | UNRECOGNIZED |
 
 <a id="schemal2signature"></a>
-### L2 signature information
+### schemal2signature
 
 | Name | Type | Required | Constraints | Description |
 |---|---|---|---|---|
@@ -412,7 +412,7 @@ GET /api/v1/private/transfer/getTransferInById
 
 
 <a id="schemaresultlisttransferin"></a>
-### Transfer In Response
+### schemaresultlisttransferin
 
 | Name | Type | Required | Constraints | Description |
 |---|---|---|---|---|
@@ -425,7 +425,7 @@ GET /api/v1/private/transfer/getTransferInById
 
 
 <a id="schemaresultgettransferoutavailableamount"></a>
-### Get Transfer Available Amount Response
+### schemaresultgettransferoutavailableamount
 
 | Name | Type | Required | Constraints | Description |
 |---|---|---|---|---|
@@ -438,7 +438,7 @@ GET /api/v1/private/transfer/getTransferInById
 
 
 <a id="schemagettransferavailableamount"></a>
-### Get Transfer Available Amount
+### schemagettransferavailableamount
 
 | Name | Type | Required | Constraints | Description |
 |---|---|---|---|---|
@@ -446,7 +446,7 @@ GET /api/v1/private/transfer/getTransferInById
 
 
 <a id="schemaresultlisttransferout"></a>
-### Properties
+### schemaresultlisttransferout
 
 | Name | Type | Required | Constraints | Description |
 |---|---|---|---|---|
@@ -459,7 +459,7 @@ GET /api/v1/private/transfer/getTransferInById
 
 
 <a id="schemaresultcreatetransferout"></a>
-### Create Transfer Out Order - Response
+### schemaresultcreatetransferout
 
 | Name | Type | Required | Constraints | Description |
 |---|---|---|---|---|
@@ -472,7 +472,7 @@ GET /api/v1/private/transfer/getTransferInById
 
 
 <a id="schemacreatetransferout"></a>
-### Create Transfer Out Order Response Data
+### schemacreatetransferout
 
 | Name | Type | Required | Constraints | Description |
 |---|---|---|---|---|
@@ -481,7 +481,7 @@ GET /api/v1/private/transfer/getTransferInById
 
 
 <a id="schemacreatetransferoutparam"></a>
-### Create Transfer Out Order request parameters
+### schemacreatetransferoutparam
 
 | Name | Type | Required | Constraints | Description |
 |---|---|---|---|---|
