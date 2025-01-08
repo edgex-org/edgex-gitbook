@@ -23,7 +23,7 @@
   * [Liquidation Logic](trading/liquidation-logic.md)
 * [API Docs](api/README.md)
   * [Authentication](api/authentication.md)
-  * [Sign](api/sign.md) 
+  * [L2 Signature](api/sign.md) 
   * [Public API](api/public-api/README.md)
     * [Meta Data API](api/public-api/metadata-api.md)
     * [Quote API](api/public-api/quote-api.md)

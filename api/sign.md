@@ -12,57 +12,109 @@ To sign messages on Layer 2, you need to obtain your L2 private key. This key is
 
 > The signature algorithm used is **Ecdsa** (Elliptic Curve Digital Signature Algorithm). This algorithm ensures that signatures are secure and verifiable.
 
-### There are currently two types of content that require signatures:
-
-**Private API Request Body Signature:** This is used for authentication. We do not want the hash computation to consume excessive CPU resources. Therefore, this will use SHA3 to hash the request body string before signing.
-
 **L2Signature for Operations (e.g., Order, Transfer, Withdraw):** This will use Pedersen hash for signing. However, this hash computation will consume significantly more CPU resources.
 
-> [Python Signature Demo](https://github.com/starkware-libs/starkex-resources/blob/master/crypto/starkware/crypto/signature/signature_test.py#L62)
+> [Python L2Signature Demo](https://github.com/starkware-libs/starkex-resources/blob/master/crypto/starkware/crypto/signature/signature_test.py#L62)
 
-> [Java Script Signature Demo](https://www.npmjs.com/package/@starkware-industries/starkware-crypto-utils#signing-a-starkex-order)
+> [Java Script L2Signature Demo](https://www.npmjs.com/package/@starkware-industries/starkware-crypto-utils#signing-a-starkex-order)
 
-### Java Implementation Demo
+### Java L2Signature Demo
 
 Below is a Java implementation of the Ecdsa signature algorithm. This example demonstrates how to sign a message using a private key.
 
 ``` java
-import java.math.BigInteger;
-import org.web3j.abi.TypeEncoder;
-import org.web3j.abi.datatypes.Utf8String;
-import org.web3j.abi.datatypes.generated.Uint256;
-import org.web3j.crypto.Hash;
-import org.web3j.utils.Numeric;
 
-public class EcdsaSignatureDemo {
-    public static final BigInteger K_MODULUS = Numeric
-            .toBigInt("0x0800000000000010ffffffffffffffffb781126dcae7b2321e66a241adc64d2f");
-
-    public static void main(String[] args) {
-        String privateKeyHex = "0463ac809cc7d7c1baf*********************baff9fc6e3d8e5b160ea3fc";
-
-        // Ensure that the private key is a hexadecimal string without the "0x" prefix.
-        if (privateKeyHex.startsWith("0x")) {
-            privateKeyHex = privateKeyHex.substring(2);
-        }
-
-        BigInteger mySecretKey = new BigInteger(privateKeyHex, 16);
-        PrivateKey privateKey = PrivateKey.create(mySecretKey);
-
-        String message = "1735542383256GET/api/v1/private/account/getPositionTransactionPageaccountId=543429922991899150&filterTypeList=SETTLE_FUNDING_FEE&size=10";
-        String msg = TypeEncoder.encodePacked(new Utf8String(message));
-
-        BigInteger msgHash = Numeric.toBigInt(Hash.sha3(Numeric.hexStringToByteArray(msg)));
-
-        msgHash = msgHash.mod(K_MODULUS);
-
+    public static CreateOrderRequest signOrder(
+            CreateOrderRequest request,
+            Contract contract,
+            Coin quotelCoin,
+            PrivateKey privateKey) {
+        BigInteger msgHash = L2SignUtil.hashLimitOrder(
+                request.getSide() == OrderSide.BUY,
+                BigIntUtil.toBigInt(quotelCoin.getStarkExAssetId()),
+                BigIntUtil.toBigInt(contract.getStarkExSyntheticAssetId()),
+                BigIntUtil.toBigInt(quotelCoin.getStarkExAssetId()),
+                UnsignedLong.valueOf(new BigDecimal(request.getL2Value())
+                        .multiply(new BigDecimal(BigIntUtil.toBigInt(quotelCoin.getStarkExResolution())))
+                        .toBigIntegerExact()),
+                UnsignedLong.valueOf(new BigDecimal(request.getL2Size())
+                        .multiply(new BigDecimal(BigIntUtil.toBigInt(contract.getStarkExResolution())))
+                        .toBigIntegerExact()),
+                UnsignedLong.valueOf(new BigDecimal(request.getL2LimitFee())
+                        .multiply(new BigDecimal(BigIntUtil.toBigInt(quotelCoin.getStarkExResolution())))
+                        .toBigIntegerExact()),
+                UnsignedLong.fromLongBits(request.getAccountId()),
+                UnsignedInteger.valueOf(request.getL2Nonce()),
+                UnsignedInteger.valueOf(request.getL2ExpireTime() / (60 * 60 * 1000L)));
         Signature signature = Ecdsa.sign(msgHash, privateKey);
+        return request.toBuilder()
+                .setL2Signature(L2Signature.newBuilder()
+                        .setR(BigIntUtil.toHexStr(signature.r))
+                        .setS(BigIntUtil.toHexStr(signature.s))
+                        .build())
+                .build();
+    }
 
-        String starkSignature = TypeEncoder.encodePacked(new Uint256(signature.r)) +
-                TypeEncoder.encodePacked(new Uint256(signature.s)) +
-                TypeEncoder.encodePacked(new Uint256(privateKey.publicKey().point.y));
+    public static BigInteger hashLimitOrder(
+            boolean isBuyingSynthetic,
+            BigInteger assetIdCollateral,
+            BigInteger assetIdSynthetic,
+            BigInteger assetIdFee,
+            UnsignedLong amountCollateral,
+            UnsignedLong amountSynthetic,
+            UnsignedLong maxAmountFee,
+            UnsignedLong positionId,
+            UnsignedInteger nonce,
+            UnsignedInteger expirationTimestamp) {
+        BigInteger assetIdSell;
+        BigInteger assetIdBuy;
+        UnsignedLong amountSell;
+        UnsignedLong amountBuy;
+        if (isBuyingSynthetic) {
+            assetIdSell = assetIdCollateral;
+            assetIdBuy = assetIdSynthetic;
+            amountSell = amountCollateral;
+            amountBuy = amountSynthetic;
+        } else {
+            assetIdSell = assetIdSynthetic;
+            assetIdBuy = assetIdCollateral;
+            amountSell = amountSynthetic;
+            amountBuy = amountCollateral;
+        }
+        BigInteger packedMessage0 = amountSell.bigIntegerValue();
+        packedMessage0 = packedMessage0.shiftLeft(64).add(amountBuy.bigIntegerValue());
+        packedMessage0 = packedMessage0.shiftLeft(64).add(maxAmountFee.bigIntegerValue());
+        packedMessage0 = packedMessage0.shiftLeft(32).add(nonce.bigIntegerValue());
 
-        System.out.println(starkSignature);
+        BigInteger packedMessage1 = BigInteger.valueOf(3);
+        packedMessage1 = packedMessage1.shiftLeft(64).add(positionId.bigIntegerValue());
+        packedMessage1 = packedMessage1.shiftLeft(64).add(positionId.bigIntegerValue());
+        packedMessage1 = packedMessage1.shiftLeft(64).add(positionId.bigIntegerValue());
+        packedMessage1 = packedMessage1.shiftLeft(32).add(expirationTimestamp.bigIntegerValue());
+        packedMessage1 = packedMessage1.shiftLeft(17);
+
+        BigInteger msg = pedersenHash(assetIdSell, assetIdBuy);
+        msg = pedersenHash(msg, assetIdFee);
+        msg = pedersenHash(msg, packedMessage0);
+        msg = pedersenHash(msg, packedMessage1);
+        return msg;
+    }
+
+    public static BigInteger pedersenHash(BigInteger... input) {
+        BigInteger[][] points = PEDERSEN_POINTS;
+        Point shiftPoint = new Point(points[0][0], points[0][1]);
+        for (int i = 0; i < input.length; i++) {
+            BigInteger x = input[i];
+            for (int j = 0; j < 252; j++) {
+                int pos = 2 + i * 252 + j;
+                Point pt = new Point(points[pos][0], points[pos][1]);
+                if (x.and(BigInteger.ONE).intValue() != 0) {
+                    shiftPoint = EcMath.add(shiftPoint, pt, Curve.secp256k1.A, Curve.secp256k1.P);
+                }
+                x = x.shiftRight(1);
+            }
+        }
+        return shiftPoint.x;
     }
 
     public static Signature sign(BigInteger msgHash, PrivateKey privateKey) {
@@ -73,7 +125,7 @@ public class EcdsaSignatureDemo {
         BigInteger s = ((msgHash.add(r.multiply(privateKey.secret))).multiply(EcMath.inv(randNum, curve.N))).mod(curve.N);
         return Signature.create(r, s);
     }
-}
+
 ```
 
 # Signature Construction Guide

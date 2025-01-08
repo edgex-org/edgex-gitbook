@@ -50,6 +50,62 @@ For example, the following request parameters are concatenated into a single str
 
 >1735542383256GET/api/v1/private/account/getPositionTransactionPageaccountId=543429922991899150&filterTypeList=SETTLE_FUNDING_FEE&size=10
 
+#### Generate Signature Java Example
+
+Below is a Java implementation of the Ecdsa signature algorithm. This example demonstrates how to sign a message using a private key.
+
+**Private API Auth Signature:** This is used for authentication. We do not want the hash computation to consume excessive CPU resources. Therefore, this will use SHA3 to hash the request body string before signing.
+
+``` java
+import java.math.BigInteger;
+import org.web3j.abi.TypeEncoder;
+import org.web3j.abi.datatypes.Utf8String;
+import org.web3j.abi.datatypes.generated.Uint256;
+import org.web3j.crypto.Hash;
+import org.web3j.utils.Numeric;
+
+public class EcdsaSignatureDemo {
+    public static final BigInteger K_MODULUS = Numeric
+            .toBigInt("0x0800000000000010ffffffffffffffffb781126dcae7b2321e66a241adc64d2f");
+
+    public static void main(String[] args) {
+        String privateKeyHex = "0463ac809cc7d7c1baf*********************baff9fc6e3d8e5b160ea3fc";
+
+        // Ensure that the private key is a hexadecimal string without the "0x" prefix.
+        if (privateKeyHex.startsWith("0x")) {
+            privateKeyHex = privateKeyHex.substring(2);
+        }
+
+        BigInteger mySecretKey = new BigInteger(privateKeyHex, 16);
+        PrivateKey privateKey = PrivateKey.create(mySecretKey);
+
+        String message = "1735542383256GET/api/v1/private/account/getPositionTransactionPageaccountId=543429922991899150&filterTypeList=SETTLE_FUNDING_FEE&size=10";
+        String msg = TypeEncoder.encodePacked(new Utf8String(message));
+
+        BigInteger msgHash = Numeric.toBigInt(Hash.sha3(Numeric.hexStringToByteArray(msg)));
+
+        msgHash = msgHash.mod(K_MODULUS);
+
+        Signature signature = Ecdsa.sign(msgHash, privateKey);
+
+        String starkSignature = TypeEncoder.encodePacked(new Uint256(signature.r)) +
+                TypeEncoder.encodePacked(new Uint256(signature.s)) +
+                TypeEncoder.encodePacked(new Uint256(privateKey.publicKey().point.y));
+
+        System.out.println(starkSignature);
+    }
+
+    public static Signature sign(BigInteger msgHash, PrivateKey privateKey) {
+        Curve curve = privateKey.curve;
+        BigInteger randNum = new BigInteger(curve.N.toByteArray().length * 8 - 1, new SecureRandom()).abs().add(BigInteger.ONE);
+        Point randomSignPoint = EcMath.multiply(curve.G, randNum, curve.N, curve.A, curve.P);
+        BigInteger r = randomSignPoint.x.mod(curve.N);
+        BigInteger s = ((msgHash.add(r.multiply(privateKey.secret))).multiply(EcMath.inv(randNum, curve.N))).mod(curve.N);
+        return Signature.create(r, s);
+    }
+}
+```
+
 #### Request Body To Body String Code Example
 
 The following Java code example demonstrates how to convert a JSON request body into a sorted string format suitable for signature generation:
