@@ -23,6 +23,14 @@ The following headers must be included in the request to authenticate access to 
 | `X-edgeX-Api-Timestamp` | header   | string  | must     | The timestamp when the request was made. This helps prevent replay attacks. |
 | `X-edgeX-Api-Signature` | header   | string  | must     | The signature generated using the private key and request details.          |
 
+### CURL Examble
+
+```curl
+curl --location --request GET 'https://pro.edgex.exchange/api/v1/private/account/getPositionTransactionPage?filterTypeList=SETTLE_FUNDING_FEE&size=10&accountId=544159487963955214' \
+--header 'X-edgeX-Api-Signature: 06d28020763542c0afc296dc8743797c6fda8ea9727745b57b671f70326dfed6077cd******************************aff3162e39d05d9df1c3ddf9648650382d6e62ff1076b14c0e6c687088d3917d8490e5412a080a6e9ea940c720ddd' \
+--header 'X-edgeX-Api-Timestamp: 1736313025024'
+```
+
 ### Signature Elements
 
 The signature is generated using the following elements:

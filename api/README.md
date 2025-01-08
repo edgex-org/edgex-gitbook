@@ -11,3 +11,7 @@ https://pro.edgex.exchange
 ```text
 wss://quote.edgex.exchange
 ```
+
+### Authentication
+
+>The authentication method for **third-party API** calls ***differs*** from *web authentication* methods. **Third-party API** calls only require two [authentication](authentication.md#auth-header) request headers.

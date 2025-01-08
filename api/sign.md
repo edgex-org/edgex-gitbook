@@ -10,7 +10,9 @@ To sign messages on Layer 2, you need to obtain your L2 private key. This key is
 
 ## Signature Algorithm
 
-The signature algorithm used is **Ecdsa** (Elliptic Curve Digital Signature Algorithm). This algorithm ensures that signatures are secure and verifiable.
+> The signature algorithm used is **Ecdsa** (Elliptic Curve Digital Signature Algorithm). This algorithm ensures that signatures are secure and verifiable.
+
+> The normal private api validation would not use the pedersen hash since it requires more cpu consumption, the private api hash uses sha3 as its hashing function.
 
 > [Python Signature Demo](https://github.com/starkware-libs/starkex-resources/blob/master/crypto/starkware/crypto/signature/signature_test.py#L62)
 
