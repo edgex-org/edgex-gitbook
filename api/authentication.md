@@ -154,4 +154,4 @@ public class RequestBodyToString {
 
 ### Signature Algorithm
 
-The signature algorithm used is Ecdsa (Elliptic Curve Digital Signature Algorithm). For more information on the signature algorithm, see the [Sign](sign.md) page.
+The signature algorithm used is Ecdsa (Elliptic Curve Digital Signature Algorithm). 

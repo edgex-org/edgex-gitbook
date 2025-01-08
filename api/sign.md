@@ -14,11 +14,11 @@ To sign messages on Layer 2, you need to obtain your L2 private key. This key is
 
 **L2Signature for Operations (e.g., Order, Transfer, Withdraw):** This will use Pedersen hash for signing. However, this hash computation will consume significantly more CPU resources.
 
-> [Python L2Signature Demo](https://github.com/starkware-libs/starkex-resources/blob/master/crypto/starkware/crypto/signature/signature_test.py#L62)
+> [Python L2 Signature Demo](https://github.com/starkware-libs/starkex-resources/blob/master/crypto/starkware/crypto/signature/signature_test.py#L62)
 
-> [Java Script L2Signature Demo](https://www.npmjs.com/package/@starkware-industries/starkware-crypto-utils#signing-a-starkex-order)
+> [Java Script L2 Signature Demo](https://www.npmjs.com/package/@starkware-industries/starkware-crypto-utils#signing-a-starkex-order)
 
-### Java L2Signature Demo
+### Java L2 Signature Demo
 
 Below is a Java implementation of the Ecdsa signature algorithm. This example demonstrates how to sign a message using a private key.
 
