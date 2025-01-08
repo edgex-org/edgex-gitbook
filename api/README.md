@@ -2,6 +2,12 @@
 
 ## API Endpoint Domain
 
+### HTTP Endpoint
 ```text
 https://pro.edgex.exchange
+```
+
+### WebSocket Endpoint
+```text
+wss://quote.edgex.exchange
 ```
