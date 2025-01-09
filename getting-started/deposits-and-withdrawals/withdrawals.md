@@ -18,7 +18,7 @@ Please note that the maximum withdrawal amount is limited not only by the total 
 
 For ETH standard withdrawals, users just need to cover the gas fees themselves.
 
-For non-ETH withdrawals, the fee is equal to the gas fee paid by the provider (1 USDT base fee+ 0.1% of withdraw amount).
+For non-ETH withdrawals, the fee is equal to the gas fee paid by the provider (1 USDT base fee+ 005% of withdraw amount).
 
 
 
