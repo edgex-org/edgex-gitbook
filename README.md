@@ -24,7 +24,7 @@ edgeX settles all transaction volume on-chain, leveraging the security benefits 
 
 **Match Engine Layer (High-Performance Trading Infrastructure & Features)**&#x20;
 
-The edgeX Order Book—a high-throughput trading engine—has the capacity to process more than 20,000 of orders per second (TPS) with less than 10 ms of matching latency, setting a new benchmark among DEXs. Additionally, edgeX has pioneered advanced trading features such as trailing TP/SL, 100x leverage, and CEX-level risk limits to deliver a superior trading experience. In addition to perp trading, edgeX’s spot and AMM vault products are in development and are expected to launch in about a month.
+The edgeX Order Book—a high-throughput trading engine — has the capacity to process 200,000 of orders per second with less than 10 ms of matching latency, setting a new benchmark among DEXs. Additionally, edgeX has pioneered advanced trading features such as trailing TP/SL, 100x leverage, and CEX-level risk limits to deliver a superior trading experience. In addition to perp trading, edgeX’s spot and vault products are in developments. With edgeX vaults, users can select from a variety of vault strategies, each offering different risk profiles and corresponding yields, allowing them to optimize returns according to their individual risk preferences.
 
 **Hybrid Liquidity Layer (Access Multi-chain Liquidity While Retaining Self-custody)**&#x20;
 
