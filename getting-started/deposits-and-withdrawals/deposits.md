@@ -8,7 +8,7 @@ description: >-
 
 **Ethereum Deposits:**
 
-Users can deposit funds into their accounts by sending a transaction to the Ethereum mainnet after connecting their wallets to edgeX. Users can deposit USDT or a variety of other assets, which are then converted to USDT via 1inch's API for on-chain liquidity.
+After connecting their wallet to edgeX, users can deposit USDT into their account by sending a transaction to the Ethereum mainnet.
 
 After the deposit transaction is mined, it typically requires approximately 15 confirmations (around 5 minutes) on the Ethereum network for the funds to become available for trading on edgeX.
 
