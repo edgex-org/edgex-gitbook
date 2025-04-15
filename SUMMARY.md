@@ -6,6 +6,7 @@
   * [V1 Technical Architecture](edgex-v1/v1-technical-architecture.md)
   * [Self-Custody](edgex-v1/self-custody.md)
   * [Decentralized Oracle Pricing](edgex-v1/decentralized-oracle-pricing.md)
+* [eStrategy](estrategy.md)
 * [Points](points.md)
 * [Getting started](getting-started/README.md)
   * [Accounts & Wallets](getting-started/accounts-and-wallets.md)
@@ -23,7 +24,7 @@
   * [Liquidation Logic](trading/liquidation-logic.md)
 * [API Docs](api/README.md)
   * [Authentication](api/authentication.md)
-  * [L2 Signature](api/sign.md) 
+  * [L2 Signature](api/sign.md)
   * [Public API](api/public-api/README.md)
     * [Meta Data API](api/public-api/metadata-api.md)
     * [Quote API](api/public-api/quote-api.md)
@@ -41,6 +42,3 @@
   * [Official Links](about/official-links.md)
   * [Terms of Use](about/terms-of-use.md)
   * [Privacy Policy](about/privacy-policy.md)
-
-
-
