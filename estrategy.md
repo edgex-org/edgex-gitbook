@@ -36,5 +36,5 @@ APR comes from AMM income, liquidation fees and part of the edgeX platform tradi
 
 **Lock-up Period and Withdrawal Rules** &#x20;
 
-Users can submit withdrawal requests at any time; however, a maximum **7-day redemption lock-up period** applies. This is because positions corresponding to the withdrawal request must be closed before funds can be released. For example, if you make a deposit on **March 15 at 08:00**, you will be able to withdraw your funds no later than **March 22 at 08:00**. Once the lock-up period ends, the funds will be automatically transferred to your account. Please note that no returns will be accrued during the redemption period.
+Users can submit withdrawal requests at any time; however, a maximum **7-day redemption lock-up period** applies. This is because positions corresponding to the withdrawal request must be closed before funds can be released. For example, if you make a deposit on **March 15 at 08:00**, you will be able to withdraw your funds no later than **March 22 at 08:00**. Once the lock-up period ends, users can claim the funds with the wallets they use to deposit. Please note that no returns will be accrued during the redemption period.
 
