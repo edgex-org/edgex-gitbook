@@ -24,13 +24,21 @@ When a user withdraws from a vault, open positions remain unaffected if there is
 
 **FAQ**
 
-What are the risks of participating in the project?\
+**What are the risks of participating in the project?**\
 Despite professional strategy management, there are still market risks, such as high volatility and liquidity risks in the cryptocurrency market. In addition, changes in regulatory policies may also have an impact on the project.
 
 
 
-Where does APR come from?\
+**Where does APR come from?**\
 APR comes from AMM income, liquidation fees and part of the edgeX platform trading fees.
+
+
+
+**How to Participate in the Vault**
+
+* Whitelist-only launch: During the initial phase, deposits are limited to addresses on the Vault whitelist. The aggregate cap for this round is 2 million USDT.
+* Per-user cap: To ensure equitable access, the first 20,000 USDT of each participant’s deposit is eligible for yield.
+* Deposits above the cap: You may contribute more than 20,000 USDT. The full amount will be included in the edgeX’s points calculation, but any portion that exceeds 20,000 USDT will not accrue stablecoin yield.
 
 
 
