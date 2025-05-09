@@ -23,6 +23,3 @@ The trading fees on edgeX are determined by the rolling traded volume over the p
 
 * For comprehensive information on VIP trading fees, please visit the [VIP page ](https://pro.edgex.exchange/vip)on our website.
 
-
-
-<figure><img src="../.gitbook/assets/Screenshot 2024-08-03 at 1.10.04 AM.png" alt=""><figcaption></figcaption></figure>
