@@ -8,7 +8,22 @@ This ecosystem will evolve into a "trading collage" made of permissionless finan
 
 **Development Milestones**
 
-* Q2 2024: Launch of V1 Testnet and Web Interfaces
-* Q3 2024: Launch of V1 Mainnet and Mobile App
-* Q4 2024: Integration of Ecosystem Products and SDK
-* H1 2025: Deployment of Permissionless Liquidity Modules
+*   Q1 2025:  Perpetual and Spot Decentralized Exchange
+
+    &#x20;                 Web and Mobile Applications Launch
+
+
+
+*   Q2 2025: eStrategy: On-Chain Asset Management
+
+    &#x20;                 eLP and Trading Strategy Vaults Launch
+
+
+
+*   Q3 2025: edgeX V2: High-Performance Ethereum Layer 2
+
+    &#x20;                                     Blockchain Testnet Launch
+
+
+
+* Q4 2025: Permissionless Liquidity Modules Launch
