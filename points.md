@@ -16,7 +16,7 @@ Points are awarded based on multiple performance metrics, including trading volu
 
 **Referral Bonus**&#x20;
 
-Referrers earn 1 point for every 4 points accumulated by their referred users.
+Referrers earn 1 point for every 5 points accumulated by their referred users.
 
 
 
