@@ -16,9 +16,10 @@ To generate l2Signature, you first need to obtain your L2 private key. This priv
 
 ## Signature Algorithm
 
-This system uses **ECDSA** (Elliptic Curve Digital Signature Algorithm) to generate and verify signatures.
+### Two algorithms are used in the signature process:
 
-L2Signature uses **Pedersen** Hash for signature calculation, which consumes more CPU resources compared to regular Ethereum signatures.
+1. **ECDSA** (Elliptic Curve Digital Signature Algorithm) is used to generate and verify signatures.
+2. **Pedersen Hash** which consumes more CPU resources compared to regular Ethereum signatures, is used for message hashing.
 
 L2Signature generation follows these standard steps:
 
