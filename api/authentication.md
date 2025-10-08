@@ -23,7 +23,7 @@ The following headers must be included in the request to authenticate access to 
 | `X-edgeX-Api-Timestamp` | header   | string  | must     | The timestamp when the request was made. This helps prevent replay attacks. |
 | `X-edgeX-Api-Signature` | header   | string  | must     | The signature generated using the private key and request details.          |
 
-### CURL Examble
+### CURL Example
 
 ```curl
 curl --location --request GET 'https://pro.edgex.exchange/api/v1/private/account/getPositionTransactionPage?filterTypeList=SETTLE_FUNDING_FEE&size=10&accountId=544159487963955214' \
@@ -49,6 +49,14 @@ The request parameters are concatenated into a single string that forms the sign
 For example, the following request parameters are concatenated into a single string:
 
 >1735542383256GET/api/v1/private/account/getPositionTransactionPageaccountId=543429922991899150&filterTypeList=SETTLE_FUNDING_FEE&size=10
+
+#### How To GET Your Private Key
+
+To sign messages, you need to obtain your private key. This key is used to generate signatures that authorize various actions on the platform.
+
+<figure><img src="../../.gitbook/assets/20250102-134437.png" alt=""><figcaption><p><strong>How To GET Your Private Key</strong></p></figcaption></figure>
+
+> **Warning:** Keep your private key secure and never share it with anyone. Anyone with access to your private key can sign messages on your behalf.
 
 #### Generate Signature Java Example
 
