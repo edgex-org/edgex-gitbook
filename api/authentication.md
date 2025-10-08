@@ -52,12 +52,17 @@ For example, the following request parameters are concatenated into a single str
 
 #### Generate Signature Java Example
 
-Below is a Java implementation of the Ecdsa signature algorithm. This example demonstrates how to sign a message using a private key.
+Below is a Java implementation of the Ecdsa signature algorithm. This example demonstrates how to sign a GET request using a private key.
 
 **Private API Auth Signature:** This is used for authentication. We do not want the hash computation to consume excessive CPU resources. Therefore, this will use SHA3 to hash the request body string before signing.
 
 ``` java
 import java.math.BigInteger;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.URI;
+import java.time.Duration;
 
 import org.web3j.abi.TypeEncoder;
 import org.web3j.abi.datatypes.Utf8String;
@@ -73,10 +78,11 @@ import com.starkbank.ellipticcurve.Math;
 import com.starkbank.ellipticcurve.Point;
 
 public class EcdsaSignatureDemo {
-    public static final BigInteger K_MODULUS = Numeric
+
+    private static final BigInteger K_MODULUS = Numeric
             .toBigInt("0x0800000000000010ffffffffffffffffb781126dcae7b2321e66a241adc64d2f");
 
-    public static Curve secp256k1 = new Curve(BigInteger.ONE,
+    private static Curve secp256k1 = new Curve(BigInteger.ONE,
             new BigInteger("3141592653589793238462643383279502884197169399375105820974944592307816406665"),
             new BigInteger("3618502788666131213697322783095070105623107215331596699973092056135872020481"),
             new BigInteger("3618502788666131213697322783095070105526743751716087489154079457884512865583"),
@@ -84,34 +90,75 @@ public class EcdsaSignatureDemo {
             new BigInteger("152666792071518830868575557812948353041420400780739481342941381225525861407"),
             "secp256k1", new long[] { 1L, 3L, 132L, 0L, 10L });
 
+    // replace with your account id and private key    
+    private static final String AccountID = "****";
+    private static final String PrivateKey = "****";
+
     public static void main(String[] args) {
-        String privateKeyHex = "0463ac809cc7d7c1baf*********************baff9fc6e3d8e5b160ea3fc";
+        String host = "https://pro.edgex.exchange";
+        String path = "/api/v1/private/account/getAccountById";
+        String method = "GET";
+        String param = "accountId=" + AccountID;
+        long timestamp = System.currentTimeMillis();
+
+        String message = timestamp + method + path + param;
+        String signature = signParams(message);
+
+        String requestUrl = host + path + "?" + param;
+
+        try {
+            HttpClient client = HttpClient.newBuilder()
+                    .connectTimeout(Duration.ofSeconds(30))
+                    .build();
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(requestUrl))
+                    .timeout(Duration.ofSeconds(30))
+                    .header("X-edgeX-Api-Signature", signature)
+                    .header("X-edgeX-Api-Timestamp", String.valueOf(timestamp))
+                    .header("Content-Type", "application/json")
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            System.out.println("Response Status: " + response.statusCode());
+            System.out.println("Response Body: " + response.body());
+
+        } catch (Exception e) {
+            System.err.println("Request failed: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private static String signParams(String message) {
+        String msg = TypeEncoder.encodePacked(new Utf8String(message));
+        BigInteger msgHash = Numeric.toBigInt(Hash.sha3(Numeric.hexStringToByteArray(msg)));
+        msgHash = msgHash.mod(K_MODULUS);
+
+
+        // Please replace it with a real private key when actually using
+        String privateKeyHex = PrivateKey;
         if (privateKeyHex.startsWith("0x")) {
             privateKeyHex = privateKeyHex.substring(2);
         }
         BigInteger mySecretKey = new BigInteger(privateKeyHex, 16);
         PrivateKey privateKey = new PrivateKey(secp256k1, mySecretKey);
 
-        String message = "1735542383256GET/api/v1/private/account/getPositionTransactionPageaccountId=543429922991899150&filterTypeList=SETTLE_FUNDING_FEE&size=10";
-        String msg = TypeEncoder.encodePacked(new Utf8String(message));
-        BigInteger msgHash = Numeric.toBigInt(Hash.sha3(Numeric.hexStringToByteArray(msg)));
-        msgHash = msgHash.mod(K_MODULUS);
-
         Signature signature = sign(msgHash, privateKey);
 
-        String starkSignature = TypeEncoder.encodePacked(new Uint256(signature.r)) +
+        return TypeEncoder.encodePacked(new Uint256(signature.r)) +
                 TypeEncoder.encodePacked(new Uint256(signature.s)) +
                 TypeEncoder.encodePacked(new Uint256(privateKey.publicKey().point.y));
-
-        System.out.println(starkSignature);
     }
 
-    public static Signature sign(BigInteger numberMessage, PrivateKey privateKey) {
+    private static Signature sign(BigInteger numberMessage, PrivateKey privateKey) {
         Curve curve = privateKey.curve;
         BigInteger randNum = RandomInteger.between(BigInteger.ONE, curve.N);
         Point randomSignPoint = Math.multiply(curve.G, randNum, curve.N, curve.A, curve.P);
         BigInteger r = randomSignPoint.x.mod(curve.N);
-        BigInteger s = numberMessage.add(r.multiply(privateKey.secret)).multiply(Math.inv(randNum, curve.N)).mod(curve.N);
+        BigInteger s = numberMessage.add(r.multiply(privateKey.secret)).multiply(Math.inv(randNum, curve.N))
+                .mod(curve.N);
         return new Signature(r, s);
     }
 }
