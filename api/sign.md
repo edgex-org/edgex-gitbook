@@ -6,7 +6,7 @@ In Layer 2 trading systems, to ensure transaction security and prevent unauthori
 
 ## How To GET Your L2 Private Key
 
-To generate l2Signature, you first need to obtain your L2 private key. This private key is the foundation for generating all Layer 2 operation signatures.
+To generate l2Signature, you first need to obtain your L2 private key. This key is used to generate signatures that authorize various actions on the platform.
 
 <figure><img src="../../.gitbook/assets/20250102-134437.png" alt=""><figcaption><p><strong>How To GET Your L2 Private Key</strong></p></figcaption></figure>
 
@@ -146,7 +146,7 @@ Below is a Java implementation of the Ecdsa signature algorithm. This example de
 
 # Signature Construction Guide
 
-This section provides detailed instructions for constructing signatures for various operations on the platform. Each operation has specific message formats and parameter requirements.
+This section provides detailed instructions for constructing signatures for various actions on the platform. Each operation has specific message formats and parameter requirements.
 
 ## Withdrawal Signature
 Used to authorize withdrawing assets from Layer 2 to an Ethereum address.
