@@ -1,8 +1,349 @@
 # TransferPrivateApi
 
+<a id="opIdgetTransferInById"></a>
+
+## Get Transfer In Records By Transfer In ID
+
+GET /api/v1/private/transfer/getTransferInById
+
+### Request Parameters
+
+| Name             | Location | Type   | Required | Description                                                                                    |
+| ---------------- | -------- | ------ | -------- | ---------------------------------------------------------------------------------------------- |
+| accountId        | query    | string | Yes       | Account ID                                                                                     |
+| transferInIdList | query    | string | Yes      | List of transfer in IDs to retrieve. Used to batch fetch transfer in records by their IDs     |
+
+> Response Example
+
+> 200 Response
+
+```json
+{
+    "code": "SUCCESS",
+    "data": [
+        {
+            "id": "563516408235819790",
+            "userId": "543429922866069763",
+            "accountId": "543429922991899150",
+            "coinId": "1000",
+            "amount": "10.000000",
+            "senderAccountId": "543429922991899151",
+            "senderL2Key": "0x5580341e2c99823a0a35356b8ac84e372dd38fd1f4b50f607b931ec8038c211",
+            "senderTransferOutId": "563516408235819789",
+            "clientTransferId": "client_transfer_123",
+            "isConditionTransfer": false,
+            "conditionFactRegistryAddress": "",
+            "conditionFactErc20Address": "",
+            "conditionFactAmount": "",
+            "conditionFact": "",
+            "transferReason": "NORMAL_TRANSFER",
+            "extraType": "",
+            "extraDataJson": "",
+            "status": "SUCCESS_L2_APPROVED",
+            "collateralTransactionId": "563516408265179918",
+            "censorTxId": "830852",
+            "censorTime": "1734352781355",
+            "censorFailCode": "",
+            "censorFailReason": "",
+            "l2TxId": "1022403",
+            "l2RejectTime": "0",
+            "l2RejectCode": "",
+            "l2RejectReason": "",
+            "l2ApprovedTime": "1734353551654",
+            "createdTime": "1734352781355",
+            "updatedTime": "1734353551715"
+        }
+    ],
+    "msg": null,
+    "errorParam": null,
+    "requestTime": "1734664486740",
+    "responseTime": "1734664486761",
+    "traceId": "b3086f53c2d4503f6a4790b80f0e534b"
+}
+```
+
+### Response
+
+| Status Code | Status Code Description                                                                  | Description        | Data Model |
+| ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#transferinlist) |
+
+<a id="opIdgetActiveTransferIn"></a>
+
+## Get Active Transfer In Records with Pagination
+
+GET /api/v1/private/transfer/getActiveTransferIn
+
+### Request Parameters
+
+| Name                              | Location | Type   | Required | Description                                                                                   |
+| --------------------------------- | -------- | ------ | -------- | --------------------------------------------------------------------------------------------- |
+| accountId                         | query    | string | Yes       | Account ID                                                                                    |
+| size                              | query    | string | No       | Number of items to retrieve. Must be greater than 0 and less than or equal to 100. Default: 100 |
+| offsetData                        | query    | string | No       | Pagination offset. If empty or not provided, the first page is retrieved                       |
+| filterCoinIdList                  | query    | string | No       | Filter transfer in records by specified coin IDs. If not provided, all coin transfers are retrieved |
+| filterStatusList                  | query    | string | No       | Filter transfer in records by specified statuses. If not provided, all status transfers are retrieved |
+| filterTransferReasonList          | query    | string | No       | Filter transfer in records by specified transfer reasons. If not provided, all reason transfers are retrieved |
+| filterStartCreatedTimeInclusive   | query    | string | No       | Filter transfer in records created after or at the specified start time (inclusive). If not provided or 0, retrieves records from the earliest time |
+| filterEndCreatedTimeExclusive     | query    | string | No       | Filter transfer in records created before the specified end time (exclusive). If not provided or 0, retrieves records up to the latest time |
+
+> Response Example
+
+> 200 Response
+
+```json
+{
+    "code": "SUCCESS",
+    "data": {
+        "dataList": [
+            {
+                "id": "563516408235819790",
+                "userId": "543429922866069763",
+                "accountId": "543429922991899150",
+                "coinId": "1000",
+                "amount": "10.000000",
+                "senderAccountId": "543429922991899151",
+                "senderL2Key": "0x5580341e2c99823a0a35356b8ac84e372dd38fd1f4b50f607b931ec8038c211",
+                "senderTransferOutId": "563516408235819789",
+                "clientTransferId": "client_transfer_123",
+                "isConditionTransfer": false,
+                "conditionFactRegistryAddress": "",
+                "conditionFactErc20Address": "",
+                "conditionFactAmount": "",
+                "conditionFact": "",
+                "transferReason": "NORMAL_TRANSFER",
+                "extraType": "",
+                "extraDataJson": "",
+                "status": "SUCCESS_L2_APPROVED",
+                "collateralTransactionId": "563516408265179918",
+                "censorTxId": "830852",
+                "censorTime": "1734352781355",
+                "censorFailCode": "",
+                "censorFailReason": "",
+                "l2TxId": "1022403",
+                "l2RejectTime": "0",
+                "l2RejectCode": "",
+                "l2RejectReason": "",
+                "l2ApprovedTime": "1734353551654",
+                "createdTime": "1734352781355",
+                "updatedTime": "1734353551715"
+            }
+        ],
+        "nextPageOffsetData": ""
+    },
+    "msg": null,
+    "errorParam": null,
+    "requestTime": "1734664486740",
+    "responseTime": "1734664486761",
+    "traceId": "b3086f53c2d4503f6a4790b80f0e534b"
+}
+```
+
+### Response
+
+| Status Code | Status Code Description                                                                  | Description        | Data Model |
+| ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#pagedatatransferin) |
+
+<a id="opIdgetTransferOutById"></a>
+
+## Get Transfer Out Records By Transfer Out ID
+
+GET /api/v1/private/transfer/getTransferOutById
+
+### Request Parameters
+
+| Name              | Location | Type   | Required | Description                                                                                    |
+| ----------------- | -------- | ------ | -------- | ---------------------------------------------------------------------------------------------- |
+| accountId         | query    | string | Yes       | Account ID                                                                                     |
+| transferOutIdList | query    | string | Yes      | List of transfer out IDs to retrieve. Used to batch fetch transfer out records by their IDs   |
+
+> Response Example
+
+> 200 Response
+
+```json
+{
+    "code": "SUCCESS",
+    "data": [
+        {
+            "id": "563516408235819789",
+            "userId": "543429922866069763",
+            "accountId": "543429922991899150",
+            "coinId": "1000",
+            "amount": "10.000000",
+            "receiverAccountId": "543429922991899151",
+            "receiverL2Key": "0x5580341e2c99823a0a35356b8ac84e372dd38fd1f4b50f607b931ec8038c211",
+            "clientTransferId": "client_transfer_123",
+            "isConditionTransfer": false,
+            "conditionFactRegistryAddress": "",
+            "conditionFactErc20Address": "",
+            "conditionFactAmount": "",
+            "conditionFact": "",
+            "transferReason": "NORMAL_TRANSFER",
+            "l2Nonce": "123456789",
+            "l2ExpireTime": "1734352781355",
+            "l2Signature": {
+                "r": "0x...",
+                "s": "0x...",
+                "v": "0x..."
+            },
+            "extraType": "",
+            "extraDataJson": "",
+            "status": "SUCCESS_L2_APPROVED",
+            "receiverTransferInId": "563516408235819790",
+            "collateralTransactionId": "563516408265179918",
+            "censorTxId": "830852",
+            "censorTime": "1734352781355",
+            "censorFailCode": "",
+            "censorFailReason": "",
+            "l2TxId": "1022403",
+            "l2RejectTime": "0",
+            "l2RejectCode": "",
+            "l2RejectReason": "",
+            "l2ApprovedTime": "1734353551654",
+            "createdTime": "1734352781355",
+            "updatedTime": "1734353551715"
+        }
+    ],
+    "msg": null,
+    "errorParam": null,
+    "requestTime": "1734664486740",
+    "responseTime": "1734664486761",
+    "traceId": "b3086f53c2d4503f6a4790b80f0e534b"
+}
+```
+
+### Response
+
+| Status Code | Status Code Description                                                                  | Description        | Data Model |
+| ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#transferoutlist) |
+
+<a id="opIdgetActiveTransferOut"></a>
+
+## Get Active Transfer Out Records with Pagination
+
+GET /api/v1/private/transfer/getActiveTransferOut
+
+### Request Parameters
+
+| Name                              | Location | Type   | Required | Description                                                                                   |
+| --------------------------------- | -------- | ------ | -------- | --------------------------------------------------------------------------------------------- |
+| accountId                         | query    | string | Yes       | Account ID                                                                                    |
+| size                              | query    | string | No       | Number of items to retrieve. Must be greater than 0 and less than or equal to 100. Default: 100 |
+| offsetData                        | query    | string | No       | Pagination offset. If empty or not provided, the first page is retrieved                       |
+| filterCoinIdList                  | query    | string | No       | Filter transfer out records by specified coin IDs. If not provided, all coin transfers are retrieved |
+| filterStatusList                  | query    | string | No       | Filter transfer out records by specified statuses. If not provided, all status transfers are retrieved |
+| filterTransferReasonList          | query    | string | No       | Filter transfer out records by specified transfer reasons. If not provided, all reason transfers are retrieved |
+| filterStartCreatedTimeInclusive   | query    | string | No       | Filter transfer out records created after or at the specified start time (inclusive). If not provided or 0, retrieves records from the earliest time |
+| filterEndCreatedTimeExclusive     | query    | string | No       | Filter transfer out records created before the specified end time (exclusive). If not provided or 0, retrieves records up to the latest time |
+
+> Response Example
+
+> 200 Response
+
+```json
+{
+    "code": "SUCCESS",
+    "data": {
+        "dataList": [
+            {
+                "id": "563516408235819789",
+                "userId": "543429922866069763",
+                "accountId": "543429922991899150",
+                "coinId": "1000",
+                "amount": "10.000000",
+                "receiverAccountId": "543429922991899151",
+                "receiverL2Key": "0x5580341e2c99823a0a35356b8ac84e372dd38fd1f4b50f607b931ec8038c211",
+                "clientTransferId": "client_transfer_123",
+                "isConditionTransfer": false,
+                "conditionFactRegistryAddress": "",
+                "conditionFactErc20Address": "",
+                "conditionFactAmount": "",
+                "conditionFact": "",
+                "transferReason": "NORMAL_TRANSFER",
+                "l2Nonce": "123456789",
+                "l2ExpireTime": "1734352781355",
+                "l2Signature": {
+                    "r": "0x...",
+                    "s": "0x...",
+                    "v": "0x..."
+                },
+                "extraType": "",
+                "extraDataJson": "",
+                "status": "SUCCESS_L2_APPROVED",
+                "receiverTransferInId": "563516408235819790",
+                "collateralTransactionId": "563516408265179918",
+                "censorTxId": "830852",
+                "censorTime": "1734352781355",
+                "censorFailCode": "",
+                "censorFailReason": "",
+                "l2TxId": "1022403",
+                "l2RejectTime": "0",
+                "l2RejectCode": "",
+                "l2RejectReason": "",
+                "l2ApprovedTime": "1734353551654",
+                "createdTime": "1734352781355",
+                "updatedTime": "1734353551715"
+            }
+        ],
+        "nextPageOffsetData": ""
+    },
+    "msg": null,
+    "errorParam": null,
+    "requestTime": "1734664486740",
+    "responseTime": "1734664486761",
+    "traceId": "b3086f53c2d4503f6a4790b80f0e534b"
+}
+```
+
+### Response
+
+| Status Code | Status Code Description                                                                  | Description        | Data Model |
+| ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#pagedatatransferout) |
+
+<a id="opIdgetTransferOutAvailableAmount"></a>
+
+## Get Transfer Out Available Amount
+
+GET /api/v1/private/transfer/getTransferOutAvailableAmount
+
+### Request Parameters
+
+| Name      | Location | Type   | Required | Description                                                                                    |
+| --------- | -------- | ------ | -------- | ---------------------------------------------------------------------------------------------- |
+| accountId | query    | string | Yes       | Account ID                                                                                     |
+| coinId    | query    | string | Yes       | Coin ID to check available transfer amount for                                                |
+
+> Response Example
+
+> 200 Response
+
+```json
+{
+    "code": "SUCCESS",
+    "data": {
+        "availableAmount": "1000.000000"
+    },
+    "msg": null,
+    "errorParam": null,
+    "requestTime": "1734664486740",
+    "responseTime": "1734664486761",
+    "traceId": "b3086f53c2d4503f6a4790b80f0e534b"
+}
+```
+
+### Response
+
+| Status Code | Status Code Description                                                                  | Description        | Data Model |
+| ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#gettransferoutavailableamount) |
+
 <a id="opIdcreateTransferOut"></a>
 
-## POST Create Transfer Out Order
+## Create Transfer Out 
 
 POST /api/v1/private/transfer/createTransferOut
 
@@ -12,14 +353,18 @@ POST /api/v1/private/transfer/createTransferOut
 {
     "accountId": "543429922991899150",
     "coinId": "1000",
-    "amount": "1.000000",
-    "receiverAccountId": "551109015904453258",
-    "receiverL2Key": "0x03eec711e360695bb44b1170057a25340303c1f16893a8def7450e44294405a8",
-    "clientTransferId": "3877531064364166",
-    "transferReason": "USER_TRANSFER",
-    "l2Nonce": "2280110103",
-    "l2ExpireTime": "1735873200000",
-    "l2Signature": "0141279ec45ce1ea37b11cfa4683cfab8443bcbf8da3f066cef3e437862573f9034efe12eee1be3fc715c7b511f69e3ba32ec67a9ac89538fbb73de46fefc5e5",
+    "amount": "10.000000",
+    "receiverAccountId": "543429922991899151",
+    "receiverL2Key": "0x5580341e2c99823a0a35356b8ac84e372dd38fd1f4b50f607b931ec8038c211",
+    "clientTransferId": "client_transfer_123",
+    "transferReason": "NORMAL_TRANSFER",
+    "l2Nonce": "123456789",
+    "l2ExpireTime": "1734352781355",
+    "l2Signature": {
+        "r": "0x...",
+        "s": "0x...",
+        "v": "0x..."
+    },
     "extraType": "",
     "extraDataJson": ""
 }
@@ -27,9 +372,24 @@ POST /api/v1/private/transfer/createTransferOut
 
 ### Request Parameters
 
-| Name | Location | Type | Required | Description |
-|---|---|---|---|---|
-| body | body | [CreateTransferOutParam](#schemacreatetransferoutparam) | No | none |
+| Name                          | Location | Type   | Required | Description                                                                                    |
+| ----------------------------- | -------- | ------ | -------- | ---------------------------------------------------------------------------------------------- |
+| body                          | body     | object | Yes       | none                                                                                           |
+| » accountId                   | body     | string | Yes       | Account ID                                                                                     |
+| » coinId                      | body     | string | Yes       | Coin ID for the transfer asset                                                                 |
+| » amount                      | body     | string | Yes       | Transfer amount                                                                                |
+| » receiverAccountId           | body     | string | Yes       | Receiver account ID                                                                            |
+| » receiverL2Key               | body     | string | Yes       | Receiver account L2 key (bigint as hex string)                                                |
+| » clientTransferId            | body     | string | Yes       | Client-defined ID for idempotency verification and signature nonce generation                 |
+| » transferReason              | body     | string | Yes       | Transfer reason                                                                                |
+| » l2Nonce                     | body     | string | Yes       | L2 signature nonce. First 32 bits of sha256(client_transfer_id)                               |
+| » l2ExpireTime                | body     | string | Yes       | L2 signature expiration time in milliseconds                                                  |
+| » l2Signature                 | body     | object | Yes       | L2 signature submitted                                                                         |
+| »» r                          | body     | string | Yes       | Signature R component (bigint as hex string)                                                  |
+| »» s                          | body     | string | Yes       | Signature S component (bigint as hex string)                                                  |
+| »» v                          | body     | string | Yes       | Signature V component (bigint as hex string)                                                  |
+| » extraType                   | body     | string | No       | Additional type for upper-layer business use                                                  |
+| » extraDataJson               | body     | string | No       | Extra data in JSON format                                                                      |
 
 > Response Example
 
@@ -39,472 +399,182 @@ POST /api/v1/private/transfer/createTransferOut
 {
     "code": "SUCCESS",
     "data": {
-        "transferOutId": "564819036077031694"
+        "transferOutId": "563516408235819789"
     },
     "msg": null,
     "errorParam": null,
-    "requestTime": "1734663351997",
-    "responseTime": "1734663352035",
-    "traceId": "33728335fc663ba9230e61d4f4b924df"
+    "requestTime": "1734664486740",
+    "responseTime": "1734664486761",
+    "traceId": "b3086f53c2d4503f6a4790b80f0e534b"
 }
 ```
 
-### Response Codes
+### Response
 
-| Status Code | Description | Notes | Schema |
-|---|---|---|---|
-| 200 | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultcreatetransferout) |
-
-<a id="opIdgetTransferOutById"></a>
-
-## GET Get Transfer Out Orders by ID
-
-GET /api/v1/private/transfer/getTransferOutById
-
-### Request Parameters
-
-| Name | Location | Type | Required | Description |
-|---|---|---|---|---|
-| accountId | query | string | No | Account ID |
-| transferOutIdList | query | string | No | Transfer out ID |
-
-> Response Example
-
-> 200 Response
-
-```json
-{
-    "code": "SUCCESS",
-    "data": [
-        {
-            "id": "564819036077031694",
-            "userId": "543429922866069763",
-            "accountId": "543429922991899150",
-            "coinId": "1000",
-            "amount": "1.000000",
-            "receiverAccountId": "551109015904453258",
-            "receiverL2Key": "0x3eec711e360695bb44b1170057a25340303c1f16893a8def7450e44294405a8",
-            "clientTransferId": "3877531064364166",
-            "isConditionTransfer": false,
-            "conditionFactRegistryAddress": "",
-            "conditionFactErc20Address": "",
-            "conditionFactAmount": "",
-            "conditionFact": "",
-            "transferReason": "USER_TRANSFER",
-            "l2Nonce": "2280110103",
-            "l2ExpireTime": "1735873200000",
-            "l2Signature": {
-                "r": "0x0141279ec45ce1ea37b11cfa4683cfab8443bcbf8da3f066cef3e437862573f9",
-                "s": "0x034efe12eee1be3fc715c7b511f69e3ba32ec67a9ac89538fbb73de46fefc5e5",
-                "v": ""
-            },
-            "extraType": "",
-            "extraDataJson": "",
-            "status": "SUCCESS_CENSOR_SUCCESS",
-            "receiverTransferInId": "564819036173500554",
-            "collateralTransactionId": "564819036223832334",
-            "censorTxId": "893179",
-            "censorTime": "1734663352062",
-            "censorFailCode": "",
-            "censorFailReason": "",
-            "l2TxId": "1084730",
-            "l2RejectTime": "0",
-            "l2RejectCode": "",
-            "l2RejectReason": "",
-            "l2ApprovedTime": "0",
-            "createdTime": "1734663352031",
-            "updatedTime": "1734663352066"
-        }
-    ],
-    "msg": null,
-    "errorParam": null,
-    "requestTime": "1734663607244",
-    "responseTime": "1734663607271",
-    "traceId": "39366eb1153313ba1415851a08762265"
-}
-```
-
-### Response Codes
-
-| Status Code | Description | Notes | Schema |
-|---|---|---|---|
-| 200 | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultlisttransferout) |
-
-
-<a id="opIdgetWithdrawAvailableAmount_1"></a>
-
-## GET Get Available Withdrawal Amount
-
-GET /api/v1/private/transfer/getTransferOutAvailableAmount
-
-### Request Parameters
-
-| Name | Location | Type | Required | Description |
-|---|---|---|---|---|
-| accountId | query | string | No | Account ID |
-| coinId | query | string | No | Coin ID |
-
-> Response Example
-
-> 200 Response
-
-```json
-{
-    "code": "SUCCESS",
-    "data": {
-        "availableAmount": "10.964371"
-    },
-    "msg": null,
-    "errorParam": null,
-    "requestTime": "1734663286946",
-    "responseTime": "1734663286951",
-    "traceId": "957f0396a8e6059b027b99d232f8b113"
-}
-```
-
-### Response Codes
-
-| Status Code | Description | Notes | Schema |
-|---|---|---|---|
-| 200 | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultgettransferoutavailableamount) |
-
-<a id="opIdgetTransferInById"></a>
-
-## GET Get Transfer In Orders by ID
-
-GET /api/v1/private/transfer/getTransferInById
-
-### Request Parameters
-
-| Name | Location | Type | Required | Description |
-|---|---|---|---|---|
-| accountId | query | string | No | Account ID |
-| transferInIdList | query | string | No | Transfer In ID |
-
-> Response Example
-
-> 200 Response
-
-```json
-{
-    "code": "SUCCESS",
-    "data": [
-        {
-            "id": "564819036173500554",
-            "userId": "543429922866069763",
-            "accountId": "551109015904453258",
-            "coinId": "1000",
-            "amount": "1.000000",
-            "senderAccountId": "543429922991899150",
-            "senderL2Key": "0x5580341e2c99823a0a35356b8ac84e372dd38fd1f4b50f607b931ec8038c211",
-            "senderTransferOutId": "564819036077031694",
-            "clientTransferId": "543429922991899150:3877531064364166",
-            "isConditionTransfer": false,
-            "conditionFactRegistryAddress": "",
-            "conditionFactErc20Address": "",
-            "conditionFactAmount": "",
-            "conditionFact": "",
-            "transferReason": "USER_TRANSFER",
-            "extraType": "",
-            "extraDataJson": "",
-            "status": "SUCCESS_CENSOR_SUCCESS",
-            "collateralTransactionId": "564819036219637898",
-            "censorTxId": "893179",
-            "censorTime": "1734663352062",
-            "censorFailCode": "",
-            "censorFailReason": "",
-            "l2TxId": "1084730",
-            "l2RejectTime": "0",
-            "l2RejectCode": "",
-            "l2RejectReason": "",
-            "l2ApprovedTime": "0",
-            "createdTime": "1734663352054",
-            "updatedTime": "1734663352065"
-        }
-    ],
-    "msg": null,
-    "errorParam": null,
-    "requestTime": "1734663945432",
-    "responseTime": "1734663945452",
-    "traceId": "eb4cfe0a20f14b62b4fdbbd046255171"
-}
-```
-
-### Response Codes
-
-| Status Code | Description | Notes | Schema |
-|---|---|---|---|
-| 200 | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultlisttransferin) |
-
+| Status Code | Status Code Description                                                                  | Description        | Data Model |
+| ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#createtransferout) |
 
 # Data Models
 
+<a id="transferinlist"></a>
+### TransferInList
 
-<a id="schemaresultpagedatatransferin"></a>
-### schemaresultpagedatatransferin
+| Name           | Type                               | Required | Constraints | Description              | Notes                                                                    |
+| -------------- | ---------------------------------- | -------- | ----------- | ------------------------ | ------------------------------------------------------------------------ |
+| code           | string                             | false    | none        | Status Code              | Returns "SUCCESS" on success; otherwise, it indicates failure.            |
+| data           | [TransferInModel](#transferinmodel)[]  | false    | none        | Transfer In List         | Array of transfer in records                                             |
+| errorParam     | object                             | false    | none        | Error Parameters         | Error message parameter information                                       |
+| requestTime    | string(timestamp)                  | false    | none        | Server Request Time     | Time at which the server received the request                             |
+| responseTime   | string(timestamp)                  | false    | none        | Server Response Time    | Time at which the server sent the response                                |
+| traceId        | string                             | false    | none        | Trace ID                | Invocation trace ID                                                     |
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| code | string | false | none | Status code. "SUCCESS" for success, other values indicate failure. |
-| data | [PageDataTransferIn](#schemapagedatatransferin) | false | none | Generic paginated response data |
-| errorParam | object | false | none | Parameter information in error messages |
-| requestTime | string(timestamp) | false | none | Server request receiving timestamp |
-| responseTime | string(timestamp) | false | none | Server response returning timestamp |
-| traceId | string | false | none | Call trace ID |
+<a id="pagedatatransferin"></a>
+### PageDataTransferIn
 
+| Name               | Type                               | Required | Constraints | Description                 | Notes                                                               |
+| ------------------ | ---------------------------------- | -------- | ----------- | --------------------------- | ------------------------------------------------------------------- |
+| dataList           | [TransferInModel](#transferinmodel)[]  | false    | none        | Data List                  | Array of transfer in records                                        |
+| nextPageOffsetData | string                             | false    | none        | Next Page Offset        | Offset for retrieving the next page. If no next page data, empty string. |
 
-<a id="schemapagedatatransferin"></a>
-### schemapagedatatransferin
+<a id="transferoutlist"></a>
+### TransferOutList
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| dataList | [[TransferIn](#schematransferin)] | false | none | Data list |
-| nextPageOffsetData | string | false | none | Offset to retrieve the next page. If no next page data, the value will be an empty string |
+| Name           | Type                               | Required | Constraints | Description              | Notes                                                                    |
+| -------------- | ---------------------------------- | -------- | ----------- | ------------------------ | ------------------------------------------------------------------------ |
+| code           | string                             | false    | none        | Status Code              | Returns "SUCCESS" on success; otherwise, it indicates failure.            |
+| data           | [TransferOutModel](#transferoutmodel)[]  | false    | none        | Transfer Out List        | Array of transfer out records                                            |
+| errorParam     | object                             | false    | none        | Error Parameters         | Error message parameter information                                       |
+| requestTime    | string(timestamp)                  | false    | none        | Server Request Time     | Time at which the server received the request                             |
+| responseTime   | string(timestamp)                  | false    | none        | Server Response Time    | Time at which the server sent the response                                |
+| traceId        | string                             | false    | none        | Trace ID                | Invocation trace ID                                                     |
 
-<a id="schematransferin"></a>
-### schematransferin
+<a id="pagedatatransferout"></a>
+### PageDataTransferOut
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| id | string(int64) | false | none | Transfer In order ID |
-| userId | string(int64) | false | none | User ID |
-| accountId | string(int64) | false | none | Account ID |
-| coinId | string(int64) | false | none | Coin ID |
-| amount | string | false | none | Transfer amount |
-| senderAccountId | string(int64) | false | none | Sender Account ID |
-| senderL2Key | string | false | none | Sender account L2 key. bigint for hex str |
-| senderTransferOutId | string(int64) | false | none | Sender transfer out order ID |
-| clientTransferId | string | false | none | Client defined ID. Used for idempotent checks and signature generation nonce |
-| isConditionTransfer | boolean | false | none | Whether it is a conditional transfer |
-| conditionFactRegistryAddress | string | false | none | Address of condition fact registry contract. Required when is_condition_transfer=true |
-| conditionFactErc20Address | string | false | none | ERC20 address used to generate the condition fact. Required when is_conditional_transfer=true |
-| conditionFactAmount | string | false | none | Amount used to generate condition fact. Required when is_conditional_transfer=true. |
-| conditionFact | string | false | none | The conditional transfer fact. Required when is_condition_transfer=true |
-| transferReason | string | false | none | Transfer reason |
-| extraType | string | false | none | Additional type. Used by upper layer business |
-| extraDataJson | string | false | none | Additional data in JSON format. Defaults to empty string |
-| status | string | false | none | Transfer status |
-| collateralTransactionId | string(int64) | false | none | ID of related collateral detail. Exists when status=SUCCESS_XXX/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED |
-| censorTxId | string(int64) | false | none | Censor processing sequence. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED |
-| censorTime | string(int64) | false | none | Censor processing time. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED |
-| censorFailCode | string | false | none | Censor failure error code. Exists when status=FAILED_CENSOR_FAILURE |
-| censorFailReason | string | false | none | Censor failure reason. Exists when status=FAILED_CENSOR_FAILURE |
-| l2TxId | string(int64) | false | none | L2 push transaction ID. Exists when censor_status=CENSOR_SUCCESS/L2_APPROVED/L2_REJECT/L2_REJECT_APPROVED |
-| l2RejectTime | string(int64) | false | none | L2 rejection time. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED |
-| l2RejectCode | string | false | none | L2 rejection error code. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED |
-| l2RejectReason | string | false | none | L2 rejection reason. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED |
-| l2ApprovedTime | string(int64) | false | none | L2 batch verification time. Exists when status=L2_APPROVED/L2_REJECT_APPROVED |
-| createdTime | string(int64) | false | none | Creation time |
-| updatedTime | string(int64) | false | none | Update time |
+| Name               | Type                               | Required | Constraints | Description                 | Notes                                                               |
+| ------------------ | ---------------------------------- | -------- | ----------- | --------------------------- | ------------------------------------------------------------------- |
+| dataList           | [TransferOutModel](#transferoutmodel)[]  | false    | none        | Data List                  | Array of transfer out records                                       |
+| nextPageOffsetData | string                             | false    | none        | Next Page Offset        | Offset for retrieving the next page. If no next page data, empty string. |
 
-#### Enum Values
+<a id="transferinmodel"></a>
+### TransferInModel
 
-| Property | Value |
-|---|---|
-| transferReason | UNKNOWN_TRANSFER_REASON |
-| transferReason | USER_TRANSFER |
-| transferReason | FAST_WITHDRAW |
-| transferReason | CROSS_DEPOSIT |
-| transferReason | CROSS_WITHDRAW |
-| transferReason | UNRECOGNIZED |
-| status | UNKNOWN_TRANSFER_STATUS |
-| status | PENDING_CHECKING |
-| status | PENDING_CENSORING |
-| status | SUCCESS_CENSOR_SUCCESS |
-| status | SUCCESS_L2_APPROVED |
-| status | FAILED_CHECK_INVALID |
-| status | FAILED_CENSOR_FAILURE |
-| status | FAILED_L2_REJECT |
-| status | FAILED_L2_REJECT_APPROVED |
-| status | UNRECOGNIZED |
+| Name                     | Type            | Required | Constraints | Description                         | Notes                                                                     |
+| ------------------------ | --------------- | -------- | ----------- | ----------------------------------- | ------------------------------------------------------------------------- |
+| id                       | string(int64)   | false    | none        | Transfer In ID                      | Unique identifier for the transfer in record                             |
+| userId                   | string(int64)   | false    | none        | User ID                             | ID of the owning user                                                  |
+| accountId                | string(int64)   | false    | none        | Account ID                          | ID of the owning account                                                 |
+| coinId                   | string(int64)   | false    | none        | Coin ID                             | ID of the collateral coin                                                |
+| amount                   | string          | false    | none        | Transfer Amount                     | Amount of the transfer                                                    |
+| senderAccountId          | string(int64)   | false    | none        | Sender Account ID                   | ID of the sending account                                                |
+| senderL2Key              | string          | false    | none        | Sender L2 Key                       | Sender account L2 key (bigint as hex string)                            |
+| senderTransferOutId      | string(int64)   | false    | none        | Sender Transfer Out ID              | ID of the corresponding transfer out record                              |
+| clientTransferId         | string          | false    | none        | Client Transfer ID                  | Client-defined ID for idempotency verification                           |
+| isConditionTransfer      | boolean         | false    | none        | Is Condition Transfer               | Whether this is a conditional transfer                                   |
+| conditionFactRegistryAddress | string      | false    | none        | Condition Fact Registry Address     | Fact registry contract address for conditional transfers                 |
+| conditionFactErc20Address | string         | false    | none        | Condition Fact ERC20 Address        | ERC20 address used for fact generation in conditional transfers          |
+| conditionFactAmount      | string          | false    | none        | Condition Fact Amount               | Amount used for fact generation in conditional transfers                 |
+| conditionFact            | string          | false    | none        | Condition Fact                      | Fact for conditional transfers                                           |
+| transferReason           | string          | false    | none        | Transfer Reason                     | Reason for the transfer                                                  |
+| extraType                | string          | false    | none        | Extra Type                          | Additional type for upper-layer business use                             |
+| extraDataJson            | string          | false    | none        | Extra Data JSON                     | Extra data in JSON format                                                |
+| status                   | string          | false    | none        | Transfer Status                     | Current status of the transfer                                           |
+| collateralTransactionId  | string(int64)   | false    | none        | Collateral Transaction ID           | Associated collateral transaction ID when status is SUCCESS_XXX/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED |
+| censorTxId               | string(int64)   | false    | none        | Censor Transaction ID               | Censorship processing sequence number when status is SUCCESS_XXX/FAILED_XXX |
+| censorTime               | string(int64)   | false    | none        | Censor Time                         | Censorship processing time when status is SUCCESS_XXX/FAILED_XXX         |
+| censorFailCode           | string          | false    | none        | Censor Fail Code                    | Censorship failure code                                                  |
+| censorFailReason         | string          | false    | none        | Censor Fail Reason                  | Censorship failure reason                                                |
+| l2TxId                   | string(int64)   | false    | none        | L2 Transaction ID                   | Layer 2 transaction ID                                                   |
+| l2RejectTime             | string(int64)   | false    | none        | L2 Reject Time                      | Layer 2 rejection time                                                   |
+| l2RejectCode             | string          | false    | none        | L2 Reject Code                      | Layer 2 rejection code                                                   |
+| l2RejectReason           | string          | false    | none        | L2 Reject Reason                    | Layer 2 rejection reason                                                 |
+| l2ApprovedTime           | string(int64)   | false    | none        | L2 Approved Time                    | Layer 2 approval time                                                    |
+| createdTime              | string(int64)   | false    | none        | Created Time                        | Record creation time                                                     |
+| updatedTime              | string(int64)   | false    | none        | Updated Time                        | Record last update time                                                  |
 
+<a id="transferoutmodel"></a>
+### TransferOutModel
 
-<a id="schemaresultpagedatatransferout"></a>
-### schemaresultpagedatatransferout
+| Name                     | Type            | Required | Constraints | Description                         | Notes                                                                     |
+| ------------------------ | --------------- | -------- | ----------- | ----------------------------------- | ------------------------------------------------------------------------- |
+| id                       | string(int64)   | false    | none        | Transfer Out ID                     | Unique identifier for the transfer out record                            |
+| userId                   | string(int64)   | false    | none        | User ID                             | ID of the owning user                                                  |
+| accountId                | string(int64)   | false    | none        | Account ID                          | ID of the owning account                                                 |
+| coinId                   | string(int64)   | false    | none        | Coin ID                             | ID of the collateral coin                                                |
+| amount                   | string          | false    | none        | Transfer Amount                     | Amount of the transfer                                                    |
+| receiverAccountId        | string(int64)   | false    | none        | Receiver Account ID                 | ID of the receiving account                                              |
+| receiverL2Key            | string          | false    | none        | Receiver L2 Key                     | Receiver account L2 key (bigint as hex string)                          |
+| clientTransferId         | string          | false    | none        | Client Transfer ID                  | Client-defined ID for idempotency verification                           |
+| isConditionTransfer      | boolean         | false    | none        | Is Condition Transfer               | Whether this is a conditional transfer                                   |
+| conditionFactRegistryAddress | string      | false    | none        | Condition Fact Registry Address     | Fact registry contract address for conditional transfers                 |
+| conditionFactErc20Address | string         | false    | none        | Condition Fact ERC20 Address        | ERC20 address used for fact generation in conditional transfers          |
+| conditionFactAmount      | string          | false    | none        | Condition Fact Amount               | Amount used for fact generation in conditional transfers                 |
+| conditionFact            | string          | false    | none        | Condition Fact                      | Fact for conditional transfers                                           |
+| transferReason           | string          | false    | none        | Transfer Reason                     | Reason for the transfer                                                  |
+| l2Nonce                  | string(int64)   | false    | none        | L2 Nonce                            | L2 signature nonce. First 32 bits of sha256(client_transfer_id)          |
+| l2ExpireTime             | string(int64)   | false    | none        | L2 Expire Time                      | L2 signature expiration time in milliseconds                             |
+| l2Signature              | [L2SignatureModel](#l2signaturemodel) | false    | none        | L2 Signature                        | L2 signature submitted                                                   |
+| extraType                | string          | false    | none        | Extra Type                          | Additional type for upper-layer business use                             |
+| extraDataJson            | string          | false    | none        | Extra Data JSON                     | Extra data in JSON format                                                |
+| status                   | string          | false    | none        | Transfer Status                     | Current status of the transfer                                           |
+| receiverTransferInId     | string(int64)   | false    | none        | Receiver Transfer In ID             | ID of the corresponding transfer in record                               |
+| collateralTransactionId  | string(int64)   | false    | none        | Collateral Transaction ID           | Associated collateral transaction ID when status is SUCCESS_XXX/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED |
+| censorTxId               | string(int64)   | false    | none        | Censor Transaction ID               | Censorship processing sequence number when status is SUCCESS_XXX/FAILED_XXX |
+| censorTime               | string(int64)   | false    | none        | Censor Time                         | Censorship processing time when status is SUCCESS_XXX/FAILED_XXX         |
+| censorFailCode           | string          | false    | none        | Censor Fail Code                    | Censorship failure code                                                  |
+| censorFailReason         | string          | false    | none        | Censor Fail Reason                  | Censorship failure reason                                                |
+| l2TxId                   | string(int64)   | false    | none        | L2 Transaction ID                   | Layer 2 transaction ID                                                   |
+| l2RejectTime             | string(int64)   | false    | none        | L2 Reject Time                      | Layer 2 rejection time                                                   |
+| l2RejectCode             | string          | false    | none        | L2 Reject Code                      | Layer 2 rejection code                                                   |
+| l2RejectReason           | string          | false    | none        | L2 Reject Reason                    | Layer 2 rejection reason                                                 |
+| l2ApprovedTime           | string(int64)   | false    | none        | L2 Approved Time                    | Layer 2 approval time                                                    |
+| createdTime              | string(int64)   | false    | none        | Created Time                        | Record creation time                                                     |
+| updatedTime              | string(int64)   | false    | none        | Updated Time                        | Record last update time                                                  |
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| code | string | false | none | Status code. "SUCCESS" for success, other values indicate failure. |
-| data | [PageDataTransferOut](#schemapagedatatransferout) | false | none | Generic paginated response data |
-| errorParam | object | false | none | Parameter information in error messages |
-| requestTime | string(timestamp) | false | none | Server request receiving timestamp |
-| responseTime | string(timestamp) | false | none | Server response returning timestamp |
-| traceId | string | false | none | Call trace ID |
+<a id="l2signaturemodel"></a>
+### L2SignatureModel
 
+| Name | Type   | Required | Constraints | Description                         | Notes                                                                     |
+| ---- | ------ | -------- | ----------- | ----------------------------------- | ------------------------------------------------------------------------- |
+| r    | string | false    | none        | Signature R Component               | Bigint represented as hex string                                          |
+| s    | string | false    | none        | Signature S Component               | Bigint represented as hex string                                          |
+| v    | string | false    | none        | Signature V Component               | Bigint represented as hex string                                          |
 
-<a id="schemapagedatatransferout"></a>
-### schemapagedatatransferout
+<a id="gettransferoutavailableamount"></a>
+### GetTransferOutAvailableAmount
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| dataList | [[TransferOut](#schematransferout)] | false | none | Data list |
-| nextPageOffsetData | string | false | none | Offset to retrieve the next page. If no next page data, the value will be an empty string |
+| Name           | Type                               | Required | Constraints | Description              | Notes                                                                    |
+| -------------- | ---------------------------------- | -------- | ----------- | ------------------------ | ------------------------------------------------------------------------ |
+| code           | string                             | false    | none        | Status Code              | Returns "SUCCESS" on success; otherwise, it indicates failure.            |
+| data           | [GetTransferOutAvailableAmountModel](#gettransferoutavailableamountmodel) | false    | none        | Available Amount Response | Response data for available transfer amount                              |
+| errorParam     | object                             | false    | none        | Error Parameters         | Error message parameter information                                       |
+| requestTime    | string(timestamp)                  | false    | none        | Server Request Time     | Time at which the server received the request                             |
+| responseTime   | string(timestamp)                  | false    | none        | Server Response Time    | Time at which the server sent the response                                |
+| traceId        | string                             | false    | none        | Trace ID                | Invocation trace ID                                                     |
 
+<a id="gettransferoutavailableamountmodel"></a>
+### GetTransferOutAvailableAmountModel
 
-<a id="schematransferout"></a>
-### schematransferout
+| Name            | Type   | Required | Constraints | Description                         | Notes                                                                     |
+| --------------- | ------ | -------- | ----------- | ----------------------------------- | ------------------------------------------------------------------------- |
+| availableAmount | string | false    | none        | Available Amount                    | Available amount for transfer (decimal format)                           |
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| id | string(int64) | false | none | Transfer out order ID |
-| userId | string(int64) | false | none | User ID |
-| accountId | string(int64) | false | none | Account ID |
-| coinId | string(int64) | false | none | Coin ID |
-| amount | string | false | none | Transfer amount |
-| receiverAccountId | string(int64) | false | none | Receiver Account ID |
-| receiverL2Key | string | false | none | Receiver account L2 key. bigint for hex str |
-| clientTransferId | string | false | none | Client defined ID. Used for idempotent checks and signature generation nonce |
-| isConditionTransfer | boolean | false | none | Whether it is a conditional transfer |
-| conditionFactRegistryAddress | string | false | none | Address of condition fact registry contract. Required when is_conditional_transfer=true |
-| conditionFactErc20Address | string | false | none | ERC20 address used to generate the condition fact. Required when is_conditional_transfer=true |
-| conditionFactAmount | string | false | none | Amount used to generate condition fact. Required when is_conditional_transfer=true. |
-| conditionFact | string | false | none | The conditional transfer fact. Required when is_conditional_transfer=true |
-| transferReason | string | false | none | Transfer reason |
-| l2Nonce | string(int64) | false | none | L2 signature nonce. Take the first 32 bits of sha256(client_transfer_id) |
-| l2ExpireTime | string(int64) | false | none | L2 signature expiration time in milliseconds. When generating/verifying the signature, the hour should be used: l2_expire_time / 3600000 |
-| l2Signature | [L2Signature](#schemal2signature) | false | none | L2 signature information |
-| extraType | string | false | none | Additional type. Used by upper layer business |
-| extraDataJson | string | false | none | Additional data in JSON format. Defaults to empty string |
-| status | string | false | none | Transfer status |
-| receiverTransferInId | string(int64) | false | none | ID of receiver transfer in order. |
-| collateralTransactionId | string(int64) | false | none | ID of related collateral detail. Exists when status=SUCCESS_XXX/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED |
-| censorTxId | string(int64) | false | none | Censor processing sequence. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED |
-| censorTime | string(int64) | false | none | Censor processing time. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED |
-| censorFailCode | string | false | none | Censor failure error code. Exists when status=FAILED_CENSOR_FAILURE |
-| censorFailReason | string | false | none | Censor failure reason. Exists when status=FAILED_CENSOR_FAILURE |
-| l2TxId | string(int64) | false | none | L2 push transaction ID. Exists when censor_status=CENSOR_SUCCESS/L2_APPROVED/L2_REJECT/L2_REJECT_APPROVED |
-| l2RejectTime | string(int64) | false | none | L2 rejection time. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED |
-| l2RejectCode | string | false | none | L2 rejection error code. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED |
-| l2RejectReason | string | false | none | L2 rejection reason. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED |
-| l2ApprovedTime | string(int64) | false | none | L2 batch verification time. Exists when status=L2_APPROVED/L2_REJECT_APPROVED |
-| createdTime | string(int64) | false | none | Creation time |
-| updatedTime | string(int64) | false | none | Update time |
+<a id="createtransferout"></a>
+### CreateTransferOut
 
-#### Enum Values
+| Name           | Type                               | Required | Constraints | Description              | Notes                                                                    |
+| -------------- | ---------------------------------- | -------- | ----------- | ------------------------ | ------------------------------------------------------------------------ |
+| code           | string                             | false    | none        | Status Code              | Returns "SUCCESS" on success; otherwise, it indicates failure.            |
+| data           | [CreateTransferOutModel](#createtransferoutmodel) | false    | none        | Create Transfer Out Response | Response data for transfer out creation                                  |
+| errorParam     | object                             | false    | none        | Error Parameters         | Error message parameter information                                       |
+| requestTime    | string(timestamp)                  | false    | none        | Server Request Time     | Time at which the server received the request                             |
+| responseTime   | string(timestamp)                  | false    | none        | Server Response Time    | Time at which the server sent the response                                |
+| traceId        | string                             | false    | none        | Trace ID                | Invocation trace ID                                                     |
 
-| Property | Value |
-|---|---|
-| transferReason | UNKNOWN_TRANSFER_REASON |
-| transferReason | USER_TRANSFER |
-| transferReason | FAST_WITHDRAW |
-| transferReason | CROSS_DEPOSIT |
-| transferReason | CROSS_WITHDRAW |
-| transferReason | UNRECOGNIZED |
-| status | UNKNOWN_TRANSFER_STATUS |
-| status | PENDING_CHECKING |
-| status | PENDING_CENSORING |
-| status | SUCCESS_CENSOR_SUCCESS |
-| status | SUCCESS_L2_APPROVED |
-| status | FAILED_CHECK_INVALID |
-| status | FAILED_CENSOR_FAILURE |
-| status | FAILED_L2_REJECT |
-| status | FAILED_L2_REJECT_APPROVED |
-| status | UNRECOGNIZED |
+<a id="createtransferoutmodel"></a>
+### CreateTransferOutModel
 
-<a id="schemal2signature"></a>
-### schemal2signature
-
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| r | string | false | none | bigint for hex str |
-| s | string | false | none | bigint for hex str |
-| v | string | false | none | bigint for hex str |
-
-
-<a id="schemaresultlisttransferin"></a>
-### schemaresultlisttransferin
-
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| code | string | false | none | Status code. "SUCCESS" for success, other values indicate failure. |
-| data | [[TransferIn](#schematransferin)] | false | none | Correct response data |
-| errorParam | object | false | none | Parameter information in error messages |
-| requestTime | string(timestamp) | false | none | Server request receiving timestamp |
-| responseTime | string(timestamp) | false | none | Server response returning timestamp |
-| traceId | string | false | none | Call trace ID |
-
-
-<a id="schemaresultgettransferoutavailableamount"></a>
-### schemaresultgettransferoutavailableamount
-
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| code | string | false | none | Status code. "SUCCESS" for success, other values indicate failure. |
-| data | [GetTransferAvailableAmount](#schemagettransferavailableamount) | false | none | Get Transfer Available Amount - Response |
-| errorParam | object | false | none | Parameter information in error messages |
-| requestTime | string(timestamp) | false | none | Server request receiving timestamp |
-| responseTime | string(timestamp) | false | none | Server response returning timestamp |
-| traceId | string | false | none | Call trace ID |
-
-
-<a id="schemagettransferavailableamount"></a>
-### schemagettransferavailableamount
-
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| availableAmount | string(decimal) | false | none | Available amount |
-
-
-<a id="schemaresultlisttransferout"></a>
-### schemaresultlisttransferout
-
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| code | string | false | none | Status code. "SUCCESS" for success, other values indicate failure. |
-| data | [[TransferOut](#schematransferout)] | false | none | Correct response data |
-| errorParam | object | false | none | Parameter information in error messages |
-| requestTime | string(timestamp) | false | none | Server request receiving timestamp |
-| responseTime | string(timestamp) | false | none | Server response returning timestamp |
-| traceId | string | false | none | Call trace ID |
-
-
-<a id="schemaresultcreatetransferout"></a>
-### schemaresultcreatetransferout
-
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| code | string | false | none | Status code. "SUCCESS" for success, other values indicate failure. |
-| data | [CreateTransferOut](#schemacreatetransferout) | false | none | Create Transfer Out Order - Response |
-| errorParam | object | false | none | Parameter information in error messages |
-| requestTime | string(timestamp) | false | none | Server request receiving timestamp |
-| responseTime | string(timestamp) | false | none | Server response returning timestamp |
-| traceId | string | false | none | Call trace ID |
-
-
-<a id="schemacreatetransferout"></a>
-### schemacreatetransferout
-
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| transferOutId | string(int64) | false | none | Transfer out order ID |
-
-
-
-<a id="schemacreatetransferoutparam"></a>
-### schemacreatetransferoutparam
-
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| accountId | string(int64) | false | none | Account ID |
-| coinId | string(int64) | false | none | Asset ID |
-| amount | string | false | none | Transfer amount |
-| receiverAccountId | string | false | none | Receiver account ID |
-| receiverL2Key | string | false | none | Receiver account L2 key. bigint for hex str |
-| clientTransferId | string | false | none | Client defined ID. Used for idempotent checks and signature generation nonce |
-| transferReason | string | false | none | Transfer reason |
-| l2Nonce | string(int64) | false | none | L2 signature nonce. Take the first 32 bits of sha256(client_withdraw_id) |
-| l2ExpireTime | string(int64) | false | none | L2 signature expiration time in milliseconds. When generating/verifying the signature, the hour should be used: l2_expire_time / 3600000 |
-| l2Signature | string | false | none | L2 signature |
-| extraType | string | false | none | Additional type. Used by upper layer business |
-| extraDataJson | string | false | none | Additional data in JSON format. Defaults to empty string |
-
-#### Enum Values
-
-| Property | Value |
-|---|---|
-| transferReason | UNKNOWN_TRANSFER_REASON |
-| transferReason | USER_TRANSFER |
-| transferReason | FAST_WITHDRAW |
-| transferReason | CROSS_DEPOSIT |
-| transferReason | CROSS_WITHDRAW |
-| transferReason | UNRECOGNIZED |
+| Name          | Type          | Required | Constraints | Description                         | Notes                                                                     |
+| ------------- | ------------- | -------- | ----------- | ----------------------------------- | ------------------------------------------------------------------------- |
+| transferOutId | string(int64) | false    | none        | Transfer Out ID                     | ID of the created transfer out record                                    |
