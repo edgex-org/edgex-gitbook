@@ -34,7 +34,7 @@ L2Signature generation follows these standard steps:
 
 > [Java Script L2Signature Demo](https://www.npmjs.com/package/@starkware-industries/starkware-crypto-utils#signing-a-starkex-order)
 
-### Java L2Signature Demo
+### Java L2Signature Example
 
 Below is a Java implementation of the Ecdsa signature algorithm. This example demonstrates how to sign a message using a private key.
 
