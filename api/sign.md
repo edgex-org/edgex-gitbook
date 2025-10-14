@@ -1,24 +1,40 @@
 # How To Sign Message
 
+## Overview
+
+In Layer 2 trading systems, to ensure transaction security and prevent unauthorized operations, critical operations (such as limit orders, transfers, withdrawals, etc.) require users to provide digital signatures to prove the legitimacy of the operations. This signature is passed through the `l2Signature` parameter.
+
 ## How To GET Your L2 Private Key
 
-To sign messages on Layer 2, you need to obtain your L2 private key. This key is used to generate signatures that authorize various actions on the platform.
+To generate l2Signature, you first need to obtain your L2 private key. This key is used to generate signatures that authorize various actions on the platform.
 
 <figure><img src="../../.gitbook/assets/20250102-134437.png" alt=""><figcaption><p><strong>How To GET Your L2 Private Key</strong></p></figcaption></figure>
 
-> **Warning:** Keep your private key secure and never share it with anyone. Anyone with access to your private key can sign messages on your behalf.
+> **⚠️ Security Warning:**
+> - Keep your private key secure and never share it with anyone
+> - Anyone with access to your private key can sign messages and execute operations on your behalf
 
 ## Signature Algorithm
 
-> The signature algorithm used is **Ecdsa** (Elliptic Curve Digital Signature Algorithm). This algorithm ensures that signatures are secure and verifiable.
+### Two algorithms are used in the signature process:
 
-**L2Signature for Operations (e.g., Order, Transfer, Withdraw):** This will use Pedersen hash for signing. However, this hash computation will consume significantly more CPU resources.
+1. **ECDSA** (Elliptic Curve Digital Signature Algorithm) is used to generate and verify signatures.
+2. **Pedersen Hash** which consumes more CPU resources compared to regular Ethereum signatures, is used for message hashing.
 
-> [Python L2Signature Demo](https://github.com/starkware-libs/starkex-resources/blob/master/crypto/starkware/crypto/signature/signature_test.py#L62)
+L2Signature generation follows these standard steps:
+
+1. **Collect Parameters**: Gather all required parameters for the operation
+2. **Calculate Hash**: Use Pedersen Hash to compute the message hash
+3. **Generate Signature**: Use ECDSA algorithm and L2 private key to sign the hash
+4. **Format Output**: Format the signature according to API requirements
+
+> [Python L2Signature Demo](https://github.com/edgex-Tech/edgex-python-sdk/blob/main/edgex_sdk/internal/client.py#L111)
+
+> [Golang L2Signature Demo](https://github.com/edgex-Tech/edgex-golang-sdk/blob/main/sdk/internal/utils.go#L30)
 
 > [Java Script L2Signature Demo](https://www.npmjs.com/package/@starkware-industries/starkware-crypto-utils#signing-a-starkex-order)
 
-### Java L2Signature Demo
+### Java L2Signature Example
 
 Below is a Java implementation of the Ecdsa signature algorithm. This example demonstrates how to sign a message using a private key.
 
@@ -130,7 +146,7 @@ Below is a Java implementation of the Ecdsa signature algorithm. This example de
 
 # Signature Construction Guide
 
-This section provides detailed instructions on constructing signatures for various actions on the platform.
+This section provides detailed instructions for constructing signatures for various actions on the platform. Each operation has specific message formats and parameter requirements.
 
 ## Withdrawal Signature
 Used to authorize withdrawing assets from Layer 2 to an Ethereum address.

@@ -88,6 +88,24 @@ POST /api/v1/private/order/createOrder
     "maxBuyQTY": 0.007
 }
 ```
+**Market Order Parameter Guidelines**
+
+To prevent validation failures when placing market orders, please set the following parameters appropriately:
+
+**For Buy Orders:**
+- `l2Value = oracle_price × 10 × size` (set a higher value to ensure sufficient coverage)
+
+**For Sell Orders:**
+- `l2Value = tickSize` (use the minimum tick size value)
+
+**For Fee Calculation:**
+- `l2LimitFee = Ceil(value × fee_rate) × 10^6`
+
+> **Important Notes:**
+> - `l2Value` is NOT the actual order execution value - it's only used for validation purposes
+> - `l2LimitFee` is NOT the actual transaction fee - it's only used for validation purposes
+> - Setting these values too low will cause signature validation to fail
+> - It's better to set slightly higher values to ensure successful order placement
 
 ### Request Parameters
 
