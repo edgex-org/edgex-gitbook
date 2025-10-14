@@ -2,7 +2,7 @@
 
 **Ethereum Withdrawals:**
 
-For maximum security, all transactions are batched, verified rigorously, and then settled on Ethereum L1. The process could take up to 14 hours.
+For maximum security, all transactions are batched, verified rigorously, and then settled on Ethereum L1. The process could take up to 4 hours.
 
 
 
@@ -38,14 +38,26 @@ You can select the chain for withdrawal from Ethereum, BNB Chain, or Arbitrum
 
 For MPC Account Users:
 
-Withdrawals can only be made via Arbitrum.
+Withdrawals can be made via Ethereum, Arbitrum and BNB Chain.
+
+**For Arbitrum and BNB Chain address:**&#x20;
 
 ➡️ Enter the withdrawal amount.
 
-➡️ Input the Arbitrum address for the withdrawal.
+➡️ Input the Arbitrum or BNB Chain address for the withdrawal.
 
 ➡️ Click "Withdraw."
 
 ➡️ Confirm in the pop-up confirmation window.
+
+➡️ Complete the withdrawal.
+
+**For Ethereum address:**&#x20;
+
+➡️  Enter the withdrawal amount.
+
+➡️ Click "Withdraw."
+
+➡️ Click "Claim" and input the Ethereum address after the fund rebalanced&#x20;
 
 ➡️ Complete the withdrawal.
