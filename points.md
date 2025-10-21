@@ -1,5 +1,7 @@
 # Points
 
+<figure><img src=".gitbook/assets/20241211.jpeg" alt=""><figcaption></figcaption></figure>
+
 **edgeX Points**&#x20;
 
 The edgeX Points program is designed to encourage genuine user engagement with edgeX products and to reward loyal users who actively contribute to the growth of the edgeX ecosystem.
