@@ -4,21 +4,17 @@
 
 For maximum security, all transactions are batched, verified rigorously, and then settled on Ethereum L1. The process could take up to 14 hours.
 
-
-
 **Non-Ethereum Withdrawals:**
 
 Users can withdraw assets directly to different EVM-compatible chains on edgeX. When withdrawing assets to an EVM-compatible chain, the asset is first transferred to edgeX's L2 asset pool. Subsequently, edgeX transfers the corresponding amount of assets to the user's address from its asset pool on the respective withdrawal chain.
 
 Please note that the maximum withdrawal amount is limited not only by the total assets available in a user's account but also by the maximum available amount in the chain's asset pool.
 
-
-
 **Withdrawal Fees:**
 
 For ETH standard withdrawals, users just need to cover the gas fees themselves.
 
-For non-ETH withdrawals, the fee is equal to the gas fee paid by the provider (1 USDT base fee+ 005% of withdraw amount).
+For non-ETH withdrawals, a cross-chain withdrawal fee of 0.05% applies, with a minimum fee of 1 USDT.
 
 
 
