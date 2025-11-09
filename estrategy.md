@@ -23,8 +23,12 @@ When a user withdraws from a vault, open positions remain unaffected if there is
 **What are the risks of participating in the project?**\
 Despite professional strategy management, there are still market risks, such as high volatility and liquidity risks in the cryptocurrency market. In addition, changes in regulatory policies may also have an impact on the project.
 
+
+
 **Where does APR come from?**\
-APR comes from AMM income, liquidation fees and part of the edgeX platform trading fees.
+APR comes from AMM income, liquidation fees.
+
+
 
 **How to Participate in the Vault**
 
