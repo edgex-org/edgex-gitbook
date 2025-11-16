@@ -1,6 +1,6 @@
-# Maru
+# Maru 🦭
 
-🦭 \
+\
 Swift, fearless, and free.
 --------------------------
 

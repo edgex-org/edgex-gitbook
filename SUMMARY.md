@@ -8,7 +8,7 @@
   * [Decentralized Oracle Pricing](edgex-v1/decentralized-oracle-pricing.md)
 * [eStrategy](estrategy.md)
 * [Points](points/README.md)
-  * [Maru](points/maru.md)
+  * [Maru 🦭](points/maru.md)
 * [Getting started](getting-started/README.md)
   * [Accounts & Wallets](getting-started/accounts-and-wallets.md)
   * [Deposits and Withdrawals](getting-started/deposits-and-withdrawals/README.md)
