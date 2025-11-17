@@ -6,7 +6,7 @@ Swift, fearless, and free.
 
 Maru lives on the edge, trading, building, and thriving.
 
-Every move reflects the pursuit of efficiency,the belief in freedom,and the relentless drive that defines edgeX.
+Every move reflects the pursuit of efficiency, the belief in freedom, and the relentless drive that defines edgeX.
 
 \
 **Tokenomics Overview:**
