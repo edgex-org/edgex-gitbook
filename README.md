@@ -6,7 +6,7 @@ description: >-
 
 # About edgeX
 
-## edge Stack: Deterministic Parallel and Modular Execution for Trading Engine
+## EDGE Stack: Deterministic Parallel and Modular Execution for Trading Engine
 
 
 
@@ -16,20 +16,20 @@ Decentralized Finance has evolved quickly, but perpetual futures still face fund
 
 
 
-### edge Stack: App-Specific Rollup on Ethereum
+### EDGE Stack: App-Specific Rollup on Ethereum
 
-edge Stack is built as an App-Specific Execution Layer optimized for high-performance on-chain trading. Instead of adapting generic blockchain infrastructure, we redesign the system at the execution layer. With a modular multi-VM architecture and a deterministic Parallel Transaction Execution (PTE), edge Stack delivers high throughput, low latency, and fully verifiable matching for complex derivatives like perpetuals. As part of the rollup ecosystem, edge Stack ultimately benefits from Ethereum's security guarantees, allowing users to adhere to DeFi's trust minimization principles while enjoying an ultra-low-latency on-chain experience.\
+EDGE Stack is built as an App-Specific Execution Layer optimized for high-performance on-chain trading. Instead of adapting generic blockchain infrastructure, we redesign the system at the execution layer. With a modular multi-VM architecture and a deterministic Parallel Transaction Execution (PTE), EDGE Stack delivers high throughput, low latency, and fully verifiable matching for complex derivatives like perpetuals. As part of the rollup ecosystem, EDGE Stack ultimately benefits from Ethereum's security guarantees, allowing users to adhere to DeFi's trust minimization principles while enjoying an ultra-low-latency on-chain experience.\
 
 
 ### Three Core Technical Pillars
 
-edge Stack uses a modular Multi-VM architecture optimized for trading workloads.
+EDGE Stack uses a modular Multi-VM architecture optimized for trading workloads.
 
 * **Modular Multi-VM:** Now edgeVM handles perp execution and edgeEVM supports standard DeFi logic. In the future, edgeX can add additional VM environments.
 * **Parallel Transaction Execution (PTE):** Executes non-conflicting transactions in parallel.
 * **FlashLane**: Quality of Service (QoS) scheduling and multi-lane execution.
 
-<figure><img src=".gitbook/assets/Arch.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Arch (1).png" alt=""><figcaption></figcaption></figure>
 
 
 
