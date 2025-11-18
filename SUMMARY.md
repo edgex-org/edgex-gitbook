@@ -1,7 +1,6 @@
 # Table of contents
 
 * [About edgeX](README.md)
-  * [Modular Financial system](about-edgex/modular-financial-system.md)
 * [edgeX V1](edgex-v1/README.md)
   * [V1 Technical Architecture](edgex-v1/v1-technical-architecture.md)
   * [Self-Custody](edgex-v1/self-custody.md)
