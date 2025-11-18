@@ -1,5 +1,7 @@
 ---
-description: 'edge Stack: Deterministic Parallel and Modular Execution for Trading Engine'
+description: >-
+  edgeX is building a parallel, modular execution app-specific execution layer
+  with Ethereum-level security.
 ---
 
 # About edgeX
