@@ -14,7 +14,7 @@ Please note that the maximum withdrawal amount is limited not only by the total 
 
 For ETH standard withdrawals, users just need to cover the gas fees themselves.
 
-For non-ETH withdrawals, a cross-chain withdrawal fee of 0.05% applies, with a minimum fee of 1 USDT.
+For non-ETH withdrawals, a cross-chain withdrawal fee of 0.1% applies, with a minimum fee of 1 USD.
 
 
 
