@@ -7,7 +7,7 @@
   * [Decentralized Oracle Pricing](edgex-v1/decentralized-oracle-pricing.md)
 * [eStrategy](estrategy.md)
 * [Community](community/README.md)
-  * [EDGE](community/points.md)
+  * [EDGE](community/edge.md)
   * [Maru 🦭](community/maru.md)
 * [Getting started](getting-started/README.md)
   * [Accounts & Wallets](getting-started/accounts-and-wallets.md)
