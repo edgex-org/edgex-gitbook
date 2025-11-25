@@ -18,8 +18,7 @@ Decentralized Finance has evolved quickly, but perpetual futures still face fund
 
 ### EDGE Stack: App-Specific Rollup on Ethereum
 
-EDGE Stack is built as an App-Specific Execution Layer optimized for high-performance on-chain trading. Instead of adapting generic blockchain infrastructure, we redesign the system at the execution layer. With a modular multi-VM architecture and a deterministic Parallel Transaction Execution (PTE), EDGE Stack delivers high throughput, low latency, and fully verifiable matching for complex derivatives like perpetuals. As part of the rollup ecosystem, EDGE Stack ultimately benefits from Ethereum's security guarantees, allowing users to adhere to DeFi's trust minimization principles while enjoying an ultra-low-latency on-chain experience.\
-
+EDGE Stack is built as an App-Specific Execution Layer optimized for high-performance on-chain trading. Instead of adapting generic blockchain infrastructure, we redesign the system at the execution layer. With a modular multi-VM architecture and a deterministic Parallel Transaction Execution (PTE), EDGE Stack delivers high throughput, low latency, and fully verifiable matching for complex derivatives like perpetuals. As part of the rollup ecosystem, EDGE Stack ultimately benefits from Ethereum's security guarantees, allowing users to adhere to DeFi's trust minimization principles while enjoying an ultra-low-latency on-chain experience.<br>
 
 ### Three Core Technical Pillars
 
@@ -41,13 +40,11 @@ Core perpetual logic runs inside a dedicated edgeVM with exclusive compute resou
 * **edgeEVM** supports standard DeFi logic such as asset issuance and governance.
 * **Precompiled Contracts** run stable but computationally heavy functions.
 
-New product lines can be added by deploying additional VM actors or reusing existing ones, with isolation enforced via EIP-2930–style access lists. This enables plug-and-play expansion without architectural disruption.\
-
+New product lines can be added by deploying additional VM actors or reusing existing ones, with isolation enforced via EIP-2930–style access lists. This enables plug-and-play expansion without architectural disruption.<br>
 
 #### II. Deterministic Parallel Transaction Execution (PTE)
 
-PTE is the parallelization engine that transforms the Sequencer’s serial input into safe, verifiable parallel execution.Using Market-Sharded Execution, each market or derivative type is handled by an independent VM Actor, allowing order books and position states to run in parallel without conflict. Highly active markets can be further subdivided, allowing throughput to scale roughly linearly with the number of active markets.Within a market, PTE uses extended access lists to define read/write scopes and only executes non-conflicting transactions in parallel. Conflicts follow fixed resolution rules, ensuring the final state remains serializable to the sequencer’s canonical order. This preserves deterministic replay, verifiability, and proof validity while fully utilizing multi-core resources. Critical subsystems such as liquidation or risk can run as separate Actors and scale horizontally as load grows.\
-
+PTE is the parallelization engine that transforms the Sequencer’s serial input into safe, verifiable parallel execution.Using Market-Sharded Execution, each market or derivative type is handled by an independent VM Actor, allowing order books and position states to run in parallel without conflict. Highly active markets can be further subdivided, allowing throughput to scale roughly linearly with the number of active markets.Within a market, PTE uses extended access lists to define read/write scopes and only executes non-conflicting transactions in parallel. Conflicts follow fixed resolution rules, ensuring the final state remains serializable to the sequencer’s canonical order. This preserves deterministic replay, verifiability, and proof validity while fully utilizing multi-core resources. Critical subsystems such as liquidation or risk can run as separate Actors and scale horizontally as load grows.<br>
 
 #### III. FlashLane
 
@@ -56,8 +53,7 @@ On top of raw throughput, edge Stack improves trading UX with QoS scheduling and
 * **Fast Lane:** latency-sensitive actions like order placement/cancellation.
 * **Slow Lane:** non-urgent operations such as withdrawals or governance.
 
-This prevents non-critical activity from degrading matching engine performance.For high-frequency users, a FlashLane Commitment mechanism provides near-instant soft confirmation. After submission, the system performs a local PTE simulation and returns the intended batch ID and projected queue position (subject to rare reordering) within milliseconds. Combined with micro-batching and optimized I/O, traders gain predictable execution timing while preserving full on-chain verifiability.\
-
+This prevents non-critical activity from degrading matching engine performance.For high-frequency users, a FlashLane Commitment mechanism provides near-instant soft confirmation. After submission, the system performs a local PTE simulation and returns the intended batch ID and projected queue position (subject to rare reordering) within milliseconds. Combined with micro-batching and optimized I/O, traders gain predictable execution timing while preserving full on-chain verifiability.<br>
 
 ### State & Security
 
