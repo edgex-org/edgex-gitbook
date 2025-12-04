@@ -1,6 +1,7 @@
 # Table of contents
 
 * [About edgeX](README.md)
+* [Whitepaper](https://static.edgex.exchange/whitepaper/EDGE%20Stack%20Whitepaper.pdf)
 * [edgeX V1](edgex-v1/README.md)
   * [V1 Technical Architecture](edgex-v1/v1-technical-architecture.md)
   * [Self-Custody](edgex-v1/self-custody.md)
