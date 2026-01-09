@@ -10,6 +10,7 @@
 * [Community](community/README.md)
   * [EDGE](community/edge.md)
   * [Maru 🦭](community/maru.md)
+  * [XP (Pre TGE Season)](community/xp-pre-tge-season.md)
 * [Getting started](getting-started/README.md)
   * [Accounts & Wallets](getting-started/accounts-and-wallets.md)
   * [Deposits and Withdrawals](getting-started/deposits-and-withdrawals/README.md)
