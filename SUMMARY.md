@@ -26,6 +26,7 @@
   * [Take Profit & Stop Loss](trading/take-profit-and-stop-loss.md)
   * [Liquidation Logic](trading/liquidation-logic.md)
   * [TradingView](trading/tradingview.md)
+  * [Stock Perpetual](trading/stock-perpetual.md)
 * [API Docs](api/README.md)
   * [Authentication](api/authentication.md)
   * [L2 Signature](api/sign.md)
