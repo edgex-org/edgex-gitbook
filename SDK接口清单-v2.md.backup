@@ -1,0 +1,195 @@
+# EdgeX API V2 Interface List
+
+## Overview
+
+This document outlines all V2 API endpoints for EdgeX HTTP Gateway, organized by service modules.
+
+---
+
+## I. Public API
+
+### 1. Metadata Service
+
+| SDK Method | API Path | Description |
+|---------|---------|------|
+| `GetServerTime` | `GET /api/v2/public/meta/getServerTime` | Get server time |
+| `GetMetaData` | `GET /api/v2/public/meta/getMetaData` | Get global metadata (coin list, contract list, multi-chain config, etc.) |
+
+### 2. Quote Service
+
+| SDK Method | API Path | Description |
+|---------|---------|------|
+| `GetDepth` | `GET /api/v2/public/quote/getDepth` | Query order book depth |
+| `GetKline` | `GET /api/v2/public/quote/getKline` | Query K-line data |
+| `GetTicker` | `GET /api/v2/public/quote/getTicker` | Query 24-hour ticker |
+| `GetTickerSummary` | `GET /api/v2/public/quote/getTicketSummary` | Get ticker summary |
+
+### 3. Funding Rate Service
+
+| SDK Method | API Path | Description |
+|---------|---------|------|
+| `GetLatestFundingRate` | `GET /api/v2/public/funding/getLatestFundingRate` | Query latest funding rate by contract ID |
+| `GetFundingRatePage` | `GET /api/v2/public/funding/getFundingRatePage` | Query funding rate history by contract ID (paginated) |
+
+---
+
+## II. Private API (Authentication Required)
+
+### 1. Account Service
+
+| SDK Method | API Path | Description |
+|---------|---------|------|
+| `GetAccountAsset` | `GET /api/v2/private/account/getAccountAsset` | Get account asset |
+| `GetAccountPositions` | `GET /api/v2/private/account/getAccountAsset` | Get account positions (extracted from asset response) |
+| `GetPositionByContractID` | `GET /api/v2/private/account/getPositionByContractId` | Get position by contract ID |
+| `GetPositionTransactionPage` | `GET /api/v2/private/account/getPositionTransactionPage` | Get position transaction records (paginated) |
+| `GetPositionTransactionByID` | `GET /api/v2/private/account/getPositionTransactionById` | Batch get position transactions by IDs |
+| `GetPositionTermPage` | `GET /api/v2/private/account/getPositionTermPage` | Get position term records (paginated) |
+| `GetPositionOrders` | `GET /api/v2/private/account/getPositionOrders` | **[V2 New]** Get historical orders by position term |
+| `GetCollateralByCoinID` | `GET /api/v2/private/account/getCollateralByCoinId` | Get collateral info by coin ID |
+| `GetCollateralTransactionPage` | `GET /api/v2/private/account/getCollateralTransactionPage` | Get collateral transaction records (paginated) |
+| `GetCollateralTransactionByID` | `GET /api/v2/private/account/getCollateralTransactionById` | Batch get collateral transactions by IDs |
+| `GetAccountByID` | `GET /api/v2/private/account/getAccountById` | Get account by ID |
+| `GetAccountDeleverageLight` | `GET /api/v2/private/account/getAccountDeleverageLight` | Get account ADL indicator |
+| `GetAccountAssetSnapshotPage` | `GET /api/v2/private/account/getAccountAssetSnapshotPage` | Get account asset snapshots (paginated) |
+| `UpdateLeverageSetting` | `POST /api/v2/private/account/updateLeverageSetting` | **[V2 New]** Update leverage setting |
+
+### 2. Asset Service
+
+| SDK Method | API Path | Description |
+|---------|---------|------|
+| `GetAllOrdersPage` | `GET /api/v2/private/assets/getAllOrdersPage` | Query all deposit/withdrawal order records (paginated) |
+| `GetNormalWithdrawById` | `GET /api/v2/private/assets/getNormalWithdrawById` | Get normal withdrawal order by ID |
+| `GetNormalWithdrawableAmount` | `GET /api/v2/private/assets/getNormalWithdrawableAmount` | Get normal withdrawable amount |
+| `CreateNormalWithdraw` | `POST /api/v2/private/assets/createNormalWithdraw` | Create normal withdrawal order (auto L2 signature) |
+| `GetCrossWithdrawById` | `GET /api/v2/private/assets/getCrossWithdrawById` | Get cross-chain withdrawal order by ID |
+| `GetCrossWithdrawSignInfo` | `GET /api/v2/private/assets/getCrossWithdrawSignInfo` | Get cross-chain withdrawal signature info |
+| `CreateCrossWithdraw` | `POST /api/v2/private/assets/createCrossWithdraw` | Create cross-chain withdrawal order |
+| `GetCoinRate` | `GET /api/v2/private/assets/getCoinRate` | Get coin exchange rate |
+| `GetFastWithdrawById` | `GET /api/v2/private/assets/getFastWithdrawById` | Get fast withdrawal order by ID |
+| `GetFastWithdrawSignInfo` | `GET /api/v2/private/assets/getFastWithdrawSignInfo` | Get fast withdrawal signature info |
+
+### 3. Order Service
+
+| SDK Method | API Path | Description |
+|---------|---------|------|
+| `CreateOrder` | `POST /api/v2/private/order/createOrder` | Create order (auto L2 signature and price calculation) |
+| `CancelOrderById` | `POST /api/v2/private/order/cancelOrderById` | Cancel order by order ID |
+| `CancelOrderByClientOrderId` | `POST /api/v2/private/order/cancelOrderByClientOrderId` | **[V2 New]** Cancel order by client order ID |
+| `CancelAllOrder` | `POST /api/v2/private/order/cancelAllOrder` | Cancel all orders |
+| `GetMaxOrderSize` | `POST /api/v2/private/order/getMaxCreateOrderSize` | Get maximum order size |
+| `GetOrdersByID` | `GET /api/v2/private/order/getOrderById` | Batch get orders by order IDs |
+| `GetOrdersByClientOrderID` | `GET /api/v2/private/order/getOrderByClientOrderId` | Batch get orders by client order IDs |
+| `GetActiveOrders` | `GET /api/v2/private/order/getActiveOrderPage` | Get active orders (paginated) |
+| `GetHistoryOrderPage` | `GET /api/v2/private/order/getHistoryOrderPage` | Get historical orders (paginated, GET method) |
+| `GetHistoryOrderPagePost` | `POST /api/v2/private/order/getHistoryOrderPage` | **[V2 New]** Get historical orders (paginated, POST method) |
+| `GetOrderFillTransactions` | `GET /api/v2/private/order/getHistoryOrderFillTransactionPage` | Get historical order fill transactions (paginated) |
+
+### 4. Transfer Service
+
+| SDK Method | API Path | Description |
+|---------|---------|------|
+| `CreateTransferOut` | `POST /api/v2/private/transfer/createTransferOut` | Create transfer out order (auto L2 signature) |
+| `GetTransferOutById` | `GET /api/v2/private/transfer/getTransferOutById` | Get transfer out order by ID |
+| `GetTransferOutAvailableAmount` | `GET /api/v2/private/transfer/getTransferOutAvailableAmount` | Get available transfer out amount |
+| `GetTransferInById` | `GET /api/v2/private/transfer/getTransferInById` | Get transfer in order by ID |
+
+---
+
+## III. WebSocket API
+
+### 1. Public WebSocket
+
+**Connection URL:** `wss://[domain]/api/v1/public/ws`
+
+**Subscription Channels:**
+- `metadata` - Metadata subscription
+- `ticker.{contractId}` - 24-hour ticker for specified contract
+- `ticker.all` - All contracts ticker
+- `ticker.all.1s` - All contracts ticker (periodic push)
+- `kline.{priceType}.{contractId}.{interval}` - K-line data
+- `depth.{contractId}.{depth}` - Order book depth
+- `trades.{contractId}` - Latest trades
+
+### 2. Private WebSocket
+
+**Connection URL:** `wss://[domain]/api/v1/private/ws`
+
+**Auto-Push Events (No Subscription Required):**
+- `Snapshot` - Snapshot data
+- `ACCOUNT_UPDATE` - Account update
+- `DEPOSIT_UPDATE` - Deposit update
+- `WITHDRAW_UPDATE` - Withdrawal update
+- `TRANSFER_IN_UPDATE` - Transfer in update
+- `TRANSFER_OUT_UPDATE` - Transfer out update
+- `ORDER_UPDATE` - Order update
+- `FORCE_WITHDRAW_UPDATE` - Forced withdrawal update
+- `FORCE_TRADE_UPDATE` - Forced trade update
+- `FUNDING_SETTLEMENT` - Funding rate settlement
+- `ORDER_FILL_FEE_INCOME` - Order fill fee income
+- `START_LIQUIDATING` - Start liquidation
+- `FINISH_LIQUIDATING` - Finish liquidation
+
+---
+
+## IV. V2 New Features
+
+### New Endpoints in V2
+
+1. **`POST /api/v2/private/account/updateLeverageSetting`**
+   - Update leverage setting for trading account
+   
+2. **`GET /api/v2/private/account/getPositionOrders`**
+   - Get historical orders associated with a position term
+   
+3. **`POST /api/v2/private/order/cancelOrderByClientOrderId`**
+   - Cancel order using client-defined order ID instead of system order ID
+   
+4. **`POST /api/v2/private/order/getHistoryOrderPage`**
+   - POST method version of historical order query (supports complex filter criteria in request body)
+
+---
+
+## V. Summary
+
+### API Statistics
+
+| Service Module | Endpoint Count | Description |
+|---------|---------|------|
+| Metadata Service | 2 | Server time, global metadata |
+| Quote Service | 4 | Ticker, depth, K-line, summary |
+| Funding Rate Service | 2 | Latest rate, historical rates |
+| Account Service | 14 | Assets, positions, transactions, snapshots, **+2 new** |
+| Asset Service | 10 | Deposits, withdrawals, cross-chain, fast withdrawal |
+| Order Service | 11 | Create, cancel, query orders, **+2 new** |
+| Transfer Service | 4 | Transfer in, transfer out, available amount |
+| WebSocket | 2 connections + multiple channels | Public market data, private account updates |
+| **Total** | **47 HTTP endpoints + WebSocket support** | Complete trading functionality coverage |
+
+### Version Differences (V1 → V2)
+
+- API path changed from `/api/v1/...` to `/api/v2/...`
+- 4 new endpoints added for enhanced functionality
+- Improved parameter validation and error handling
+- Enhanced WebSocket message documentation
+- Better support for client-defined identifiers
+
+---
+
+## VI. Authentication
+
+- **Public API**: No authentication required
+- **Private API**: Requires authentication via HTTP headers
+  - `X-edgeX-Api-Key`: API key
+  - `X-edgeX-Api-Signature`: Request signature
+  - `X-edgeX-Api-Timestamp`: Request timestamp
+- **WebSocket**: 
+  - Public: No authentication
+  - Private: Authentication via custom headers or SEC_WEBSOCKET_PROTOCOL
+
+For detailed authentication and signature methods, please refer to the [Authentication Documentation](./api-v2/authentication.md) and [L2 Signature Documentation](./api-v2/sign.md).
+
+---
+
+**Document Version**: V2  
+**Last Updated**: 2026-03-10
