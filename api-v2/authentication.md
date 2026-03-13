@@ -541,30 +541,6 @@ func GetValue(data interface{}) string {
 
 ---
 
-## Appendix: Private Endpoint Detection
-
-The SDK automatically determines which endpoints require authentication:
-
-```go
-func ShouldSignWithHMAC(path string) bool {
-    return strings.Contains(path, "private") ||
-           strings.Contains(path, "/opt/") ||
-           strings.Contains(path, "invite") ||
-           strings.Contains(path, "points") ||
-           strings.Contains(path, "/public/codeInfo") ||
-           strings.Contains(path, "/public/info/") ||
-           strings.HasPrefix(path, "/ranking") ||
-           strings.Contains(path, "nft") ||
-           strings.Contains(path, "vault") ||
-           strings.HasPrefix(path, "/activity") ||
-           strings.Contains(path, "/download")
-}
-```
-
-**Most common pattern**: Endpoints containing `"private"` in the path require authentication.
-
----
-
 **Document Version**: V2.0  
 **Last Updated**: 2026-03-12  
 **Based On**: EdgeX Golang SDK V2 Implementation
