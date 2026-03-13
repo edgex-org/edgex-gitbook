@@ -42,7 +42,6 @@
     * [Withdraw API](api/private-api/withdraw-api.md)
   * [Websocket API](api/websocket-api.md)
 * [API Docs V2](api-v2/README.md)
-  * [SDK Interface List V2](SDK接口清单-v2.md)
   * [Authentication](api-v2/authentication.md)
   * [L2 Signature](api-v2/sign.md)
   * [Public API](api-v2/public-api/README.md)
