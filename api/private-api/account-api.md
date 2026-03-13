@@ -1046,6 +1046,55 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------- |
 | 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#accountassetsnapshot>) |
 
+<a id="opIdregisterAccount"></a>
+
+## POST Register Account(Create Sub-Account)
+
+POST /api/v1/private/account/registerAccount
+
+> Body Request Parameters
+
+```json
+{
+    "l2Key": "0x5580341e2c99823a0a35356b8ac84e372dd38fd1f4b50f607b931ec8038c211",
+    "l2KeyYCoordinate": "0x6ea3dd81a7fc864893c8c6f674e4a4510c369f939bdc0259a0980dfde882c2d",
+    "clientAccountId": "Sub-Account-1"
+}
+```
+
+### Request Parameters
+
+| Name                | Location | Type   | Required | Description                                                                                    |
+| ------------------- | -------- | ------ | -------- | ---------------------------------------------------------------------------------------------- |
+| body                | body     | object | Yes       | none                                                                                           |
+| » l2Key             | body     | string | Yes       | L2 account key, globally unique. Corresponds to starkKey in starkEx (bigint as hex string)    |
+| » l2KeyYCoordinate  | body     | string | Yes       | Only used to verify if l2Signature is valid. Not returned to client users (bigint as hex string) |
+| » clientAccountId   | body     | string | Yes       | Client account ID for idempotency verification                                                 |
+
+> Response Example
+
+> 200 Response
+
+```json
+{
+    "code": "SUCCESS",
+    "data": {
+        "accountId": "543429922991899150"
+    },
+    "msg": null,
+    "errorParam": null,
+    "requestTime": "1734664486740",
+    "responseTime": "1734664486761",
+    "traceId": "b3086f53c2d4503f6a4790b80f0e534b"
+}
+```
+
+### Response
+
+| Status Code | Status Code Description                                                                  | Description        | Data Model |
+| ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#registeraccount) |
+
 # Data Models
 
 
@@ -1663,5 +1712,24 @@ GET /api/v1/private/account/getAccountAssetSnapshotPage
 | ------------------ | ------------------------------------- | -------- | ----------- | --------------------------- | ------------------------------------------------------------------- |
 | dataList           | [[PositionTransaction](#schemapositiontransaction)] | false    | none        | Data List                  | List of position transaction data.                                          |
 | nextPageOffsetData | string                                | false    | none        | Next Page Offset        | Offset for retrieving the next page. If no next page data, empty string. |
+
+<a id="registeraccount"></a>
+### RegisterAccount
+
+| Name           | Type                               | Required | Constraints | Description              | Notes                                                                    |
+| -------------- | ---------------------------------- | -------- | ----------- | ------------------------ | ------------------------------------------------------------------------ |
+| code           | string                             | false    | none        | Status Code              | Returns "SUCCESS" on success; otherwise, it indicates failure.            |
+| data           | [RegisterAccountModel](#registeraccountmodel) | false    | none        | Register Account Response | Response data for account registration                                   |
+| errorParam     | object                             | false    | none        | Error Parameters         | Error message parameter information                                       |
+| requestTime    | string(timestamp)                  | false    | none        | Server Request Time     | Time at which the server received the request                             |
+| responseTime   | string(timestamp)                  | false    | none        | Server Response Time    | Time at which the server sent the response                                |
+| traceId        | string                             | false    | none        | Trace ID                | Invocation trace ID                                                     |
+
+<a id="registeraccountmodel"></a>
+### RegisterAccountModel
+
+| Name      | Type          | Required | Constraints | Description                         | Notes                                                                     |
+| --------- | ------------- | -------- | ----------- | ----------------------------------- | ------------------------------------------------------------------------- |
+| accountId | string(int64) | false    | none        | Account ID                          | ID of the newly created account                                           |
 
 
