@@ -382,7 +382,7 @@ GET /api/v2/private/account/getAccountAsset?accountId=724625476626153743
 | `size` | int | No | Page size |
 | `offsetData` | string | No | Pagination offset token |
 
-#### 1.7 Get Position Orders ⭐ V2 New
+#### 1.7 Get Position Orders
 
 **SDK Method**: `GetPositionOrders(ctx context.Context, params account.GetPositionOrdersParams) (*account.GetPositionOrdersResponse, error)`
 
@@ -512,7 +512,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage?accountId=72462547662615
 }
 ```
 
-#### 1.14 Update Leverage Setting ⭐ V2 New
+#### 1.14 Update Leverage Setting
 
 **SDK Method**: `UpdateLeverageSetting(ctx context.Context, contractID string, leverage string) error`
 
@@ -747,7 +747,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage?accountId=72462547662615
 }
 ```
 
-#### 3.3 Cancel Order by Client Order ID ⭐ V2 New
+#### 3.3 Cancel Order by Client Order ID
 
 **SDK Method**: `CancelOrder(ctx context.Context, params *order.CancelOrderParams) (interface{}, error)` (with `ClientId` set)
 
@@ -846,7 +846,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage?accountId=72462547662615
 
 **SDK Method**: `GetHistoryOrderPage(ctx context.Context, params *order.GetHistoryOrderPageParams) (*order.GetHistoryOrderPageResponse, error)`
 
-**API Path**: `POST /api/v2/private/order/getHistoryOrderPage` ⭐ V2 New (POST method)
+**API Path**: `POST /api/v2/private/order/getHistoryOrderPage` (POST method)
 
 **Description**: Get historical orders with advanced filtering (supports POST method for complex filters)
 
@@ -1061,7 +1061,7 @@ After successful authentication, the server automatically pushes the following e
 | **WebSocket** | 1 connection | 1 connection | 2 |
 | **Total** | **9 + 1 WS** | **32 + 1 WS** | **41 + 2 WS** |
 
-### V2 New Features
+### New Features
 
 The following features are new or enhanced in V2:
 

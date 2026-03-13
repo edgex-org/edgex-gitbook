@@ -27,10 +27,10 @@ The following headers **must** be included in requests to private API endpoints:
 
 | Header Name | Type | Required | Description |
 |------------|------|----------|-------------|
-| `X-edgeX-Api-Key` | string | Yes | Your API Key (obtained from EdgeX platform) |
-| `X-edgeX-Passphrase` | string | Yes | Your API Passphrase (set during API key creation) |
-| `X-edgeX-Api-Timestamp` | string | Yes | Request timestamp in milliseconds (Unix timestamp) |
-| `X-edgeX-Api-Signature` | string | Yes | HMAC-SHA256 signature of the request |
+| `X-edgeX-Api-Key` | string | true | Your API Key (obtained from EdgeX platform) |
+| `X-edgeX-Passphrase` | string | true | Your API Passphrase (set during API key creation) |
+| `X-edgeX-Api-Timestamp` | string | true | Request timestamp in milliseconds (Unix timestamp) |
+| `X-edgeX-Api-Signature` | string | true | HMAC-SHA256 signature of the request |
 
 ### API Credentials
 
@@ -59,8 +59,9 @@ To use private APIs, you need to obtain three credentials from the EdgeX platfor
    - **API Key** - For authentication
    - **Secret** - For HMAC signature
    - **Passphrase** - Your set password
-   - **Private Key (Signer Key)** - For Signer Key (see [Signer Key Signature Guide](sign.md))
 4. **Copy and save all credentials immediately**
+
+For Signer Key retrieval steps and security notes, see [Signer Key Signature Guide](sign.md#obtaining-your-signer-key).
 
 <figure><img src="../../.gitbook/assets/get-api-credentials.png" alt=""><figcaption><p>How to get API credentials from EdgeX dashboard</p></figcaption></figure>
 

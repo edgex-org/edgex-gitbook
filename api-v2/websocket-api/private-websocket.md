@@ -13,49 +13,56 @@ The Private WebSocket API provides real-time updates for user account informatio
 ## Connection URL
 
 ```
-wss://[domain]/api/v2/private/ws
+wss://[domain]/api/v1/private/ws
 ```
+
+**Note:** The WebSocket endpoint continues to use the `/api/v1/` path for backward compatibility.
 
 ## Authentication
 
-Private WebSocket connections require authentication using the same signature mechanism as HTTP API endpoints.
+Private WebSocket connections require **HMAC-SHA256 authentication**, consistent with private HTTP APIs.
 
-### Authentication Method 1: Web Browser
+### Authentication Method 1: App/API (Custom Headers)
 
-Browsers don't allow custom headers during WebSocket connections, so authentication data must be passed via the `SEC_WEBSOCKET_PROTOCOL` header.
+This is the primary method used by SDK and server-side clients.
 
-**Steps:**
+#### Request Parameters
 
-1. Generate authentication headers using the standard L2 signature method (same as HTTP API)
-2. Create a JSON string with the authentication headers:
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `query.accountId` | string(int64) | true | Account ID in WebSocket URL query string |
+| `query.timestamp` | string(int64) | true | Millisecond timestamp in WebSocket URL query string |
 
-```json
-{
-  "X-edgeX-Api-Signature": "00e6b34cf9c3c0ca407cc2fe149fad836206c97201f236137c0e89fd079760470672b5257fa372710b5863d1ec6e0215e5bd6b2c3a319eda88886250a100524706ea3dd81a7fc864893c8c6f674e4a4510c369f939bdc0259a0980dfde882c2d",
-  "X-edgeX-Api-Timestamp": "1705720068228"
-}
+#### Request Headers
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `X-edgeX-Api-Key` | string | true | API Key |
+| `X-edgeX-Passphrase` | string | true | API Passphrase |
+| `X-edgeX-Signature` | string | true | HMAC-SHA256 signature |
+| `X-edgeX-Timestamp` | string(int64) | true | Millisecond timestamp in request header (should match `query.timestamp`) |
+
+#### Signature Notes
+
+- WebSocket handshake is `GET`
+- Request URI for signature: `/api/v1/private/ws`
+- Request body for signature: sorted query string (for example: `accountId=xxx&timestamp=yyy`)
+- Signature algorithm: same HMAC flow as [Authentication Guide](../authentication.md)
+
+#### Request Example
+
+```http
+GET /api/v1/private/ws?accountId=724625476626153743&timestamp=1705720068228
+X-edgeX-Api-Key: your-api-key
+X-edgeX-Passphrase: your-api-passphrase
+X-edgeX-Signature: your-hmac-signature
+X-edgeX-Timestamp: 1705720068228
 ```
-
-3. Base64 encode this JSON string
-4. Pass the base64-encoded value in the `SEC_WEBSOCKET_PROTOCOL` header during the WebSocket handshake
-
-### Authentication Method 2: App/API
-
-Apps and API clients can use custom headers during WebSocket connections.
-
-**Option A - Custom Headers (Recommended):**
-
-Use the same authentication logic as HTTP API requests, passing authentication headers directly:
-- `X-edgeX-Api-Signature`: Your L2 signature
-- `X-edgeX-Api-Timestamp`: Current timestamp in milliseconds
-
-**Option B - SEC_WEBSOCKET_PROTOCOL:**
-
-Alternatively, use the Web Browser method described above.
 
 **Important Notes:**
 - WebSocket is a GET request; there is no request body to sign
-- Authentication signatures follow the same L2 signing process as documented in the [Authentication Guide](../authentication.md)
+- Authentication uses HMAC credentials (`API Key`, `Passphrase`, `API Secret`), not L2 signer key signatures
+- `query.timestamp` and `X-edgeX-Timestamp` should be current and consistent
 
 ## Heartbeat Mechanism
 
@@ -905,8 +912,8 @@ When an error occurs, the server sends an error message with the following struc
 ### Authentication
 
 1. **Refresh Timestamps**: Authentication timestamps should be recent (within a few minutes of current time).
-2. **Secure Key Storage**: Store L2 private keys securely; never expose them in client-side code.
-3. **Signature Validation**: Ensure signatures are generated correctly following the L2 signing process.
+2. **Secure Credential Storage**: Store API Key/Passphrase/API Secret securely; never expose API Secret in browser code.
+3. **Signature Validation**: Ensure signatures are generated correctly using HMAC-SHA256 and sorted query parameters.
 
 ### Error Recovery
 
@@ -922,7 +929,7 @@ When an error occurs, the server sends an error message with the following struc
 
 ## See Also
 
-- [Authentication Guide](../authentication.md) - Detailed L2 signature generation
+- [Authentication Guide](../authentication.md) - Detailed HMAC authentication and signature generation
 - [Public WebSocket API](./public-websocket.md) - Market data WebSocket
 - [Account API](../private-api/account-api.md) - REST API for account information
 - [Order API](../private-api/order-api.md) - REST API for order management

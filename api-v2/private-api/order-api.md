@@ -20,12 +20,12 @@ POST /api/v2/private/order/getMaxCreateOrderSize
 
 ### Request Parameters
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|no|none|
-|» accountId|body|string(int64)|yes|Account ID|
-|» contractId|body|string(int64)|yes|Contract ID|
-|» price|body|string(decimal)|yes|Order price|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|body|object|No|none|
+|» accountId|string(int64)|Yes|Account ID|
+|» contractId|string(int64)|Yes|Contract ID|
+|» price|string(decimal)|No|Order price|
 
 > Response Example
 
@@ -50,19 +50,19 @@ POST /api/v2/private/order/getMaxCreateOrderSize
 
 ### Response Parameters
 
-|Name|Type|Required|Description|
-|---|---|---|---|
-|code|string|true|Status code. "SUCCESS" for success, otherwise failure.|
-|data|object|true|Response data|
-|» maxBuySize|string(decimal)|true|Maximum buy size|
-|» maxSellSize|string(decimal)|true|Maximum sell size|
-|» ask1Price|string(decimal)|true|Best ask price|
-|» bid1Price|string(decimal)|true|Best bid price|
-|msg|string|false|Message|
-|errorParam|object|false|Error parameters|
-|requestTime|string(timestamp)|true|Server request receive time|
-|responseTime|string(timestamp)|true|Server response return time|
-|traceId|string|true|Call trace ID|
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, otherwise failure.|
+|data|object|Response data|
+|» maxBuySize|string(decimal)|Maximum buy size|
+|» maxSellSize|string(decimal)|Maximum sell size|
+|» ask1Price|string(decimal)|Best ask price|
+|» bid1Price|string(decimal)|Best bid price|
+|msg|string|Message|
+|errorParam|object|Error parameters|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="opIdcreateOrder"></a>
 
@@ -107,36 +107,36 @@ POST /api/v2/private/order/createOrder
 
 ### Request Parameters
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|no|none|
-|» accountId|body|string(int64)|yes|**Required** - Account ID (HTTP layer validates, will throw exception if empty)|
-|» contractId|body|string(int64)|yes|**Required** - Contract ID (HTTP layer validates, will throw exception if empty)|
-|» side|body|string|no|Buy/Sell direction. Enum: `BUY`, `SELL`. **Business required** - defaults to UNKNOWN if not provided|
-|» size|body|string(decimal)|no|Order quantity. **Business required** - backend will validate|
-|» price|body|string(decimal)|no|Order price (worst acceptable price). **Business required** for limit orders, enter 0 for market orders|
-|» clientOrderId|body|string|no|Client-defined ID for idempotency checks. **Business required**|
-|» type|body|string|no|Order type. Enum: `LIMIT`, `MARKET`, `STOP_LIMIT`, `STOP_MARKET`, `TAKE_PROFIT_LIMIT`, `TAKE_PROFIT_MARKET`. **Business required** - defaults to UNKNOWN if not provided|
-|» timeInForce|body|string|no|Order execution policy. Enum: `GOOD_TIL_CANCEL`, `FILL_OR_KILL`, `IMMEDIATE_OR_CANCEL`, `POST_ONLY`. **Business required** - Market orders must use `IMMEDIATE_OR_CANCEL`|
-|» reduceOnly|body|boolean|no|Whether this is a reduce-only order. Defaults to false if not provided|
-|» triggerPrice|body|string(decimal)|no|Trigger price. Required for conditional orders. Enter 0 or empty string if not applicable|
-|» triggerPriceType|body|string|no|Price type for trigger. Enum: `LAST_PRICE`, `INDEX_PRICE`, `ORACLE_PRICE`, `ASK1_PRICE`, `BID1_PRICE`. Required for conditional orders|
-|» expireTime|body|string(int64)|no|Expiration time in milliseconds. HTTP layer accepts empty (converts to 0)|
-|» sourceKey|body|string|no|Source key, UUID|
-|» isPositionTpsl|body|boolean|no|Whether this is a position take-profit/stop-loss order. Defaults to false|
-|» openTpslParentOrderId|body|string(int64)|no|Order ID of the opening order for TP/SL|
-|» isSetOpenTp|body|boolean|no|Whether take-profit is set for opening order. Defaults to false|
-|» openTp|body|object|no|Take-profit parameters for opening order. Required when `isSetOpenTp` is true|
-|» isSetOpenSl|body|boolean|no|Whether stop-loss is set for opening order. Defaults to false|
-|» openSl|body|object|no|Stop-loss parameters for opening order. Required when `isSetOpenSl` is true|
-|» l2Nonce|body|string(int64)|no|L2 signature nonce. First 32 bits of sha256(`clientOrderId`). HTTP layer accepts empty|
-|» l2Value|body|string(decimal)|no|L2 signature order value. HTTP layer accepts empty|
-|» l2Size|body|string(decimal)|no|L2 signature order quantity. HTTP layer accepts empty|
-|» l2LimitFee|body|string(decimal)|no|Maximum acceptable fee for L2 signature. HTTP layer accepts empty|
-|» l2ExpireTime|body|string(int64)|no|L2 signature expiration time in milliseconds. Must be >= `expireTime` + 8 days. HTTP layer accepts empty|
-|» l2Signature|body|string|no|L2 signature (128 characters). HTTP layer accepts empty but business logic requires valid signature|
-|» extraType|body|string|no|Additional type for upper-layer business use|
-|» extraDataJson|body|string|no|Additional data in JSON format|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|body|object|No|none|
+|» accountId|string(int64)|Yes|**Required** - Account ID (HTTP layer validates, will throw exception if empty)|
+|» contractId|string(int64)|Yes|**Required** - Contract ID (HTTP layer validates, will throw exception if empty)|
+|» side|string|Yes|Buy/Sell direction. Enum: `BUY`, `SELL`. **Business required** - defaults to UNKNOWN if not provided|
+|» size|string(decimal)|Yes|Order quantity. **Business required** - backend will validate|
+|» price|string(decimal)|Yes|Order price (worst acceptable price). **Business required** for limit orders, enter 0 for market orders|
+|» clientOrderId|string|Yes|Client-defined ID for idempotency checks. **Business required**|
+|» type|string|Yes|Order type. Enum: `LIMIT`, `MARKET`, `STOP_LIMIT`, `STOP_MARKET`, `TAKE_PROFIT_LIMIT`, `TAKE_PROFIT_MARKET`. **Business required** - defaults to UNKNOWN if not provided|
+|» timeInForce|string|Yes|Order execution policy. Enum: `GOOD_TIL_CANCEL`, `FILL_OR_KILL`, `IMMEDIATE_OR_CANCEL`, `POST_ONLY`. **Business required** - Market orders must use `IMMEDIATE_OR_CANCEL`|
+|» reduceOnly|boolean|No|Whether this is a reduce-only order. Defaults to false if not provided|
+|» triggerPrice|string(decimal)|No|Trigger price. Required for conditional orders. Enter 0 or empty string if not applicable|
+|» triggerPriceType|string|No|Price type for trigger. Enum: `LAST_PRICE`, `INDEX_PRICE`, `ORACLE_PRICE`, `ASK1_PRICE`, `BID1_PRICE`. Required for conditional orders|
+|» expireTime|string(int64)|No|Expiration time in milliseconds. HTTP layer accepts empty (converts to 0)|
+|» sourceKey|string|No|Source key, UUID|
+|» isPositionTpsl|boolean|No|Whether this is a position take-profit/stop-loss order. Defaults to false|
+|» openTpslParentOrderId|string(int64)|No|Order ID of the opening order for TP/SL|
+|» isSetOpenTp|boolean|No|Whether take-profit is set for opening order. Defaults to false|
+|» openTp|object|No|Take-profit parameters for opening order. Required when `isSetOpenTp` is true|
+|» isSetOpenSl|boolean|No|Whether stop-loss is set for opening order. Defaults to false|
+|» openSl|object|No|Stop-loss parameters for opening order. Required when `isSetOpenSl` is true|
+|» l2Nonce|string(int64)|Yes|L2 signature nonce. First 32 bits of sha256(`clientOrderId`). HTTP layer accepts empty|
+|» l2Value|string(decimal)|Yes|L2 signature order value. HTTP layer accepts empty|
+|» l2Size|string(decimal)|Yes|L2 signature order quantity. HTTP layer accepts empty|
+|» l2LimitFee|string(decimal)|Yes|Maximum acceptable fee for L2 signature. HTTP layer accepts empty|
+|» l2ExpireTime|string(int64)|Yes|L2 signature expiration time in milliseconds. Must be >= `expireTime` + 8 days. HTTP layer accepts empty|
+|» l2Signature|string|Yes|L2 signature (128 characters). HTTP layer accepts empty but business logic requires valid signature|
+|» extraType|string|No|Additional type for upper-layer business use|
+|» extraDataJson|string|No|Additional data in JSON format|
 
 > Response Example
 
@@ -158,16 +158,16 @@ POST /api/v2/private/order/createOrder
 
 ### Response Parameters
 
-|Name|Type|Required|Description|
-|---|---|---|---|
-|code|string|true|Status code. "SUCCESS" for success, otherwise failure.|
-|data|object|true|Response data|
-|» orderId|string(int64)|true|Created order ID|
-|msg|string|false|Message|
-|errorParam|object|false|Error parameters|
-|requestTime|string(timestamp)|true|Server request receive time|
-|responseTime|string(timestamp)|true|Server response return time|
-|traceId|string|true|Call trace ID|
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, otherwise failure.|
+|data|object|Response data|
+|» orderId|string(int64)|Created order ID|
+|msg|string|Message|
+|errorParam|object|Error parameters|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="opIdcancelOrderById"></a>
 
@@ -190,11 +190,11 @@ POST /api/v2/private/order/cancelOrderById
 
 ### Request Parameters
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|no|none|
-|» accountId|body|string(int64)|yes|Account ID|
-|» orderIdList|body|array[string]|yes|Array of order IDs to cancel|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|body|object|No|none|
+|» accountId|string(int64)|Yes|Account ID|
+|» orderIdList|array[string]|No|Array of order IDs to cancel|
 
 > Response Example
 
@@ -218,20 +218,20 @@ POST /api/v2/private/order/cancelOrderById
 
 ### Response Parameters
 
-|Name|Type|Required|Description|
-|---|---|---|---|
-|code|string|true|Status code. "SUCCESS" for success, otherwise failure.|
-|data|object|true|Response data|
-|» cancelResultMap|object|true|Map of order ID to cancellation result|
-|msg|string|false|Message|
-|errorParam|object|false|Error parameters|
-|requestTime|string(timestamp)|true|Server request receive time|
-|responseTime|string(timestamp)|true|Server response return time|
-|traceId|string|true|Call trace ID|
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, otherwise failure.|
+|data|object|Response data|
+|» cancelResultMap|object|Map of order ID to cancellation result|
+|msg|string|Message|
+|errorParam|object|Error parameters|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="opIdcancelOrderByClientOrderId"></a>
 
-## POST Cancel Order by Client Order ID ⭐ [V2 NEW]
+## POST Cancel Order by Client Order ID
 
 POST /api/v2/private/order/cancelOrderByClientOrderId
 
@@ -251,11 +251,11 @@ POST /api/v2/private/order/cancelOrderByClientOrderId
 
 ### Request Parameters
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|no|none|
-|» accountId|body|string(int64)|yes|Account ID|
-|» clientOrderIdList|body|array[string]|yes|Array of client order IDs to cancel|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|body|object|No|none|
+|» accountId|string(int64)|Yes|Account ID|
+|» clientOrderIdList|array[string]|No|Array of client order IDs to cancel|
 
 > Response Example
 
@@ -280,16 +280,16 @@ POST /api/v2/private/order/cancelOrderByClientOrderId
 
 ### Response Parameters
 
-|Name|Type|Required|Description|
-|---|---|---|---|
-|code|string|true|Status code. "SUCCESS" for success, otherwise failure.|
-|data|object|true|Response data|
-|» cancelResultMap|object|true|Map of client order ID to cancellation result|
-|msg|string|false|Message|
-|errorParam|object|false|Error parameters|
-|requestTime|string(timestamp)|true|Server request receive time|
-|responseTime|string(timestamp)|true|Server response return time|
-|traceId|string|true|Call trace ID|
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, otherwise failure.|
+|data|object|Response data|
+|» cancelResultMap|object|Map of client order ID to cancellation result|
+|msg|string|Message|
+|errorParam|object|Error parameters|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="opIdcancelAllOrder"></a>
 
@@ -316,15 +316,15 @@ Cancels all active orders under the account with optional filtering.
 
 ### Request Parameters
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|no|none|
-|» accountId|body|string(int64)|yes|Account ID|
-|» filterCoinIdList|body|array[string]|no|Filter by collateral coin IDs. If empty, cancels for all coins.|
-|» filterContractIdList|body|array[string]|no|Filter by contract IDs. If empty, cancels for all contracts.|
-|» filterOrderTypeList|body|array[string]|no|Filter by order types. If empty, cancels all types. Enum values: `LIMIT`, `MARKET`, `STOP_LIMIT`, `STOP_MARKET`, `TAKE_PROFIT_LIMIT`, `TAKE_PROFIT_MARKET`|
-|» filterOrderStatusList|body|array[string]|no|Filter by order status. If empty, cancels all statuses. Enum values: `PENDING`, `OPEN`, `UNTRIGGERED`|
-|» filterIsPositionTpsl|body|array[boolean]|no|Filter by position TP/SL orders. If empty, cancels all orders.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|body|object|No|none|
+|» accountId|string(int64)|Yes|Account ID|
+|» filterCoinIdList|array[string]|No|Filter by collateral coin IDs. If empty, cancels for all coins.|
+|» filterContractIdList|array[string]|No|Filter by contract IDs. If empty, cancels for all contracts.|
+|» filterOrderTypeList|array[string]|No|Filter by order types. If empty, cancels all types. Enum values: `LIMIT`, `MARKET`, `STOP_LIMIT`, `STOP_MARKET`, `TAKE_PROFIT_LIMIT`, `TAKE_PROFIT_MARKET`|
+|» filterOrderStatusList|array[string]|No|Filter by order status. If empty, cancels all statuses. Enum values: `PENDING`, `OPEN`, `UNTRIGGERED`|
+|» filterIsPositionTpsl|array[boolean]|No|Filter by position TP/SL orders. If empty, cancels all orders.|
 
 > Response Example
 
@@ -349,16 +349,16 @@ Cancels all active orders under the account with optional filtering.
 
 ### Response Parameters
 
-|Name|Type|Required|Description|
-|---|---|---|---|
-|code|string|true|Status code. "SUCCESS" for success, otherwise failure.|
-|data|object|true|Response data|
-|» cancelResultMap|object|true|Map of order ID to cancellation result|
-|msg|string|false|Message|
-|errorParam|object|false|Error parameters|
-|requestTime|string(timestamp)|true|Server request receive time|
-|responseTime|string(timestamp)|true|Server response return time|
-|traceId|string|true|Call trace ID|
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, otherwise failure.|
+|data|object|Response data|
+|» cancelResultMap|object|Map of order ID to cancellation result|
+|msg|string|Message|
+|errorParam|object|Error parameters|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="opIdgetOrderById"></a>
 
@@ -370,10 +370,10 @@ Retrieves orders by account ID and order IDs (batch operation).
 
 ### Request Parameters
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|accountId|query|string(int64)|yes|Account ID|
-|orderIdList|query|array[string]|yes|Array of order IDs|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string(int64)|Yes|Account ID|
+|orderIdList|array[string]|No|Array of order IDs|
 
 > Response Example
 
@@ -417,36 +417,36 @@ Retrieves orders by account ID and order IDs (batch operation).
 
 ### Response Parameters
 
-|Name|Type|Required|Description|
-|---|---|---|---|
-|code|string|true|Status code. "SUCCESS" for success, otherwise failure.|
-|data|array[object]|true|Array of order objects|
-|» id|string(int64)|true|Order ID|
-|» userId|string(int64)|true|User ID|
-|» accountId|string(int64)|true|Account ID|
-|» coinId|string(int64)|true|Collateral coin ID|
-|» contractId|string(int64)|true|Contract ID|
-|» side|string|true|Buy/Sell direction. Enum: `BUY`, `SELL`|
-|» price|string(decimal)|true|Order price|
-|» size|string(decimal)|true|Order quantity|
-|» clientOrderId|string|true|Client-defined order ID|
-|» type|string|true|Order type|
-|» timeInForce|string|true|Order execution policy|
-|» reduceOnly|boolean|true|Whether this is a reduce-only order|
-|» triggerPrice|string(decimal)|true|Trigger price|
-|» triggerPriceType|string|true|Trigger price type|
-|» expireTime|string(int64)|true|Expiration time|
-|» status|string|true|Order status. Enum: `PENDING`, `OPEN`, `FILLED`, `CANCELING`, `CANCELED`, `UNTRIGGERED`|
-|» cumFillSize|string(decimal)|true|Cumulative filled quantity|
-|» cumFillValue|string(decimal)|true|Cumulative filled value|
-|» cumFillFee|string(decimal)|true|Cumulative filled fee|
-|» createdTime|string(int64)|true|Creation time|
-|» updatedTime|string(int64)|true|Update time|
-|msg|string|false|Message|
-|errorParam|object|false|Error parameters|
-|requestTime|string(timestamp)|true|Server request receive time|
-|responseTime|string(timestamp)|true|Server response return time|
-|traceId|string|true|Call trace ID|
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, otherwise failure.|
+|data|array[object]|Array of order objects|
+|» id|string(int64)|Order ID|
+|» userId|string(int64)|User ID|
+|» accountId|string(int64)|Account ID|
+|» coinId|string(int64)|Collateral coin ID|
+|» contractId|string(int64)|Contract ID|
+|» side|string|Buy/Sell direction. Enum: `BUY`, `SELL`|
+|» price|string(decimal)|Order price|
+|» size|string(decimal)|Order quantity|
+|» clientOrderId|string|Client-defined order ID|
+|» type|string|Order type|
+|» timeInForce|string|Order execution policy|
+|» reduceOnly|boolean|Whether this is a reduce-only order|
+|» triggerPrice|string(decimal)|Trigger price|
+|» triggerPriceType|string|Trigger price type|
+|» expireTime|string(int64)|Expiration time|
+|» status|string|Order status. Enum: `PENDING`, `OPEN`, `FILLED`, `CANCELING`, `CANCELED`, `UNTRIGGERED`|
+|» cumFillSize|string(decimal)|Cumulative filled quantity|
+|» cumFillValue|string(decimal)|Cumulative filled value|
+|» cumFillFee|string(decimal)|Cumulative filled fee|
+|» createdTime|string(int64)|Creation time|
+|» updatedTime|string(int64)|Update time|
+|msg|string|Message|
+|errorParam|object|Error parameters|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="opIdgetOrderByClientOrderId"></a>
 
@@ -458,10 +458,10 @@ Retrieves orders by account ID and client order IDs (batch operation).
 
 ### Request Parameters
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|accountId|query|string(int64)|yes|Account ID|
-|clientOrderIdList|query|array[string]|yes|Array of client-defined order IDs|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string(int64)|Yes|Account ID|
+|clientOrderIdList|array[string]|No|Array of client-defined order IDs|
 
 > Response Example
 
@@ -514,20 +514,20 @@ Retrieves active orders under the account with pagination and filtering.
 
 ### Request Parameters
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|accountId|query|string(int64)|yes|Account ID|
-|size|query|integer|no|Number of items to fetch. Must be > 0 and <= 200. Default: 100|
-|offsetData|query|string|no|Pagination offset. If empty, retrieves the first page.|
-|filterCoinIdList|query|array[string]|no|Filter by collateral coin IDs. If empty, fetches for all coins.|
-|filterContractIdList|query|array[string]|no|Filter by contract IDs. If empty, fetches for all contracts.|
-|filterTypeList|query|array[string]|no|Filter by order types. If empty, fetches all types.|
-|filterStatusList|query|array[string]|no|Filter by order status. If empty, fetches all statuses.|
-|filterIsLiquidateList|query|array[boolean]|no|Filter by liquidation orders. If empty, fetches all orders.|
-|filterIsDeleverageList|query|array[boolean]|no|Filter by deleverage orders. If empty, fetches all orders.|
-|filterIsPositionTpslList|query|array[boolean]|no|Filter by position TP/SL orders. If empty, fetches all orders.|
-|filterStartCreatedTimeInclusive|query|string(int64)|no|Filter orders created after this time (inclusive). If 0 or empty, from earliest.|
-|filterEndCreatedTimeExclusive|query|string(int64)|no|Filter orders created before this time (exclusive). If 0 or empty, to latest.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string(int64)|Yes|Account ID|
+|size|integer|No|Number of items to fetch. Must be > 0 and <= 200. Default: 100|
+|offsetData|string|No|Pagination offset. If empty, retrieves the first page.|
+|filterCoinIdList|array[string]|No|Filter by collateral coin IDs. If empty, fetches for all coins.|
+|filterContractIdList|array[string]|No|Filter by contract IDs. If empty, fetches for all contracts.|
+|filterTypeList|array[string]|No|Filter by order types. If empty, fetches all types.|
+|filterStatusList|array[string]|No|Filter by order status. If empty, fetches all statuses.|
+|filterIsLiquidateList|array[boolean]|No|Filter by liquidation orders. If empty, fetches all orders.|
+|filterIsDeleverageList|array[boolean]|No|Filter by deleverage orders. If empty, fetches all orders.|
+|filterIsPositionTpslList|array[boolean]|No|Filter by position TP/SL orders. If empty, fetches all orders.|
+|filterStartCreatedTimeInclusive|string(int64)|No|Filter orders created after this time (inclusive). If 0 or empty, from earliest.|
+|filterEndCreatedTimeExclusive|string(int64)|No|Filter orders created before this time (exclusive). If 0 or empty, to latest.|
 
 > Response Example
 
@@ -566,17 +566,17 @@ Retrieves active orders under the account with pagination and filtering.
 
 ### Response Parameters
 
-|Name|Type|Required|Description|
-|---|---|---|---|
-|code|string|true|Status code. "SUCCESS" for success, otherwise failure.|
-|data|object|true|Response data|
-|» dataList|array[object]|true|Array of order objects|
-|» nextPageOffsetData|string|true|Offset for next page. Empty string if no more data.|
-|msg|string|false|Message|
-|errorParam|object|false|Error parameters|
-|requestTime|string(timestamp)|true|Server request receive time|
-|responseTime|string(timestamp)|true|Server response return time|
-|traceId|string|true|Call trace ID|
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, otherwise failure.|
+|data|object|Response data|
+|» dataList|array[object]|Array of order objects|
+|» nextPageOffsetData|string|Offset for next page. Empty string if no more data.|
+|msg|string|Message|
+|errorParam|object|Error parameters|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="opIdgetHistoryOrderPage"></a>
 
@@ -588,21 +588,21 @@ Retrieves historical orders with pagination and filtering.
 
 ### Request Parameters
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|accountId|query|string(int64)|yes|Account ID|
-|size|query|integer|no|Number of items to fetch. Must be > 0 and <= 100. Default: 100|
-|offsetData|query|string|no|Pagination offset. If empty, retrieves the first page.|
-|filterCoinIdList|query|array[string]|no|Filter by collateral coin IDs. If empty, fetches for all coins.|
-|filterContractIdList|query|array[string]|no|Filter by contract IDs. If empty, fetches for all contracts.|
-|filterTypeList|query|array[string]|no|Filter by order types. If empty, fetches all types.|
-|filterStatusList|query|array[string]|no|Filter by order status. If empty, fetches all statuses.|
-|filterIsLiquidateList|query|array[boolean]|no|Filter by liquidation orders. If empty, fetches all orders.|
-|filterIsDeleverageList|query|array[boolean]|no|Filter by deleverage orders. If empty, fetches all orders.|
-|filterIsPositionTpslList|query|array[boolean]|no|Filter by position TP/SL orders. If empty, fetches all orders.|
-|filterStartCreatedTimeInclusive|query|string(int64)|no|Filter orders created after this time (inclusive). If 0 or empty, from earliest.|
-|filterEndCreatedTimeExclusive|query|string(int64)|no|Filter orders created before this time (exclusive). If 0 or empty, to latest.|
-|filterOrderIdList|query|array[string]|no|Filter by specific order IDs. If empty, fetches all orders.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string(int64)|Yes|Account ID|
+|size|integer|No|Number of items to fetch. Must be > 0 and <= 100. Default: 100|
+|offsetData|string|No|Pagination offset. If empty, retrieves the first page.|
+|filterCoinIdList|array[string]|No|Filter by collateral coin IDs. If empty, fetches for all coins.|
+|filterContractIdList|array[string]|No|Filter by contract IDs. If empty, fetches for all contracts.|
+|filterTypeList|array[string]|No|Filter by order types. If empty, fetches all types.|
+|filterStatusList|array[string]|No|Filter by order status. If empty, fetches all statuses.|
+|filterIsLiquidateList|array[boolean]|No|Filter by liquidation orders. If empty, fetches all orders.|
+|filterIsDeleverageList|array[boolean]|No|Filter by deleverage orders. If empty, fetches all orders.|
+|filterIsPositionTpslList|array[boolean]|No|Filter by position TP/SL orders. If empty, fetches all orders.|
+|filterStartCreatedTimeInclusive|string(int64)|No|Filter orders created after this time (inclusive). If 0 or empty, from earliest.|
+|filterEndCreatedTimeExclusive|string(int64)|No|Filter orders created before this time (exclusive). If 0 or empty, to latest.|
+|filterOrderIdList|array[string]|No|Filter by specific order IDs. If empty, fetches all orders.|
 
 > Response Example
 
@@ -644,21 +644,21 @@ Retrieves historical orders with pagination and filtering.
 
 ### Response Parameters
 
-|Name|Type|Required|Description|
-|---|---|---|---|
-|code|string|true|Status code. "SUCCESS" for success, otherwise failure.|
-|data|object|true|Response data|
-|» dataList|array[object]|true|Array of order objects|
-|» nextPageOffsetData|string|true|Offset for next page. Empty string if no more data.|
-|msg|string|false|Message|
-|errorParam|object|false|Error parameters|
-|requestTime|string(timestamp)|true|Server request receive time|
-|responseTime|string(timestamp)|true|Server response return time|
-|traceId|string|true|Call trace ID|
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, otherwise failure.|
+|data|object|Response data|
+|» dataList|array[object]|Array of order objects|
+|» nextPageOffsetData|string|Offset for next page. Empty string if no more data.|
+|msg|string|Message|
+|errorParam|object|Error parameters|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="opIdgetHistoryOrderPagePost"></a>
 
-## POST Get Historical Orders (Paginated) ⭐ [V2 NEW]
+## POST Get Historical Orders (Paginated)
 
 POST /api/v2/private/order/getHistoryOrderPage
 
@@ -688,22 +688,22 @@ Retrieves historical orders with pagination and filtering.
 
 ### Request Parameters
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|no|none|
-|» accountId|body|string(int64)|yes|Account ID|
-|» size|body|integer|no|Number of items to fetch. Must be > 0 and <= 100. Default: 100|
-|» offsetData|body|string|no|Pagination offset. If empty, retrieves the first page.|
-|» filterCoinIdList|body|array[string]|no|Filter by collateral coin IDs. If empty, fetches for all coins.|
-|» filterContractIdList|body|array[string]|no|Filter by contract IDs. If empty, fetches for all contracts.|
-|» filterTypeList|body|array[string]|no|Filter by order types. If empty, fetches all types.|
-|» filterStatusList|body|array[string]|no|Filter by order status. If empty, fetches all statuses.|
-|» filterIsLiquidateList|body|array[boolean]|no|Filter by liquidation orders. If empty, fetches all orders.|
-|» filterIsDeleverageList|body|array[boolean]|no|Filter by deleverage orders. If empty, fetches all orders.|
-|» filterIsPositionTpslList|body|array[boolean]|no|Filter by position TP/SL orders. If empty, fetches all orders.|
-|» filterStartCreatedTimeInclusive|body|string(int64)|no|Filter orders created after this time (inclusive). If 0 or empty, from earliest.|
-|» filterEndCreatedTimeExclusive|body|string(int64)|no|Filter orders created before this time (exclusive). If 0 or empty, to latest.|
-|» filterOrderIdList|body|array[string]|no|Filter by specific order IDs. If empty, fetches all orders.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|body|object|No|none|
+|» accountId|string(int64)|Yes|Account ID|
+|» size|integer|No|Number of items to fetch. Must be > 0 and <= 100. Default: 100|
+|» offsetData|string|No|Pagination offset. If empty, retrieves the first page.|
+|» filterCoinIdList|array[string]|No|Filter by collateral coin IDs. If empty, fetches for all coins.|
+|» filterContractIdList|array[string]|No|Filter by contract IDs. If empty, fetches for all contracts.|
+|» filterTypeList|array[string]|No|Filter by order types. If empty, fetches all types.|
+|» filterStatusList|array[string]|No|Filter by order status. If empty, fetches all statuses.|
+|» filterIsLiquidateList|array[boolean]|No|Filter by liquidation orders. If empty, fetches all orders.|
+|» filterIsDeleverageList|array[boolean]|No|Filter by deleverage orders. If empty, fetches all orders.|
+|» filterIsPositionTpslList|array[boolean]|No|Filter by position TP/SL orders. If empty, fetches all orders.|
+|» filterStartCreatedTimeInclusive|string(int64)|No|Filter orders created after this time (inclusive). If 0 or empty, from earliest.|
+|» filterEndCreatedTimeExclusive|string(int64)|No|Filter orders created before this time (exclusive). If 0 or empty, to latest.|
+|» filterOrderIdList|array[string]|No|Filter by specific order IDs. If empty, fetches all orders.|
 
 > Response Example
 
@@ -757,19 +757,19 @@ Retrieves historical order fill transactions with pagination and filtering.
 
 ### Request Parameters
 
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|accountId|query|string(int64)|yes|Account ID|
-|size|query|integer|no|Number of items to fetch. Must be > 0 and <= 100. Default: 100|
-|offsetData|query|string|no|Pagination offset. If empty, retrieves the first page.|
-|filterCoinIdList|query|array[string]|no|Filter by collateral coin IDs. If empty, fetches for all coins.|
-|filterContractIdList|query|array[string]|no|Filter by contract IDs. If empty, fetches for all contracts.|
-|filterOrderIdList|query|array[string]|no|Filter by order IDs. If empty, fetches for all orders.|
-|filterIsLiquidateList|query|array[boolean]|no|Filter by liquidation orders. If empty, fetches all orders.|
-|filterIsDeleverageList|query|array[boolean]|no|Filter by deleverage orders. If empty, fetches all orders.|
-|filterIsPositionTpslList|query|array[boolean]|no|Filter by position TP/SL orders. If empty, fetches all orders.|
-|filterStartCreatedTimeInclusive|query|string(int64)|no|Filter transactions created after this time (inclusive). If 0 or empty, from earliest.|
-|filterEndCreatedTimeExclusive|query|string(int64)|no|Filter transactions created before this time (exclusive). If 0 or empty, to latest.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string(int64)|Yes|Account ID|
+|size|integer|No|Number of items to fetch. Must be > 0 and <= 100. Default: 100|
+|offsetData|string|No|Pagination offset. If empty, retrieves the first page.|
+|filterCoinIdList|array[string]|No|Filter by collateral coin IDs. If empty, fetches for all coins.|
+|filterContractIdList|array[string]|No|Filter by contract IDs. If empty, fetches for all contracts.|
+|filterOrderIdList|array[string]|No|Filter by order IDs. If empty, fetches for all orders.|
+|filterIsLiquidateList|array[boolean]|No|Filter by liquidation orders. If empty, fetches all orders.|
+|filterIsDeleverageList|array[boolean]|No|Filter by deleverage orders. If empty, fetches all orders.|
+|filterIsPositionTpslList|array[boolean]|No|Filter by position TP/SL orders. If empty, fetches all orders.|
+|filterStartCreatedTimeInclusive|string(int64)|No|Filter transactions created after this time (inclusive). If 0 or empty, from earliest.|
+|filterEndCreatedTimeExclusive|string(int64)|No|Filter transactions created before this time (exclusive). If 0 or empty, to latest.|
 
 > Response Example
 
@@ -812,14 +812,14 @@ Retrieves historical order fill transactions with pagination and filtering.
 
 ### Response Parameters
 
-|Name|Type|Required|Description|
-|---|---|---|---|
-|code|string|true|Status code. "SUCCESS" for success, otherwise failure.|
-|data|object|true|Response data|
-|» dataList|array[object]|true|Array of order fill transaction objects|
-|» nextPageOffsetData|string|true|Offset for next page. Empty string if no more data.|
-|msg|string|false|Message|
-|errorParam|object|false|Error parameters|
-|requestTime|string(timestamp)|true|Server request receive time|
-|responseTime|string(timestamp)|true|Server response return time|
-|traceId|string|true|Call trace ID|
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, otherwise failure.|
+|data|object|Response data|
+|» dataList|array[object]|Array of order fill transaction objects|
+|» nextPageOffsetData|string|Offset for next page. Empty string if no more data.|
+|msg|string|Message|
+|errorParam|object|Error parameters|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|

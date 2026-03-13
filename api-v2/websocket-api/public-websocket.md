@@ -26,12 +26,15 @@ Upon successful connection, the server sends a connection confirmation message:
 ```
 
 **Response Fields:**
-- `sid` (string): Unique session identifier assigned by the server
-- `type` (string): Message type, always `"connected"` for connection confirmation
-- `channel` (string|null): Not applicable for connection messages
-- `request` (string|null): Not applicable for connection messages
-- `content` (any|null): Not applicable for connection messages
-- `time` (string|null): Not applicable for connection messages
+
+| Name | Type | Description |
+|------|------|-------------|
+| `sid` | string | Unique session identifier assigned by the server |
+| `type` | string | Message type, always `connected` for connection confirmation |
+| `channel` | string or null | Not applicable for connection messages |
+| `request` | string or null | Not applicable for connection messages |
+| `content` | any or null | Not applicable for connection messages |
+| `time` | string or null | Not applicable for connection messages |
 
 ## Heartbeat Mechanism (Ping/Pong)
 
@@ -59,8 +62,12 @@ The server sends periodic ping messages to verify the connection is alive.
 
 **Important:** The client must respond with a pong message containing the same `time` value received in the ping. If the server doesn't receive a pong response after 5 consecutive pings, the connection will be terminated.
 
-**Fields:**
-- `time` (string): Server timestamp in milliseconds when the ping was sent
+**Response Schema:**
+
+| Name | Type | Description |
+|------|------|-------------|
+| `type` | string | Always `ping` |
+| `time` | string(int64) | Server timestamp in milliseconds when the ping was sent |
 
 ### Client-Initiated Ping (Latency Measurement)
 
@@ -82,8 +89,19 @@ Clients can also initiate ping messages to measure round-trip latency.
 }
 ```
 
-**Fields:**
-- `time` (string): Client timestamp in milliseconds when the ping was sent. The server echoes this value back in the pong response.
+**Request Schema:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `type` | string | true | Must be `ping` |
+| `time` | string(int64) | true | Client timestamp in milliseconds |
+
+**Response Schema:**
+
+| Name | Type | Description |
+|------|------|-------------|
+| `type` | string | Always `pong` |
+| `time` | string(int64) | Echoes the request `time` for latency calculation |
 
 ## Subscription Mechanism
 
@@ -98,8 +116,11 @@ Clients can also initiate ping messages to measure round-trip latency.
 ```
 
 **Request Fields:**
-- `type` (string): Must be `"subscribe"`
-- `channel` (string): The channel identifier to subscribe to (see Channel List below)
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `type` | string | true | Must be `subscribe` |
+| `channel` | string | true | Channel identifier to subscribe to (see channel list below) |
 
 **Success Response:**
 ```json
@@ -110,8 +131,11 @@ Clients can also initiate ping messages to measure round-trip latency.
 ```
 
 **Response Fields:**
-- `type` (string): Always `"subscribed"` on successful subscription
-- `channel` (string): The channel that was successfully subscribed to
+
+| Name | Type | Description |
+|------|------|-------------|
+| `type` | string | Always `subscribed` on successful subscription |
+| `channel` | string | Channel that was successfully subscribed to |
 
 **Error Response:**
 ```json
@@ -125,9 +149,12 @@ Clients can also initiate ping messages to measure round-trip latency.
 ```
 
 **Error Response Fields:**
-- `type` (string): Always `"error"` for error messages
-- `content.code` (string): Error code identifying the type of error
-- `content.msg` (string): Human-readable error message describing the issue
+
+| Name | Type | Description |
+|------|------|-------------|
+| `type` | string | Always `error` |
+| `content.code` | string | Error code identifying the type of error |
+| `content.msg` | string | Human-readable error message |
 
 ### Unsubscribe from a Channel
 
@@ -140,8 +167,11 @@ Clients can also initiate ping messages to measure round-trip latency.
 ```
 
 **Request Fields:**
-- `type` (string): Must be `"unsubscribe"`
-- `channel` (string): The channel identifier to unsubscribe from
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `type` | string | true | Must be `unsubscribe` |
+| `channel` | string | true | Channel identifier to unsubscribe from |
 
 **Success Response:**
 ```json
@@ -152,8 +182,11 @@ Clients can also initiate ping messages to measure round-trip latency.
 ```
 
 **Response Fields:**
-- `type` (string): Always `"unsubscribed"` on successful unsubscription
-- `channel` (string): The channel that was successfully unsubscribed from
+
+| Name | Type | Description |
+|------|------|-------------|
+| `type` | string | Always `unsubscribed` on successful unsubscription |
+| `channel` | string | Channel that was successfully unsubscribed from |
 
 ## Data Push Format
 
@@ -172,11 +205,14 @@ After subscribing to a channel, the server will push data updates in the followi
 ```
 
 **Message Fields:**
-- `type` (string): Always `"payload"` for data push messages
-- `channel` (string): The channel this data belongs to
-- `content.dataType` (string): Data update type - `"Snapshot"` for full data, `"Changed"` for incremental updates
-- `content.channel` (string): Redundant channel identifier (same as outer `channel`)
-- `content.data` (array): Array of data objects specific to the subscribed channel
+
+| Name | Type | Description |
+|------|------|-------------|
+| `type` | string | Always `payload` for data push messages |
+| `channel` | string | Channel this data belongs to |
+| `content.dataType` | string | Data update type: `Snapshot` or `Changed` |
+| `content.channel` | string | Redundant channel identifier (same as outer `channel`) |
+| `content.data` | array | Data objects specific to the subscribed channel |
 
 ### Data Types
 

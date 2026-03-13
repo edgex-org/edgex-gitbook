@@ -83,13 +83,13 @@ Receive real-time updates about your account, orders, and positions (authenticat
 
 ### Authentication Methods
 
-**Web Browser:**
-- Base64-encoded authentication headers in `SEC_WEBSOCKET_PROTOCOL` header
-- Required due to browser WebSocket API limitations
-
 **App/API:**
-- Custom headers (same as HTTP API authentication)
-- Or web browser method (also supported)
+- Use 4 HMAC headers:
+  - `X-edgeX-Api-Key`
+  - `X-edgeX-Passphrase`
+  - `X-edgeX-Signature`
+  - `X-edgeX-Timestamp`
+- Include `accountId` and `timestamp` in URL query parameters
 
 ### Data Structure
 
@@ -205,12 +205,30 @@ ws.onmessage = (event) => {
 ### Private WebSocket (Receive Order Updates)
 
 ```javascript
-// Generate authentication signature (see Authentication docs)
-const authHeaders = generateAuthHeaders(apiKey, apiSecret, timestamp);
-const authString = btoa(JSON.stringify(authHeaders));
+const WebSocket = require('ws');
 
-const ws = new WebSocket('wss://testnet.edgex.exchange/api/v1/private/ws', 
-                          authString);
+const accountId = '724625476626153743';
+const timestamp = Date.now().toString();
+// Generate HMAC signature according to Authentication Guide
+const signature = buildWsSignature({
+  apiSecret,
+  method: 'GET',
+  requestURI: '/api/v1/private/ws',
+  queryString: `accountId=${accountId}&timestamp=${timestamp}`,
+  timestamp
+});
+
+const ws = new WebSocket(
+  `wss://testnet.edgex.exchange/api/v1/private/ws?accountId=${accountId}&timestamp=${timestamp}`,
+  {
+    headers: {
+      'X-edgeX-Api-Key': apiKey,
+      'X-edgeX-Passphrase': apiPassphrase,
+      'X-edgeX-Signature': signature,
+      'X-edgeX-Timestamp': timestamp
+    }
+  }
+);
 
 ws.onmessage = (event) => {
   const message = JSON.parse(event.data);

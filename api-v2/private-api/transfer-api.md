@@ -8,10 +8,10 @@ GET /api/v2/private/transfer/getTransferInById
 
 ### Request Parameters
 
-| Name | Location | Type | Required | Description |
-|---|---|---|---|---|
-| accountId | query | string | No | Account ID |
-| transferInIdList | query | array[string] | Yes | Transfer In ID list |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
+|transferInIdList|array[string]|No|Transfer In ID list|
 
 > Response Example
 
@@ -76,10 +76,10 @@ GET /api/v2/private/transfer/getTransferOutById
 
 ### Request Parameters
 
-| Name | Location | Type | Required | Description |
-|---|---|---|---|---|
-| accountId | query | string | No | Account ID |
-| transferOutIdList | query | array[string] | Yes | Transfer out ID list |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
+|transferOutIdList|array[string]|No|Transfer out ID list|
 
 > Response Example
 
@@ -151,10 +151,10 @@ GET /api/v2/private/transfer/getTransferOutAvailableAmount
 
 ### Request Parameters
 
-| Name | Location | Type | Required | Description |
-|---|---|---|---|---|
-| accountId | query | string | No | Account ID |
-| coinId | query | string | No | Coin ID |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
+|coinId|string|Yes|Coin ID|
 
 > Response Example
 
@@ -206,9 +206,9 @@ POST /api/v2/private/transfer/createTransferOut
 
 ### Request Parameters
 
-| Name | Location | Type | Required | Description |
-|---|---|---|---|---|
-| body | body | [CreateTransferOutParam](#schemacreatetransferoutparam) | No | none |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|body|[CreateTransferOutParam](#schemacreatetransferoutparam)|No|none|
 
 > Response Example
 
@@ -237,59 +237,59 @@ POST /api/v2/private/transfer/createTransferOut
 <a id="schemaresultpagedatatransferin"></a>
 ### schemaresultpagedatatransferin
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| code | string | false | none | Status code. "SUCCESS" for success, other values indicate failure. |
-| data | [PageDataTransferIn](#schemapagedatatransferin) | false | none | Generic paginated response data |
-| errorParam | object | false | none | Parameter information in error messages |
-| requestTime | string(timestamp) | false | none | Server request receiving timestamp |
-| responseTime | string(timestamp) | false | none | Server response returning timestamp |
-| traceId | string | false | none | Call trace ID |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, other values indicate failure.|
+|data|[PageDataTransferIn](#schemapagedatatransferin)|Generic paginated response data|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request receiving timestamp|
+|responseTime|string(timestamp)|Server response returning timestamp|
+|traceId|string|Call trace ID|
 
 
 <a id="schemapagedatatransferin"></a>
 ### schemapagedatatransferin
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| dataList | [[TransferIn](#schematransferin)] | false | none | Data list |
-| nextPageOffsetData | string | false | none | Offset to retrieve the next page. If no next page data, the value will be an empty string |
+|Name|Type|Description|
+|---|---|---|
+|dataList|[[TransferIn](#schematransferin)]|Data list|
+|nextPageOffsetData|string|Offset to retrieve the next page. If no next page data, the value will be an empty string|
 
 <a id="schematransferin"></a>
 ### schematransferin
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| id | string(int64) | false | none | Transfer In order ID |
-| userId | string(int64) | false | none | User ID |
-| accountId | string(int64) | false | none | Account ID |
-| coinId | string(int64) | false | none | Coin ID |
-| amount | string | false | none | Transfer amount |
-| senderAccountId | string(int64) | false | none | Sender Account ID |
-| senderL2Key | string | false | none | Sender account L2 key. bigint for hex str |
-| senderTransferOutId | string(int64) | false | none | Sender transfer out order ID |
-| clientTransferId | string | false | none | Client defined ID. Used for idempotent checks and signature generation nonce |
-| isConditionTransfer | boolean | false | none | Whether it is a conditional transfer |
-| conditionFactRegistryAddress | string | false | none | Address of condition fact registry contract. Required when is_condition_transfer=true |
-| conditionFactErc20Address | string | false | none | ERC20 address used to generate the condition fact. Required when is_conditional_transfer=true |
-| conditionFactAmount | string | false | none | Amount used to generate condition fact. Required when is_conditional_transfer=true. |
-| conditionFact | string | false | none | The conditional transfer fact. Required when is_condition_transfer=true |
-| transferReason | string | false | none | Transfer reason |
-| extraType | string | false | none | Additional type. Used by upper layer business |
-| extraDataJson | string | false | none | Additional data in JSON format. Defaults to empty string |
-| status | string | false | none | Transfer status |
-| collateralTransactionId | string(int64) | false | none | ID of related collateral detail. Exists when status=SUCCESS_XXX/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED |
-| censorTxId | string(int64) | false | none | Censor processing sequence. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED |
-| censorTime | string(int64) | false | none | Censor processing time. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED |
-| censorFailCode | string | false | none | Censor failure error code. Exists when status=FAILED_CENSOR_FAILURE |
-| censorFailReason | string | false | none | Censor failure reason. Exists when status=FAILED_CENSOR_FAILURE |
-| l2TxId | string(int64) | false | none | L2 push transaction ID. Exists when censor_status=CENSOR_SUCCESS/L2_APPROVED/L2_REJECT/L2_REJECT_APPROVED |
-| l2RejectTime | string(int64) | false | none | L2 rejection time. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED |
-| l2RejectCode | string | false | none | L2 rejection error code. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED |
-| l2RejectReason | string | false | none | L2 rejection reason. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED |
-| l2ApprovedTime | string(int64) | false | none | L2 batch verification time. Exists when status=L2_APPROVED/L2_REJECT_APPROVED |
-| createdTime | string(int64) | false | none | Creation time |
-| updatedTime | string(int64) | false | none | Update time |
+|Name|Type|Description|
+|---|---|---|
+|id|string(int64)|Transfer In order ID|
+|userId|string(int64)|User ID|
+|accountId|string(int64)|Account ID|
+|coinId|string(int64)|Coin ID|
+|amount|string|Transfer amount|
+|senderAccountId|string(int64)|Sender Account ID|
+|senderL2Key|string|Sender account L2 key. bigint for hex str|
+|senderTransferOutId|string(int64)|Sender transfer out order ID|
+|clientTransferId|string|Client defined ID. Used for idempotent checks and signature generation nonce|
+|isConditionTransfer|boolean|Whether it is a conditional transfer|
+|conditionFactRegistryAddress|string|Address of condition fact registry contract. Required when is_condition_transfer=true|
+|conditionFactErc20Address|string|ERC20 address used to generate the condition fact. Required when is_conditional_transfer=true|
+|conditionFactAmount|string|Amount used to generate condition fact. Required when is_conditional_transfer=true.|
+|conditionFact|string|The conditional transfer fact. Required when is_condition_transfer=true|
+|transferReason|string|Transfer reason|
+|extraType|string|Additional type. Used by upper layer business|
+|extraDataJson|string|Additional data in JSON format. Defaults to empty string|
+|status|string|Transfer status|
+|collateralTransactionId|string(int64)|ID of related collateral detail. Exists when status=SUCCESS_XXX/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED|
+|censorTxId|string(int64)|Censor processing sequence. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED|
+|censorTime|string(int64)|Censor processing time. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED|
+|censorFailCode|string|Censor failure error code. Exists when status=FAILED_CENSOR_FAILURE|
+|censorFailReason|string|Censor failure reason. Exists when status=FAILED_CENSOR_FAILURE|
+|l2TxId|string(int64)|L2 push transaction ID. Exists when censor_status=CENSOR_SUCCESS/L2_APPROVED/L2_REJECT/L2_REJECT_APPROVED|
+|l2RejectTime|string(int64)|L2 rejection time. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED|
+|l2RejectCode|string|L2 rejection error code. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED|
+|l2RejectReason|string|L2 rejection reason. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED|
+|l2ApprovedTime|string(int64)|L2 batch verification time. Exists when status=L2_APPROVED/L2_REJECT_APPROVED|
+|createdTime|string(int64)|Creation time|
+|updatedTime|string(int64)|Update time|
 
 #### Enum Values
 
@@ -316,63 +316,63 @@ POST /api/v2/private/transfer/createTransferOut
 <a id="schemaresultpagedatatransferout"></a>
 ### schemaresultpagedatatransferout
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| code | string | false | none | Status code. "SUCCESS" for success, other values indicate failure. |
-| data | [PageDataTransferOut](#schemapagedatatransferout) | false | none | Generic paginated response data |
-| errorParam | object | false | none | Parameter information in error messages |
-| requestTime | string(timestamp) | false | none | Server request receiving timestamp |
-| responseTime | string(timestamp) | false | none | Server response returning timestamp |
-| traceId | string | false | none | Call trace ID |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, other values indicate failure.|
+|data|[PageDataTransferOut](#schemapagedatatransferout)|Generic paginated response data|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request receiving timestamp|
+|responseTime|string(timestamp)|Server response returning timestamp|
+|traceId|string|Call trace ID|
 
 
 <a id="schemapagedatatransferout"></a>
 ### schemapagedatatransferout
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| dataList | [[TransferOut](#schematransferout)] | false | none | Data list |
-| nextPageOffsetData | string | false | none | Offset to retrieve the next page. If no next page data, the value will be an empty string |
+|Name|Type|Description|
+|---|---|---|
+|dataList|[[TransferOut](#schematransferout)]|Data list|
+|nextPageOffsetData|string|Offset to retrieve the next page. If no next page data, the value will be an empty string|
 
 
 <a id="schematransferout"></a>
 ### schematransferout
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| id | string(int64) | false | none | Transfer out order ID |
-| userId | string(int64) | false | none | User ID |
-| accountId | string(int64) | false | none | Account ID |
-| coinId | string(int64) | false | none | Coin ID |
-| amount | string | false | none | Transfer amount |
-| receiverAccountId | string(int64) | false | none | Receiver Account ID |
-| receiverL2Key | string | false | none | Receiver account L2 key. bigint for hex str |
-| clientTransferId | string | false | none | Client defined ID. Used for idempotent checks and signature generation nonce |
-| isConditionTransfer | boolean | false | none | Whether it is a conditional transfer |
-| conditionFactRegistryAddress | string | false | none | Address of condition fact registry contract. Required when is_conditional_transfer=true |
-| conditionFactErc20Address | string | false | none | ERC20 address used to generate the condition fact. Required when is_conditional_transfer=true |
-| conditionFactAmount | string | false | none | Amount used to generate condition fact. Required when is_conditional_transfer=true. |
-| conditionFact | string | false | none | The conditional transfer fact. Required when is_conditional_transfer=true |
-| transferReason | string | false | none | Transfer reason |
-| l2Nonce | string(int64) | false | none | L2 signature nonce. Take the first 32 bits of sha256(client_transfer_id) |
-| l2ExpireTime | string(int64) | false | none | L2 signature expiration time in milliseconds. When generating/verifying the signature, the hour should be used: l2_expire_time / 3600000 |
-| l2Signature | [L2Signature](#schemal2signature) | false | none | L2 signature information |
-| extraType | string | false | none | Additional type. Used by upper layer business |
-| extraDataJson | string | false | none | Additional data in JSON format. Defaults to empty string |
-| status | string | false | none | Transfer status |
-| receiverTransferInId | string(int64) | false | none | ID of receiver transfer in order. |
-| collateralTransactionId | string(int64) | false | none | ID of related collateral detail. Exists when status=SUCCESS_XXX/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED |
-| censorTxId | string(int64) | false | none | Censor processing sequence. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED |
-| censorTime | string(int64) | false | none | Censor processing time. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED |
-| censorFailCode | string | false | none | Censor failure error code. Exists when status=FAILED_CENSOR_FAILURE |
-| censorFailReason | string | false | none | Censor failure reason. Exists when status=FAILED_CENSOR_FAILURE |
-| l2TxId | string(int64) | false | none | L2 push transaction ID. Exists when censor_status=CENSOR_SUCCESS/L2_APPROVED/L2_REJECT/L2_REJECT_APPROVED |
-| l2RejectTime | string(int64) | false | none | L2 rejection time. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED |
-| l2RejectCode | string | false | none | L2 rejection error code. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED |
-| l2RejectReason | string | false | none | L2 rejection reason. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED |
-| l2ApprovedTime | string(int64) | false | none | L2 batch verification time. Exists when status=L2_APPROVED/L2_REJECT_APPROVED |
-| createdTime | string(int64) | false | none | Creation time |
-| updatedTime | string(int64) | false | none | Update time |
+|Name|Type|Description|
+|---|---|---|
+|id|string(int64)|Transfer out order ID|
+|userId|string(int64)|User ID|
+|accountId|string(int64)|Account ID|
+|coinId|string(int64)|Coin ID|
+|amount|string|Transfer amount|
+|receiverAccountId|string(int64)|Receiver Account ID|
+|receiverL2Key|string|Receiver account L2 key. bigint for hex str|
+|clientTransferId|string|Client defined ID. Used for idempotent checks and signature generation nonce|
+|isConditionTransfer|boolean|Whether it is a conditional transfer|
+|conditionFactRegistryAddress|string|Address of condition fact registry contract. Required when is_conditional_transfer=true|
+|conditionFactErc20Address|string|ERC20 address used to generate the condition fact. Required when is_conditional_transfer=true|
+|conditionFactAmount|string|Amount used to generate condition fact. Required when is_conditional_transfer=true.|
+|conditionFact|string|The conditional transfer fact. Required when is_conditional_transfer=true|
+|transferReason|string|Transfer reason|
+|l2Nonce|string(int64)|L2 signature nonce. Take the first 32 bits of sha256(client_transfer_id)|
+|l2ExpireTime|string(int64)|L2 signature expiration time in milliseconds. When generating/verifying the signature, the hour should be used: l2_expire_time / 3600000|
+|l2Signature|[L2Signature](#schemal2signature)|L2 signature information|
+|extraType|string|Additional type. Used by upper layer business|
+|extraDataJson|string|Additional data in JSON format. Defaults to empty string|
+|status|string|Transfer status|
+|receiverTransferInId|string(int64)|ID of receiver transfer in order.|
+|collateralTransactionId|string(int64)|ID of related collateral detail. Exists when status=SUCCESS_XXX/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED|
+|censorTxId|string(int64)|Censor processing sequence. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED|
+|censorTime|string(int64)|Censor processing time. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED|
+|censorFailCode|string|Censor failure error code. Exists when status=FAILED_CENSOR_FAILURE|
+|censorFailReason|string|Censor failure reason. Exists when status=FAILED_CENSOR_FAILURE|
+|l2TxId|string(int64)|L2 push transaction ID. Exists when censor_status=CENSOR_SUCCESS/L2_APPROVED/L2_REJECT/L2_REJECT_APPROVED|
+|l2RejectTime|string(int64)|L2 rejection time. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED|
+|l2RejectCode|string|L2 rejection error code. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED|
+|l2RejectReason|string|L2 rejection reason. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED|
+|l2ApprovedTime|string(int64)|L2 batch verification time. Exists when status=L2_APPROVED/L2_REJECT_APPROVED|
+|createdTime|string(int64)|Creation time|
+|updatedTime|string(int64)|Update time|
 
 #### Enum Values
 
@@ -398,98 +398,98 @@ POST /api/v2/private/transfer/createTransferOut
 <a id="schemal2signature"></a>
 ### schemal2signature
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| r | string | false | none | bigint for hex str |
-| s | string | false | none | bigint for hex str |
-| v | string | false | none | bigint for hex str |
+|Name|Type|Description|
+|---|---|---|
+|r|string|bigint for hex str|
+|s|string|bigint for hex str|
+|v|string|bigint for hex str|
 
 
 <a id="schemaresultlisttransferin"></a>
 ### schemaresultlisttransferin
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| code | string | false | none | Status code. "SUCCESS" for success, other values indicate failure. |
-| data | [[TransferIn](#schematransferin)] | false | none | Correct response data |
-| errorParam | object | false | none | Parameter information in error messages |
-| requestTime | string(timestamp) | false | none | Server request receiving timestamp |
-| responseTime | string(timestamp) | false | none | Server response returning timestamp |
-| traceId | string | false | none | Call trace ID |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, other values indicate failure.|
+|data|[[TransferIn](#schematransferin)]|Correct response data|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request receiving timestamp|
+|responseTime|string(timestamp)|Server response returning timestamp|
+|traceId|string|Call trace ID|
 
 
 <a id="schemaresultgettransferoutavailableamount"></a>
 ### schemaresultgettransferoutavailableamount
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| code | string | false | none | Status code. "SUCCESS" for success, other values indicate failure. |
-| data | [GetTransferAvailableAmount](#schemagettransferavailableamount) | false | none | Get Transfer Available Amount - Response |
-| errorParam | object | false | none | Parameter information in error messages |
-| requestTime | string(timestamp) | false | none | Server request receiving timestamp |
-| responseTime | string(timestamp) | false | none | Server response returning timestamp |
-| traceId | string | false | none | Call trace ID |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, other values indicate failure.|
+|data|[GetTransferAvailableAmount](#schemagettransferavailableamount)|Get Transfer Available Amount - Response|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request receiving timestamp|
+|responseTime|string(timestamp)|Server response returning timestamp|
+|traceId|string|Call trace ID|
 
 
 <a id="schemagettransferavailableamount"></a>
 ### schemagettransferavailableamount
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| availableAmount | string(decimal) | false | none | Available amount |
+|Name|Type|Description|
+|---|---|---|
+|availableAmount|string(decimal)|Available amount|
 
 
 <a id="schemaresultlisttransferout"></a>
 ### schemaresultlisttransferout
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| code | string | false | none | Status code. "SUCCESS" for success, other values indicate failure. |
-| data | [[TransferOut](#schematransferout)] | false | none | Correct response data |
-| errorParam | object | false | none | Parameter information in error messages |
-| requestTime | string(timestamp) | false | none | Server request receiving timestamp |
-| responseTime | string(timestamp) | false | none | Server response returning timestamp |
-| traceId | string | false | none | Call trace ID |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, other values indicate failure.|
+|data|[[TransferOut](#schematransferout)]|Correct response data|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request receiving timestamp|
+|responseTime|string(timestamp)|Server response returning timestamp|
+|traceId|string|Call trace ID|
 
 
 <a id="schemaresultcreatetransferout"></a>
 ### schemaresultcreatetransferout
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| code | string | false | none | Status code. "SUCCESS" for success, other values indicate failure. |
-| data | [CreateTransferOut](#schemacreatetransferout) | false | none | Create Transfer Out Order - Response |
-| errorParam | object | false | none | Parameter information in error messages |
-| requestTime | string(timestamp) | false | none | Server request receiving timestamp |
-| responseTime | string(timestamp) | false | none | Server response returning timestamp |
-| traceId | string | false | none | Call trace ID |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, other values indicate failure.|
+|data|[CreateTransferOut](#schemacreatetransferout)|Create Transfer Out Order - Response|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request receiving timestamp|
+|responseTime|string(timestamp)|Server response returning timestamp|
+|traceId|string|Call trace ID|
 
 
 <a id="schemacreatetransferout"></a>
 ### schemacreatetransferout
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| transferOutId | string(int64) | false | none | Transfer out order ID |
+|Name|Type|Description|
+|---|---|---|
+|transferOutId|string(int64)|Transfer out order ID|
 
 
 
 <a id="schemacreatetransferoutparam"></a>
 ### schemacreatetransferoutparam
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| accountId | string(int64) | true | none | **Required** - Account ID (will throw exception if empty) |
-| coinId | string(int64) | true | none | **Required** - Asset ID (will throw exception if empty) |
-| amount | string | true | none | **Required** - Transfer amount (will throw exception if empty) |
-| receiverAccountId | string | false | none | Receiver account ID (business required but HTTP layer accepts empty) |
-| clientTransferId | string | false | none | Client defined ID. Used for idempotent checks and signature generation nonce |
-| transferReason | string | false | none | Transfer reason. Defaults to UNKNOWN_TRANSFER_REASON if not provided |
-| l2Nonce | string(int64) | false | none | L2 signature nonce. Take the first 32 bits of sha256(client_transfer_id) |
-| l2ExpireTime | string(int64) | false | none | L2 signature expiration time in milliseconds. When generating/verifying the signature, the hour should be used: l2_expire_time / 3600000 |
-| l2Signature | string | false | none | L2 signature |
-| extraType | string | false | none | Additional type. Used by upper layer business |
-| extraDataJson | string | false | none | Additional data in JSON format. Defaults to empty string |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string(int64)|Yes|**Required** - Account ID (will throw exception if empty)|
+|coinId|string(int64)|Yes|**Required** - Asset ID (will throw exception if empty)|
+|amount|string|Yes|**Required** - Transfer amount (will throw exception if empty)|
+|receiverAccountId|string|Yes|Receiver account ID (business required but HTTP layer accepts empty)|
+|clientTransferId|string|Yes|Client defined ID. Used for idempotent checks and signature generation nonce|
+|transferReason|string|Yes|Transfer reason. Defaults to UNKNOWN_TRANSFER_REASON if not provided|
+|l2Nonce|string(int64)|Yes|L2 signature nonce. Take the first 32 bits of sha256(client_transfer_id)|
+|l2ExpireTime|string(int64)|Yes|L2 signature expiration time in milliseconds. When generating/verifying the signature, the hour should be used: l2_expire_time / 3600000|
+|l2Signature|string|Yes|L2 signature|
+|extraType|string|No|Additional type. Used by upper layer business|
+|extraDataJson|string|No|Additional data in JSON format. Defaults to empty string|
 
 #### Enum Values
 
@@ -505,22 +505,22 @@ POST /api/v2/private/transfer/createTransferOut
 <a id="schemaresultgetbatchtransferoutavailableamount"></a>
 ### schemaresultgetbatchtransferoutavailableamount
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| code | string | false | none | Status code. "SUCCESS" for success, other values indicate failure. |
-| data | [GetBatchTransferOutAvailableAmount](#schemagetbatchtransferoutavailableamount) | false | none | Get Batch Transfer Out Available Amount - Response |
-| errorParam | object | false | none | Parameter information in error messages |
-| requestTime | string(timestamp) | false | none | Server request receiving timestamp |
-| responseTime | string(timestamp) | false | none | Server response returning timestamp |
-| traceId | string | false | none | Call trace ID |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, other values indicate failure.|
+|data|[GetBatchTransferOutAvailableAmount](#schemagetbatchtransferoutavailableamount)|Get Batch Transfer Out Available Amount - Response|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request receiving timestamp|
+|responseTime|string(timestamp)|Server response returning timestamp|
+|traceId|string|Call trace ID|
 
 
 <a id="schemagetbatchtransferoutavailableamount"></a>
 ### schemagetbatchtransferoutavailableamount
 
-| Name | Type | Required | Constraints | Description |
-|---|---|---|---|---|
-| accountID2trnasferOutAvaliableAmountMap | object | false | none | Batch query result (accountId -> availableAmount) |
-| totalCount | integer | false | none | Total number of accounts queried |
-| successCount | integer | false | none | Number of successful queries |
-| failedCount | integer | false | none | Number of failed queries |
+|Name|Type|Description|
+|---|---|---|
+|accountID2trnasferOutAvaliableAmountMap|object|Batch query result (accountId -> availableAmount)|
+|totalCount|integer|Total number of accounts queried|
+|successCount|integer|Number of successful queries|
+|failedCount|integer|Number of failed queries|

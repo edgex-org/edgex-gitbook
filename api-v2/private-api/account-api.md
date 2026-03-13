@@ -8,18 +8,18 @@ GET /api/v2/private/account/getPositionTransactionPage
 
 ### Request Parameters
 
-| Name                            | Location | Type   | Required | Description                                                                                                |
-| ------------------------------- | -------- | ------ | -------- | ---------------------------------------------------------------------------------------------------------- |
-| accountId                       | query    | string | No       | Account ID                                                                                                 |
-| size                            | query    | string | No       | Number of items to retrieve. Must be greater than 0 and less than or equal to 100                             |
-| offsetData                      | query    | string | No       | Pagination offset. If empty or not provided, the first page is retrieved                                     |
-| filterCoinIdList                | query    | string | No       | Filter position transaction records by specified coin IDs. If not provided, all collateral transaction records are retrieved |
-| filterContractIdList            | query    | string | No       | Filter position transaction records by specified contract IDs. If not provided, all position transaction records are retrieved|
-| filterTypeList                  | query    | string | No       | Filter position transaction records by specified types. If not provided, all position transaction records are retrieved|
-| filterStartCreatedTimeInclusive | query    | string | No       | Filter position transaction records created after or at the specified start time (inclusive). If not provided or 0, retrieves records from the earliest time |
-| filterEndCreatedTimeExclusive   | query    | string | No       | Filter position transaction records created before the specified end time (exclusive). If not provided or 0, retrieves records up to the latest time    |
-| filterCloseOnly                 | query    | string | No       | Whether to return only position transactions that include closing positions.  `true`: only return records with closing; `false`: return all records|
-| filterOpenOnly                  | query    | string | No       | Whether to return only position transactions that include opening positions. `true`: only return records with opening; `false`: return all records|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
+|size|string|No|Number of items to retrieve. Must be greater than 0 and less than or equal to 100|
+|offsetData|string|No|Pagination offset. If empty or not provided, the first page is retrieved|
+|filterCoinIdList|string|No|Filter position transaction records by specified coin IDs. If not provided, all collateral transaction records are retrieved|
+|filterContractIdList|string|No|Filter position transaction records by specified contract IDs. If not provided, all position transaction records are retrieved|
+|filterTypeList|string|No|Filter position transaction records by specified types. If not provided, all position transaction records are retrieved|
+|filterStartCreatedTimeInclusive|string|No|Filter position transaction records created after or at the specified start time (inclusive). If not provided or 0, retrieves records from the earliest time|
+|filterEndCreatedTimeExclusive|string|No|Filter position transaction records created before the specified end time (exclusive). If not provided or 0, retrieves records up to the latest time|
+|filterCloseOnly|string|No|Whether to return only position transactions that include closing positions.  `true`: only return records with closing; `false`: return all records|
+|filterOpenOnly|string|No|Whether to return only position transactions that include opening positions. `true`: only return records with opening; `false`: return all records|
 
 > Response Example
 
@@ -105,10 +105,10 @@ GET /api/v2/private/account/getPositionTransactionById
 
 ### Request Parameters
 
-| Name                      | Location | Type   | Required | Description         |
-| ------------------------- | -------- | ------ | -------- | ------------------- |
-| accountId                 | query    | string | No       | Account ID          |
-| positionTransactionIdList | query    | string | No       | Position Transaction IDs |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
+|positionTransactionIdList|string|Yes|Position Transaction IDs|
 
 > Response Example
 
@@ -194,16 +194,16 @@ GET /api/v2/private/account/getPositionTermPage
 
 ### Request Parameters
 
-| Name                            | Location | Type   | Required | Description                                                                                               |
-| ------------------------------- | -------- | ------ | -------- | --------------------------------------------------------------------------------------------------------- |
-| accountId                       | query    | string | No       | Account ID                                                                                                |
-| size                            | query    | string | No       | Number of items to retrieve. Must be greater than 0 and less than or equal to 100                             |
-| offsetData                      | query    | string | No       | Pagination offset. If empty or not provided, the first page is retrieved                                     |
-| filterCoinIdList                | query    | string | No       | Filter position term records by specified coin IDs. If not provided, all position term records are retrieved |
-| filterContractIdList            | query    | string | No       | Filter position term records by specified contract IDs. If not provided, all position term records are retrieved |
-| filterIsLongPosition            | query    | string | No       | Filter position term records by position direction. If not provided, all position term records are retrieved |
-| filterStartCreatedTimeInclusive | query    | string | No       | Filter position term records created after or at the specified start time (inclusive). If not provided or 0, retrieves records from the earliest time |
-| filterEndCreatedTimeExclusive   | query    | string | No       | Filter position term records created before the specified end time (exclusive). If not provided or 0, retrieves records up to the latest time    |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
+|size|string|No|Number of items to retrieve. Must be greater than 0 and less than or equal to 100|
+|offsetData|string|No|Pagination offset. If empty or not provided, the first page is retrieved|
+|filterCoinIdList|string|No|Filter position term records by specified coin IDs. If not provided, all position term records are retrieved|
+|filterContractIdList|string|No|Filter position term records by specified contract IDs. If not provided, all position term records are retrieved|
+|filterIsLongPosition|string|No|Filter position term records by position direction. If not provided, all position term records are retrieved|
+|filterStartCreatedTimeInclusive|string|No|Filter position term records created after or at the specified start time (inclusive). If not provided or 0, retrieves records from the earliest time|
+|filterEndCreatedTimeExclusive|string|No|Filter position term records created before the specified end time (exclusive). If not provided or 0, retrieves records up to the latest time|
 
 > Response Example
 
@@ -275,10 +275,10 @@ GET /api/v2/private/account/getPositionByContractId
 
 ### Request Parameters
 
-| Name           | Location | Type   | Required | Description        |
-| -------------- | -------- | ------ | -------- | ------------------ |
-| accountId      | query    | string | No       | Account ID         |
-| contractIdList | query    | string | No       | Specified contract IDs |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
+|contractIdList|string|Yes|Specified contract IDs|
 
 > Response Example
 
@@ -371,15 +371,15 @@ GET /api/v2/private/account/getCollateralTransactionPage
 
 ### Request Parameters
 
-| Name                            | Location | Type   | Required | Description                                                                                             |
-| ------------------------------- | -------- | ------ | -------- | --------------------------------------------------------------------------------------------------------- |
-| accountId                       | query    | string | No       | Account ID                                                                                                |
-| size                            | query    | string | No       | Number of items to retrieve. Must be greater than 0 and less than or equal to 100                             |
-| offsetData                      | query    | string | No       | Pagination offset. If empty or not provided, the first page is retrieved                                     |
-| filterCoinIdList                | query    | string | No       | Filter collateral transaction records by specified coin IDs. If not provided, all collateral transaction records are retrieved |
-| filterTypeList                  | query    | string | No       | Filter collateral transaction records by specified transaction types. If not provided, all collateral transaction records are retrieved |
-| filterStartCreatedTimeInclusive | query    | string | No       | Filter collateral transaction records created after or at the specified start time (inclusive). If not provided or 0, retrieves records from the earliest time |
-| filterEndCreatedTimeExclusive   | query    | string | No       | Filter collateral transaction records created before the specified end time (exclusive). If not provided or 0, retrieves records up to the latest time    |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
+|size|string|No|Number of items to retrieve. Must be greater than 0 and less than or equal to 100|
+|offsetData|string|No|Pagination offset. If empty or not provided, the first page is retrieved|
+|filterCoinIdList|string|No|Filter collateral transaction records by specified coin IDs. If not provided, all collateral transaction records are retrieved|
+|filterTypeList|string|No|Filter collateral transaction records by specified transaction types. If not provided, all collateral transaction records are retrieved|
+|filterStartCreatedTimeInclusive|string|No|Filter collateral transaction records created after or at the specified start time (inclusive). If not provided or 0, retrieves records from the earliest time|
+|filterEndCreatedTimeExclusive|string|No|Filter collateral transaction records created before the specified end time (exclusive). If not provided or 0, retrieves records up to the latest time|
 
 > Response Example
 
@@ -459,10 +459,10 @@ GET /api/v2/private/account/getCollateralTransactionById
 
 ### Request Parameters
 
-| Name                        | Location | Type   | Required | Description         |
-| --------------------------- | -------- | ------ | -------- | ------------------- |
-| accountId                   | query    | string | No       | Account ID          |
-| collateralTransactionIdList | query    | string | No       | Collateral Transaction IDs |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
+|collateralTransactionIdList|string|Yes|Collateral Transaction IDs|
 
 > Response Example
 
@@ -550,10 +550,10 @@ GET /api/v2/private/account/getCollateralByCoinId
 
 ### Request Parameters
 
-| Name        | Location | Type   | Required | Description                                                                                      |
-| ----------- | -------- | ------ | -------- | ------------------------------------------------------------------------------------------------ |
-| accountId   | query    | string | No       | Account ID                                                                                       |
-| coinIdList  | query    | string | No       | Filter collateral information by specified coin IDs. If not provided, all collateral information is retrieved |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
+|coinIdList|string|Yes|Filter collateral information by specified coin IDs. If not provided, all collateral information is retrieved|
 
 > Response Example
 
@@ -606,10 +606,10 @@ GET /api/v2/private/account/getAccountPage
 
 ### Request Parameters
 
-| Name       | Location | Type   | Required | Description                                                                                   |
-| ---------- | -------- | ------ | -------- | --------------------------------------------------------------------------------------------- |
-| size       | query    | string | No       | Number of items to retrieve. Must be greater than 0 and less than or equal to 100                 |
-| offsetData | query    | string | No       | Pagination offset. If empty or not provided, the first page is retrieved                       |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|size|string|No|Number of items to retrieve. Must be greater than 0 and less than or equal to 100|
+|offsetData|string|No|Pagination offset. If empty or not provided, the first page is retrieved|
 
 > Response Example
 
@@ -685,9 +685,9 @@ GET /api/v2/private/account/getAccountDeleverageLight
 
 ### Request Parameters
 
-| Name      | Location | Type   | Required | Description |
-| --------- | -------- | ------ | -------- | ----------- |
-| accountId | query    | string | No       | Account ID  |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
 
 > Response Example
 
@@ -723,9 +723,9 @@ GET /api/v2/private/account/getAccountById
 
 ### Request Parameters
 
-| Name      | Location | Type   | Required | Description |
-| --------- | -------- | ------ | -------- | ----------- |
-| accountId | query    | string | No       | Account ID  |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
 
 > Response Example
 
@@ -796,9 +796,9 @@ GET /api/v2/private/account/getAccountAsset
 
 ### Request Parameters
 
-| Name      | Location | Type   | Required | Description |
-| --------- | -------- | ------ | -------- | ----------- |
-| accountId | query    | string | No       | Account ID  |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
 
 > Response Example
 
@@ -988,15 +988,15 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 ### Request Parameters
 
-| Name                       | Location | Type   | Required | Description                                                                                                   |
-| -------------------------- | -------- | ------ | -------- | --------------------------------------------------------------------------------
-| accountId                | query    | string | No       | Account ID                                                                                                    |
-| size                     | query    | string | No       | Number of items to retrieve. Must be greater than 0 and less than or equal to 1000                             |
-| offsetData               | query    | string | No       | Pagination offset. If empty or not provided, the first page is retrieved                                         |
-| coinId                   | query    | string | Yes      | Filter by the specified coin ID.                                                                               |
-| filterTimeTag            | query    | string | No       | Specifies time tag. If not provided or 0, returns snapshots by the hour. 1 returns snapshots by the day      |
-| filterStartTimeInclusive | query    | string | No       | Filter snapshots created after or at the specified start time (inclusive). If not provided or 0, retrieves records from the earliest time |
-| filterEndTimeExclusive   | query    | string | No       | Filter snapshots created before the specified end time (exclusive). If not provided or 0, retrieves records up to the latest time  |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
+|size|string|No|Number of items to retrieve. Must be greater than 0 and less than or equal to 1000|
+|offsetData|string|No|Pagination offset. If empty or not provided, the first page is retrieved|
+|coinId|string|No|Filter by the specified coin ID.|
+|filterTimeTag|string|No|Specifies time tag. If not provided or 0, returns snapshots by the hour. 1 returns snapshots by the day|
+|filterStartTimeInclusive|string|No|Filter snapshots created after or at the specified start time (inclusive). If not provided or 0, retrieves records from the earliest time|
+|filterEndTimeExclusive|string|No|Filter snapshots created before the specified end time (exclusive). If not provided or 0, retrieves records up to the latest time|
 
 > Response Example
 
@@ -1052,75 +1052,75 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 <a id="accountassetsnapshot"></a>
 ### accountassetsnapshot
 
-| Name           | Type                               | Required | Constraints | Description              | Notes                                                                    |
-| -------------- | ---------------------------------- | -------- | ----------- | ------------------------ | ------------------------------------------------------------------------ |
-| code           | string                             | false    | none        | Status Code              | Returns "SUCCESS" on success; otherwise, it indicates failure.            |
-| data           | [PageDataAccountAssetSnapshot](#schemapagedataaccountassetsnapshot) | false    | none        | Generic Paginated Response |                                                                          |
-| errorParam     | object                             | false    | none        | Error Parameters         | Error message parameter information                                       |
-| » **additionalProperties** | string                                | false    | none        | Error Parameters         | Error message parameter information                                       |
-| requestTime    | string(timestamp)                  | false    | none        | Server Request Time     | Time at which the server received the request                             |
-| responseTime   | string(timestamp)                  | false    | none        | Server Response Time    | Time at which the server sent the response                                |
-| traceId        | string                             | false    | none        | Trace ID                | Invocation trace ID                                                     |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status Code|
+|data|[PageDataAccountAssetSnapshot](#schemapagedataaccountassetsnapshot)|Generic Paginated Response|
+|errorParam|object|Error Parameters|
+|» **additionalProperties**|string|Error Parameters|
+|requestTime|string(timestamp)|Server Request Time|
+|responseTime|string(timestamp)|Server Response Time|
+|traceId|string|Trace ID|
 
 <a id="schemapagedataaccountassetsnapshot"></a>
 ### schemapagedataaccountassetsnapshot
 
-| Name               | Type                               | Required | Constraints | Description                 | Notes                                                               |
-| ------------------ | ---------------------------------- | -------- | ----------- | --------------------------- | ------------------------------------------------------------------- |
-| dataList           | [[AccountAssetSnapshot](#schemaaccountassetsnapshot)] | false    | none        | Data List                  |                                                                     |
-| nextPageOffsetData | string                             | false    | none        | Next Page Offset        | Offset for retrieving the next page. If no next page data, empty string. |
+|Name|Type|Description|
+|---|---|---|
+|dataList|[[AccountAssetSnapshot](#schemaaccountassetsnapshot)]|Data List|
+|nextPageOffsetData|string|Next Page Offset|
 
 <a id="schemaaccountassetsnapshot"></a>
 ### schemaaccountassetsnapshot
 
-| Name             | Type            | Required | Constraints | Description                         | Notes                                                                     |
-| ---------------- | --------------- | -------- | ----------- | ----------------------------------- | ------------------------------------------------------------------------- |
-| userId           | string(int64)   | false    | none        | User ID                             | ID of the owning user                                                  |
-| accountId        | string(int64)   | false    | none        | Account ID                          | ID of the owning account                                                 |
-| coinId           | string(int64)   | false    | none        | Collateral Coin ID                 | ID of the associated collateral coin                                        |
-| timeTag          | integer(int32)  | false    | none        | Time Tag                            | Time tag. 1 represents the snapshot time is for the whole day.           |
-| snapshotTime     | string(int64)   | false    | none        | Snapshot Time                       | Snapshot time, hourly timestamp at the top of the hour.                  |
-| totalEquity      | string          | false    | none        | Total Collateral Value              | Current total value of the collateral                                      |
-| termRealizePnl  | string          | false    | none        | Term Realized PnL                   | Realized PnL for the term                                               |
-| unrealizePnl     | string          | false    | none        | Unrealized PnL                      | Unrealized PnL                                                            |
-| totalRealizePnl  | string          | false    | none        | Total Realized PnL                 | Total realized PnL of the position                                          |
+|Name|Type|Description|
+|---|---|---|
+|userId|string(int64)|User ID|
+|accountId|string(int64)|Account ID|
+|coinId|string(int64)|Collateral Coin ID|
+|timeTag|integer(int32)|Time Tag|
+|snapshotTime|string(int64)|Snapshot Time|
+|totalEquity|string|Total Collateral Value|
+|termRealizePnl|string|Term Realized PnL|
+|unrealizePnl|string|Unrealized PnL|
+|totalRealizePnl|string|Total Realized PnL|
 
 <a id="schemaresultgetaccountasset"></a>
 ### schemaresultgetaccountasset
 
-| Name           | Type                            | Required | Constraints | Description              | Notes                                                                  |
-| -------------- | ------------------------------- | -------- | ----------- | ------------------------ | ---------------------------------------------------------------------- |
-| code           | string                          | false    | none        | Status Code              | Returns "SUCCESS" on success; otherwise, it indicates failure.          |
-| data           | [GetAccountAsset](#schemagetaccountasset) | false    | none        | Get Account Asset Response | Response structure for fetching account asset data.                       |
-| errorParam     | object                          | false    | none        | Error Parameters         | Error message parameter information                                     |
-| requestTime    | string(timestamp)               | false    | none        | Server Request Time     | Time at which the server received the request                           |
-| responseTime   | string(timestamp)               | false    | none        | Server Response Time    | Time at which the server sent the response                              |
-| traceId        | string                          | false    | none        | Trace ID                | Invocation trace ID                                                  |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status Code|
+|data|[GetAccountAsset](#schemagetaccountasset)|Get Account Asset Response|
+|errorParam|object|Error Parameters|
+|requestTime|string(timestamp)|Server Request Time|
+|responseTime|string(timestamp)|Server Response Time|
+|traceId|string|Trace ID|
 
 
 <a id="schemagetaccountasset"></a>
 ### schemagetaccountasset
 
-| Name                  | Type                                | Required | Constraints | Description                                                                                      | Notes                                                                                          |
-| --------------------- | ----------------------------------- | -------- | ----------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
-| account               | [Account](#schemaaccount)           | false    | none        | Account Information                                                                              | Account information data.                                                                  |
-| collateralList        | [[Collateral](#schemacollateral)]   | false    | none        | Collateral Information List                                                                   | List of collateral information data.                                                           |
-| positionList          | [[Position](#schemaposition)]       | false    | none        | Perpetual Contract Position List                                                                 | List of perpetual contract position information.                                               |
-| version               | string(int64)                       | false    | none        | Account Version                                                                                | Account version number, incremented with each update.                                        |
-| positionAssetList     | [[PositionAsset](#schemapositionasset)] | false    | none        | Position Asset Information List                                                                  | List of position asset information.                                                              |
-| collateralAssetModelList | [[CollateralAsset](#schemacollateralasset)] | false    | none        | Account-Level Asset Information List                                                               | List of account-level asset information.                                                          |
-| oraclePriceList       | [[IndexPrice](#schemaindexprice)]   | false    | none        | Oracle Price List                                                  | List of all oracle prices used to calculate assets (only those used).                                                          |
+|Name|Type|Description|
+|---|---|---|
+|account|[Account](#schemaaccount)|Account Information|
+|collateralList|[[Collateral](#schemacollateral)]|Collateral Information List|
+|positionList|[[Position](#schemaposition)]|Perpetual Contract Position List|
+|version|string(int64)|Account Version|
+|positionAssetList|[[PositionAsset](#schemapositionasset)]|Position Asset Information List|
+|collateralAssetModelList|[[CollateralAsset](#schemacollateralasset)]|Account-Level Asset Information List|
+|oraclePriceList|[[IndexPrice](#schemaindexprice)]|Oracle Price List|
 
 <a id="schemaindexprice"></a>
 ### schemaindexprice
 
-| Name                  | Type                  | Required | Constraints | Description                        | Notes                                                                            |
-| --------------------- | --------------------- | -------- | ----------- | ---------------------------------- | -------------------------------------------------------------------------------- |
-| contractId            | string(int64)         | false    | none        | Contract ID                        | Contract ID                                                                      |
-| priceType             | string                | false    | none        | Price Type                         |                                                                                  |
-| priceValue            | string                | false    | none        | Price Value                        | Price value                                                                      |
-| createdTime           | string(int64)         | false    | none        | Creation Time                      | Time of creation                                                                 |
-| oraclePriceSignature  | [[OraclePriceSignature](#schemaoraclepricesignature)] | false    | none        | Oracle Price Signature Information | Oracle price signature information, only exists when price_type=ORACLE_PRICE. |
+|Name|Type|Description|
+|---|---|---|
+|contractId|string(int64)|Contract ID|
+|priceType|string|Price Type|
+|priceValue|string|Price Value|
+|createdTime|string(int64)|Creation Time|
+|oraclePriceSignature|[[OraclePriceSignature](#schemaoraclepricesignature)]|Oracle Price Signature Information|
 
 #### Enumerated Values
 
@@ -1138,150 +1138,150 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 <a id="schemaoraclepricesignature"></a>
 ### schemaoraclepricesignature
 
-| Name             | Type                    | Required | Constraints | Description                                                              | Notes                                                                                                    |
-| ---------------- | ----------------------- | -------- | ----------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
-| contractId       | string(int64)           | false    | none        | Contract ID                                                              | Contract ID                                                                                            |
-| signer           | string                  | false    | none        | Signer ID                                                                | Signer identifier                                                                                        |
-| price            | string                  | false    | none        | Signed Price                                                             | The price signed (price after stark ex precision processing)                                                    |
-| externalAssetId  | string                  | false    | none        | Concatenated Asset and Oracle Names        | Concatenation of the asset name and the oracle name (both in hex encoding).                                               |
-| signature        | [L2Signature](#schemal2signature) | false    | none        | L2 Signature Information                                            | L2 signature information                                                                               |
-| timestamp        | string(int64)           | false    | none        | Signature Creation Time                                                | The time the signature was created.                                                                     |
+|Name|Type|Description|
+|---|---|---|
+|contractId|string(int64)|Contract ID|
+|signer|string|Signer ID|
+|price|string|Signed Price|
+|externalAssetId|string|Concatenated Asset and Oracle Names|
+|signature|[L2Signature](#schemal2signature)|L2 Signature Information|
+|timestamp|string(int64)|Signature Creation Time|
 
 <a id="schemal2signature"></a>
 ### schemal2signature
 
-| Name | Type   | Required | Constraints | Description      | Notes                  |
-| ---- | ------ | -------- | ----------- | ---------------- | ---------------------- |
-| r    | string | false    | none        | R Value          | Bigint for hex string |
-| s    | string | false    | none        | S Value          | Bigint for hex string |
-| v    | string | false    | none        | V Value          | Bigint for hex string |
+|Name|Type|Description|
+|---|---|---|
+|r|string|R Value|
+|s|string|S Value|
+|v|string|V Value|
 
 <a id="schemacollateralasset"></a>
 ### schemacollateralasset
 
-| Name                    | Type          | Required | Constraints | Description                                                                      | Notes                                                                              |
-| ----------------------- | ------------- | -------- | ----------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| userId                  | string(int64) | false    | none        | User ID                                                                          | ID of the owning user.                                                               |
-| accountId               | string(int64) | false    | none        | Account ID                                                                       | ID of the owning account.                                                              |
-| coinId                  | string(int64) | false    | none        | Collateral Coin ID                                                               | ID of the associated collateral coin.                                                  |
-| totalEquity             | string        | false    | none        | Total Collateral Value                                                           | Current total value of the collateral.                                                |
-| totalPositionValueAbs    | string        | false    | none        | Sum of Absolute Position Values                                                     | Sum of the absolute position values for the current collateral                        |
-| initialMarginRequirement| string        | false    | none        | Initial Margin Requirement                                                     | The initial margin requirement for the current collateral.                              |
-| starkExRiskValue        | string        | false    | none        | Total StarkEx Risk Value                                                           | The total starkEx risk amount for the current collateral.                             |
-| pendingWithdrawAmount  | string        | false    | none        | Pending Withdrawal Amount                                                      | The amount of collateral pending withdrawal.                                          |
-| pendingTransferOutAmount| string        | false    | none        | Pending Transfer Out Amount                                                     | The amount of collateral pending transfer out.                                       |
-| orderFrozenAmount       | string        | false    | none        | Order Frozen Amount                                                             | The amount of collateral frozen by orders.                                            |
-| availableAmount         | string        | false    | none        | Available Amount                                                                | The amount of collateral available for use.                                           |
+|Name|Type|Description|
+|---|---|---|
+|userId|string(int64)|User ID|
+|accountId|string(int64)|Account ID|
+|coinId|string(int64)|Collateral Coin ID|
+|totalEquity|string|Total Collateral Value|
+|totalPositionValueAbs|string|Sum of Absolute Position Values|
+|initialMarginRequirement|string|Initial Margin Requirement|
+|starkExRiskValue|string|Total StarkEx Risk Value|
+|pendingWithdrawAmount|string|Pending Withdrawal Amount|
+|pendingTransferOutAmount|string|Pending Transfer Out Amount|
+|orderFrozenAmount|string|Order Frozen Amount|
+|availableAmount|string|Available Amount|
 
 <a id="schemapositionasset"></a>
 ### schemapositionasset
 
-| Name                    | Type          | Required | Constraints | Description                            | Notes                                                                          |
-| ----------------------- | ------------- | -------- | ----------- | -------------------------------------- | ------------------------------------------------------------------------------ |
-| userId                  | string(int64) | false    | none        | User ID                                | ID of the owning user.                                                         |
-| accountId               | string(int64) | false    | none        | Account ID                             | ID of the owning account.                                                        |
-| coinId                  | string(int64) | false    | none        | Collateral Coin ID                     | ID of the associated collateral coin.                                             |
-| contractId              | string(int64) | false    | none        | Contract ID                             | ID of the associated contract.                                                  |
-| positionValue           | string        | false    | none        | Position Value                         | Position value, positive for long positions, negative for short positions.         |
-| maxLeverage             | string        | false    | none        | Maximum Leverage                      | The maximum leverage for current contract position.                              |
-| initialMarginRequirement| string        | false    | none        | Initial Margin Requirement            | Initial margin requirement for the position.                                   |
-| starkExRiskRate         | string        |false    | none        | StarkEx Risk Rate                      | StarkEx risk rate calculated based on risk tiers. Similar to maintenance margin rate with different precision. |
-| starkExRiskValue        | string        | false    | none        | StarkEx Risk Value                   | StarkEx risk amount, similar to maintenance margin, with different precision.     |
-| avgEntryPrice           | string        | false    | none        | Average Entry Price                   | Average entry price.                                                            |
-| liquidatePrice          | string        | false    | none        | Liquidation Price                     | Liquidation price (force liquidation price). If oracle price reaches this price, liquidation is triggered.        |
-| bankruptPrice           | string        | false    | none        | Bankruptcy Price                      | Bankruptcy price. If the oracle price reaches this level, account total value is less than 0.     |
-| worstClosePrice         | string        | false    | none        | Worst Close Price                     | The worst closing price. The closing transaction price can not be worse than this price. |
-| unrealizePnl            | string        | false    | none        | Unrealized PnL                         | Unrealized profit and loss for the position.                                     |
-| termRealizePnl          | string        | false    | none        | Term Realized PnL                    | Realized PnL for the term.                                            |
-| totalRealizePnl        | string        | false    | none        | Total Realized PnL                   | Total realized PnL of the position.                                         |
+|Name|Type|Description|
+|---|---|---|
+|userId|string(int64)|User ID|
+|accountId|string(int64)|Account ID|
+|coinId|string(int64)|Collateral Coin ID|
+|contractId|string(int64)|Contract ID|
+|positionValue|string|Position Value|
+|maxLeverage|string|Maximum Leverage|
+|initialMarginRequirement|string|Initial Margin Requirement|
+|starkExRiskRate|string|StarkEx Risk Rate|
+|starkExRiskValue|string|StarkEx Risk Value|
+|avgEntryPrice|string|Average Entry Price|
+|liquidatePrice|string|Liquidation Price|
+|bankruptPrice|string|Bankruptcy Price|
+|worstClosePrice|string|Worst Close Price|
+|unrealizePnl|string|Unrealized PnL|
+|termRealizePnl|string|Term Realized PnL|
+|totalRealizePnl|string|Total Realized PnL|
 
 <a id="schemaposition"></a>
 ### schemaposition
 
-| Name                | Type          | Required | Constraints | Description                                                         | Notes                                                                                      |
-| ------------------- | ------------- | -------- | ----------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| userId              | string(int64) | false    | none        | User ID                                                             | ID of the owning user.                                                                     |
-| accountId           | string(int64) | false    | none        | Account ID                                                          | ID of the owning account.                                                                |
-| coinId              | string(int64) | false    | none        | Collateral Coin ID                                                  | ID of the associated collateral coin.                                                       |
-| contractId          | string(int64) | false    | none        | Contract ID                                                          | ID of the associated contract.                                                              |
-| openSize            | string        | false    | none        | Current Open Size                                                   | Current open size (positive for long, negative for short).                                   |
-| openValue           | string        | false    | none        | Current Open Value                                                  | Current open value (increases upon opening, proportionally decreases upon closing).        |
-| openFee             | string        | false    | none        | Current Open Fee                                                     | Current allocated open fee (increases upon opening, proportionally decreases upon closing). |
-| fundingFee          | string        | false    | none        | Current Funding Fee                                                  | Current allocated funding fee (increases upon settlement, proportionally decreases upon closing). |
-| longTermCount       | integer(int32) | false    | none        | Long Position Term Count                                            | Long position term count. Starts from 1, increases by one upon complete closure of a position |
-| longTermStat        | [PositionStat](#schemapositionstat) | false    | none        | Long Position Cumulative Statistics | Cumulative statistics for the position.                                              |
-| longTermCreatedTime | string        | false    | none        | Long Position Term Creation Time                                            | Creation time for the long position term.                                                 |
-| longTermUpdatedTime | string        | false    | none        | Long Position Term Update Time                                            | Update time for the long position term.                                                  |
-| shortTermCount      | integer(int32) | false    | none        | Short Position Term Count                                           | Short position term count. Starts from 1, increases by one upon complete closure of a position|
-| shortTermStat        | [PositionStat](#schemapositionstat) | false    | none        | Short Position Cumulative Statistics| Cumulative statistics for the position.                                              |
-| shortTermCreatedTime| string        | false    | none        | Short Position Term Creation Time                                           | Creation time for the short position term.                                                |
-| shortTermUpdatedTime| string        | false    | none        | Short Position Term Update Time                                           | Update time for the short position term.                                                |
-| longTotalStat       | [PositionStat](#schemapositionstat) | false    | none        | Long Cumulative Statistics                | Cumulative statistics for the position.                                              |
-| shortTotalStat      | [PositionStat](#schemapositionstat) | false    | none        | Short Cumulative Statistics                | Cumulative statistics for the position.                                              |
-| createdTime         | string(int64) | false    | none        | Creation Time                                                         | Creation time.                                                                             |
-| updatedTime         | string(int64) | false    | none        | Update Time                                                        | Update time.                                                                            |
+|Name|Type|Description|
+|---|---|---|
+|userId|string(int64)|User ID|
+|accountId|string(int64)|Account ID|
+|coinId|string(int64)|Collateral Coin ID|
+|contractId|string(int64)|Contract ID|
+|openSize|string|Current Open Size|
+|openValue|string|Current Open Value|
+|openFee|string|Current Open Fee|
+|fundingFee|string|Current Funding Fee|
+|longTermCount|integer(int32)|Long Position Term Count|
+|longTermStat|[PositionStat](#schemapositionstat)|Long Position Cumulative Statistics|
+|longTermCreatedTime|string|Long Position Term Creation Time|
+|longTermUpdatedTime|string|Long Position Term Update Time|
+|shortTermCount|integer(int32)|Short Position Term Count|
+|shortTermStat|[PositionStat](#schemapositionstat)|Short Position Cumulative Statistics|
+|shortTermCreatedTime|string|Short Position Term Creation Time|
+|shortTermUpdatedTime|string|Short Position Term Update Time|
+|longTotalStat|[PositionStat](#schemapositionstat)|Long Cumulative Statistics|
+|shortTotalStat|[PositionStat](#schemapositionstat)|Short Cumulative Statistics|
+|createdTime|string(int64)|Creation Time|
+|updatedTime|string(int64)|Update Time|
 
 
 <a id="schemapositionstat"></a>
 ### schemapositionstat
 
-| Name            | Type   | Required | Constraints | Description              | Notes                                                               |
-| --------------- | ------ | -------- | ----------- | ------------------------ | ------------------------------------------------------------------- |
-| cumOpenSize     | string | false    | none        | Cumulative Open Size     | Cumulative open size.                                               |
-| cumOpenValue    | string | false    | none        | Cumulative Open Value   | Cumulative open value.                                              |
-| cumOpenFee      | string | false    | none        | Cumulative Open Fee     | Cumulative open fees.                                               |
-| cumCloseSize    | string | false    | none        | Cumulative Close Size   | Cumulative close size.                                              |
-| cumCloseValue   | string | false    | none        | Cumulative Close Value  | Cumulative close value.                                             |
-| cumCloseFee     | string | false    | none        | Cumulative Close Fee    | Cumulative close fees.                                              |
-| cumFundingFee   | string | false    | none        | Cumulative Funding Fee  | Cumulative funding fees settled.                                      |
-| cumLiquidateFee | string | false    | none        | Cumulative Liquidate Fee| Cumulative liquidation fees.                                          |
+|Name|Type|Description|
+|---|---|---|
+|cumOpenSize|string|Cumulative Open Size|
+|cumOpenValue|string|Cumulative Open Value|
+|cumOpenFee|string|Cumulative Open Fee|
+|cumCloseSize|string|Cumulative Close Size|
+|cumCloseValue|string|Cumulative Close Value|
+|cumCloseFee|string|Cumulative Close Fee|
+|cumFundingFee|string|Cumulative Funding Fee|
+|cumLiquidateFee|string|Cumulative Liquidate Fee|
 
 <a id="schemacollateral"></a>
 ### schemacollateral
 
-| Name                  | Type            | Required | Constraints | Description                                   | Notes                                                                    |
-| --------------------- | --------------- | -------- | ----------- | --------------------------------------------- | ------------------------------------------------------------------------ |
-| userId                | string(int64)   | false    | none        | User ID                                       | ID of the owning user.                                                  |
-| accountId             | string(int64)   | false    | none        | Account ID                                    | ID of the owning account.                                                 |
-| coinId                | string(int64)   | false    | none        | Coin ID                                       | Collateral coin ID.                                                       |
-| amount                | string(decimal) | false    | none        | Collateral Amount                             | Collateral amount, actually of decimal type.                               |
-| legacyAmount          | string(decimal) | false    | none        | Legacy Amount                                 | Legacy balance field, for display purposes only, not for calculations.   |
-| cumDepositAmount      | string(decimal) | false    | none        | Cumulative Deposit Amount                     | Cumulative deposit amount.                                               |
-| cumWithdrawAmount     | string(decimal) | false    | none        | Cumulative Withdrawal Amount                  | Cumulative withdrawal amount.                                             |
-| cumTransferInAmount   | string(decimal) | false    | none        | Cumulative Transfer In Amount                  | Cumulative transfer in amount.                                              |
-| cumTransferOutAmount  | string(decimal) | false    | none        | Cumulative Transfer Out Amount                 | Cumulative transfer out amount.                                             |
-| cumPositionBuyAmount  | string(decimal) | false    | none        | Cumulative Position Buy Amount                | Cumulative collateral amount deducted from position buy.                     |
-| cumPositionSellAmount | string(decimal) | false    | none        | Cumulative Position Sell Amount                | Cumulative collateral amount added from position sell.                    |
-| cumFillFeeAmount      | string(decimal) | false    | none        | Cumulative Fill Fee Amount                    | Cumulative transaction fee amount.                                            |
-| cumFundingFeeAmount   | string(decimal) | false    | none        | Cumulative Funding Fee Amount                 | Cumulative funding fee amount.                                              |
-| cumFillFeeIncomeAmount| string(decimal) | false    | none        | Cumulative Order Fill Fee Income Amount       | Cumulative amount from order fill fee income.                                 |
-| createdTime           | string(int64)   | false    | none        | Creation Time                                 | Creation time.                                                               |
-| updatedTime           | string(int64)   | false    | none        | Update Time                                    | Update time.                                                                  |
+|Name|Type|Description|
+|---|---|---|
+|userId|string(int64)|User ID|
+|accountId|string(int64)|Account ID|
+|coinId|string(int64)|Coin ID|
+|amount|string(decimal)|Collateral Amount|
+|legacyAmount|string(decimal)|Legacy Amount|
+|cumDepositAmount|string(decimal)|Cumulative Deposit Amount|
+|cumWithdrawAmount|string(decimal)|Cumulative Withdrawal Amount|
+|cumTransferInAmount|string(decimal)|Cumulative Transfer In Amount|
+|cumTransferOutAmount|string(decimal)|Cumulative Transfer Out Amount|
+|cumPositionBuyAmount|string(decimal)|Cumulative Position Buy Amount|
+|cumPositionSellAmount|string(decimal)|Cumulative Position Sell Amount|
+|cumFillFeeAmount|string(decimal)|Cumulative Fill Fee Amount|
+|cumFundingFeeAmount|string(decimal)|Cumulative Funding Fee Amount|
+|cumFillFeeIncomeAmount|string(decimal)|Cumulative Order Fill Fee Income Amount|
+|createdTime|string(int64)|Creation Time|
+|updatedTime|string(int64)|Update Time|
 
 <a id="schemaaccount"></a>
 ### schemaaccount
 
-| Name                    | Type                | Required | Constraints | Description                                                                                                                                  | Notes                                                                                     |
-| ----------------------- | ------------------- | -------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| id                      | string(int64)       | false    | none        | Account ID                                                                                                                                 | Account ID, must be greater than 0.                                                      |
-| userId                  | string(int64)       | false    | none        | User ID                                                                                                                                    | ID of the owning user.                                                                    |
-| ethAddress              | string              | false    | none        | Wallet ETH Address                                                                                                                          | Wallet ETH address.                                                                      |
-| l2Key                   | string              | false    | none        | L2 Account Key                                                                                                                              | Account key on L2. Stark key in starkEx. Bigint for hex string                             |
-| l2KeyYCoordinate        | string              | false    | none        | L2 Key Y Coordinate                                                                                                                        | Used only for verifying l2Signature. Not returned to end users. Bigint for hex string.    |
-| clientAccountId         | string              | false    | none        | Client Account ID                                                                                                                            | Client account ID for idempotency check.                                                   |
-| isSystemAccount         | boolean             | false    | none        | System Account                                                                                                                             | Whether it is a system account (system accounts are not subject to contract risk settings, use separate MQ for trade messages). |
-| defaultTradeSetting     | [TradeSetting](#schematradesetting) | false    | none        | Default Trade Setting                                                                                                    | Trade settings. Trade setting calculation priority: Account contract trade settings -> Account default trade settings -> Contract configuration trade settings. Note: Only one of `is_set_fee_rate` and `is_set_fee_discount` can be true.                                     |
-| contractIdToTradeSetting| object              | false    | none        | Contract-Level Account Trade Settings                                                                                                    | Account contract-level trade settings.                                                     |
-| » **additionalProperties**| [TradeSetting](#schematradesetting) | false    | none        | Contract-Level Account Trade Settings                                                                                                    | Trade settings. Trade setting calculation priority: Account contract trade settings -> Account default trade settings -> Contract configuration trade settings. Note: Only one of `is_set_fee_rate` and `is_set_fee_discount` can be true.                                                     |
-| maxLeverageLimit        | string              | false    | none        | Maximum Leverage Limit                                                                                                                       | User-set maximum leverage limit. If 0, uses the leverage limit of the corresponding trading contract.  |
-| createOrderPerMinuteLimit| integer(int32)     | false    | none        | Order Creation Limit per Minute                                                                                                        | Order frequency limit per minute. If 0, default limit is used; if < 0, no limit is applied. |
-| createOrderDelayMillis  | integer(int32)     | false    | none        | Order Creation Delay Milliseconds                                                                                                        | Order delay milliseconds, must be greater than or equal to 0.                         |
-| extraType               | string              | false    | none        | Extra Type                                                                                                                                 | Extra type for upper-layer use.                                                            |
-| extraDataJson           | string              | false    | none        | Extra Data                                                                                                                               | Extra data in JSON format, default is an empty string.                                     |
-| status                  | string              | false    | none        | Account Status                                                                                                                            | Account status.                                                                           |
-| isLiquidating           | boolean             | false    | none        | Is Liquidating                                                                                                                            | Whether is being liquidated.                                                              |
-| createdTime             | string(int64)       | false    | none        | Creation Time                                                                                                                              | Creation time.                                                                            |
-| updatedTime             | string(int64)       | false    | none        | Update Time                                                                                                                                 | Update time.                                                                               |
+|Name|Type|Description|
+|---|---|---|
+|id|string(int64)|Account ID|
+|userId|string(int64)|User ID|
+|ethAddress|string|Wallet ETH Address|
+|l2Key|string|L2 Account Key|
+|l2KeyYCoordinate|string|L2 Key Y Coordinate|
+|clientAccountId|string|Client Account ID|
+|isSystemAccount|boolean|System Account|
+|defaultTradeSetting|[TradeSetting](#schematradesetting)|Default Trade Setting|
+|contractIdToTradeSetting|object|Contract-Level Account Trade Settings|
+|» **additionalProperties**|[TradeSetting](#schematradesetting)|Contract-Level Account Trade Settings|
+|maxLeverageLimit|string|Maximum Leverage Limit|
+|createOrderPerMinuteLimit|integer(int32)|Order Creation Limit per Minute|
+|createOrderDelayMillis|integer(int32)|Order Creation Delay Milliseconds|
+|extraType|string|Extra Type|
+|extraDataJson|string|Extra Data|
+|status|string|Account Status|
+|isLiquidating|boolean|Is Liquidating|
+|createdTime|string(int64)|Creation Time|
+|updatedTime|string(int64)|Update Time|
 
 #### Enumerated Values
 
@@ -1297,154 +1297,154 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 <a id="schematradesetting"></a>
 ### schematradesetting
 
-| Name              | Type            | Required | Constraints | Description                                                                                    | Notes                                                                                          |
-| ----------------- | --------------- | -------- | ----------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| isSetFeeRate      | boolean         | false    | none        | Whether Fee Rate is Set                                                                        | Whether to set a specific fee rate value.                                                        |
-| takerFeeRate      | string(decimal) | false    | none        | Taker Fee Rate                                                                                 | Taker fee rate, range [0, 1), valid only when is_set_fee_rate=true.                                    |
-| makerFeeRate      | string(decimal) | false    | none        | Maker Fee Rate                                                                                 | Maker fee rate, range [0, 1), valid only when is_set_fee_rate=true.                                     |
-| isSetFeeDiscount  | boolean         | false    | none        | Whether Fee Discount is Set                                                                  | Whether to set a fee discount.                                                                   |
-| takerFeeDiscount  | string(decimal) | false    | none        | Taker Fee Discount                                                                             | Taker fee discount, range [0, 1), valid only when is_set_fee_discount=true.                      |
-| makerFeeDiscount  | string(decimal) | false    | none        | Maker Fee Discount                                                                             | Maker fee discount, range [0, 1), valid only when is_set_fee_discount=true.                       |
-| isSetMaxLeverage  | boolean         | false    | none        | Whether Maximum Leverage is Set                                                                  | Whether to set maximum trading leverage.                                                      |
-| maxLeverage       | string(decimal) | false    | none        | Maximum Leverage                                                                             | Maximum trading leverage.                                                                          |
+|Name|Type|Description|
+|---|---|---|
+|isSetFeeRate|boolean|Whether Fee Rate is Set|
+|takerFeeRate|string(decimal)|Taker Fee Rate|
+|makerFeeRate|string(decimal)|Maker Fee Rate|
+|isSetFeeDiscount|boolean|Whether Fee Discount is Set|
+|takerFeeDiscount|string(decimal)|Taker Fee Discount|
+|makerFeeDiscount|string(decimal)|Maker Fee Discount|
+|isSetMaxLeverage|boolean|Whether Maximum Leverage is Set|
+|maxLeverage|string(decimal)|Maximum Leverage|
 
 
 <a id="schemaresultaccount"></a>
 ### schemaresultaccount
 
-| Name           | Type                                 | Required | Constraints | Description                | Notes                                                                    |
-| -------------- | ------------------------------------ | -------- | ----------- | -------------------------- | ------------------------------------------------------------------------ |
-| code           | string                               | false    | none        | Status Code                | Returns "SUCCESS" on success; otherwise, it indicates failure.            |
-| data           | [Account](#schemaaccount)            | false    | none        | Account Information      | Account information data.                                                 |
-| errorParam     | object                               | false    | none        | Error Parameters           | Error message parameter information                                       |
-| requestTime    | string(timestamp)                    | false    | none        | Server Request Time       | Time at which the server received the request                             |
-| responseTime   | string(timestamp)                    | false    | none        | Server Response Time      | Time at which the server sent the response                                |
-| traceId        | string                               | false    | none        | Trace ID                  | Invocation trace ID                                                     |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status Code|
+|data|[Account](#schemaaccount)|Account Information|
+|errorParam|object|Error Parameters|
+|requestTime|string(timestamp)|Server Request Time|
+|responseTime|string(timestamp)|Server Response Time|
+|traceId|string|Trace ID|
 
 
 <a id="getaccountdeleveragelight"></a>
 ### getaccountdeleveragelight
 
-| Name           | Type                                   | Required | Constraints | Description                        | Notes                                                                  |
-| -------------- | -------------------------------------- | -------- | ----------- | ---------------------------------- | ---------------------------------------------------------------------- |
-| code           | string                                 | false    | none        | Status Code                        | Returns "SUCCESS" on success; otherwise, it indicates failure.          |
-| data           | [GetAccountDeleverageLight](#schemagetaccountdeleveragelight) | false    | none        | Get Account Deleverage Light Response  | Response structure for fetching deleverage light information.         |
-| errorParam     | object                                 | false    | none        | Error Parameters                   | Error message parameter information                                     |
-| requestTime    | string(timestamp)                      | false    | none        | Server Request Time               | Time at which the server received the request                           |
-| responseTime   | string(timestamp)                      | false    | none        | Server Response Time              | Time at which the server sent the response                              |
-| traceId        | string                                 | false    | none        | Trace ID                          | Invocation trace ID                                                  |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status Code|
+|data|[GetAccountDeleverageLight](#schemagetaccountdeleveragelight)|Get Account Deleverage Light Response|
+|errorParam|object|Error Parameters|
+|requestTime|string(timestamp)|Server Request Time|
+|responseTime|string(timestamp)|Server Response Time|
+|traceId|string|Trace ID|
 
 <a id="schemagetaccountdeleveragelight"></a>
 ### Response structure for fetching deleverage light information.
 
-| Name                         | Type   | Required | Constraints | Description                                                                          | Notes                                                                         |
-| ---------------------------- | ------ | -------- | ----------- | ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
-| positionContractIdToLightNumberMap | object | false    | none        | Map from Position Contract ID to Light Number                                   | Maps position contract ID to light number. `light_number` ranges from 1-5, which represent 1-5 lights. |
+|Name|Type|Description|
+|---|---|---|
+|positionContractIdToLightNumberMap|object|Map from Position Contract ID to Light Number|
 
 
 <a id="account"></a>
 ### account
 
-| Name           | Type                               | Required | Constraints | Description              | Notes                                                                    |
-| -------------- | ---------------------------------- | -------- | ----------- | ------------------------ | ------------------------------------------------------------------------ |
-| code           | string                             | false    | none        | Status Code              | Returns "SUCCESS" on success; otherwise, it indicates failure.            |
-| data           | [PageDataAccount](#schemapagedataaccount)   | false    | none        | Generic Paginated Response | Generic paginated response.                                                                     |
-| errorParam     | object                             | false    | none        | Error Parameters         | Error message parameter information                                       |
-| requestTime    | string(timestamp)                  | false    | none        | Server Request Time     | Time at which the server received the request                             |
-| responseTime   | string(timestamp)                  | false    | none        | Server Response Time    | Time at which the server sent the response                                |
-| traceId        | string                             | false    | none        | Trace ID                | Invocation trace ID                                                  |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status Code|
+|data|[PageDataAccount](#schemapagedataaccount)|Generic Paginated Response|
+|errorParam|object|Error Parameters|
+|requestTime|string(timestamp)|Server Request Time|
+|responseTime|string(timestamp)|Server Response Time|
+|traceId|string|Trace ID|
 
 
 <a id="schemapagedataaccount"></a>
 ### Generic Paginated Response
 
-| Name               | Type                     | Required | Constraints | Description                 | Notes                                                               |
-| ------------------ | ------------------------ | -------- | ----------- | --------------------------- | ------------------------------------------------------------------- |
-| dataList           | [[Account](#schemaaccount)]       | false    | none        | Data List                  | List of account data.                                                               |
-| nextPageOffsetData | string                   | false    | none        | Next Page Offset        | Offset for retrieving the next page. If no next page data, empty string. |
+|Name|Type|Description|
+|---|---|---|
+|dataList|[[Account](#schemaaccount)]|Data List|
+|nextPageOffsetData|string|Next Page Offset|
 
 <a id="collateral"></a>
 ### collateral
 
-| Name           | Type                      | Required | Constraints | Description        | Notes                                                                  |
-| -------------- | ------------------------- | -------- | ----------- | ------------------ | ---------------------------------------------------------------------- |
-| code           | string                    | false    | none        | Status Code        | Returns "SUCCESS" on success; otherwise, it indicates failure.          |
-| data           | [[Collateral](#schemacollateral)] | false    | none        | Response Data     | Correct response data.                                                  |
-| errorParam     | object                    | false    | none        | Error Parameters   | Error message parameter information                                     |
-| requestTime    | string(timestamp)         | false    | none        | Server Request Time | Time at which the server received the request                           |
-| responseTime   | string(timestamp)         | false    | none        | Server Response Time| Time at which the server sent the response                              |
-| traceId        | string                    | false    | none        | Trace ID           | Invocation trace ID                                                  |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status Code|
+|data|[[Collateral](#schemacollateral)]|Response Data|
+|errorParam|object|Error Parameters|
+|requestTime|string(timestamp)|Server Request Time|
+|responseTime|string(timestamp)|Server Response Time|
+|traceId|string|Trace ID|
 
 
 <a id="collateraltransaction"></a>
 ### collateraltransaction
 
-| Name           | Type                            | Required | Constraints | Description        | Notes                                                                  |
-| -------------- | ------------------------------- | -------- | ----------- | ------------------ | ---------------------------------------------------------------------- |
-| code           | string                          | false    | none        | Status Code        | Returns "SUCCESS" on success; otherwise, it indicates failure.          |
-| data           | [[CollateralTransaction](#schemacollateraltransaction)] | false    | none        | Response Data     | Correct response data.                                                  |
-| errorParam     | object                          | false    | none        | Error Parameters   | Error message parameter information                                     |
-| requestTime    | string(timestamp)               | false    | none        | Server Request Time | Time at which the server received the request                           |
-| responseTime   | string(timestamp)               | false    | none        | Server Response Time| Time at which the server sent the response                              |
-| traceId        | string                          | false    | none        | Trace ID           | Invocation trace ID                                                  |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status Code|
+|data|[[CollateralTransaction](#schemacollateraltransaction)]|Response Data|
+|errorParam|object|Error Parameters|
+|requestTime|string(timestamp)|Server Request Time|
+|responseTime|string(timestamp)|Server Response Time|
+|traceId|string|Trace ID|
 
 
 <a id="schemacollateraltransaction"></a>
 ### Collateral transaction details
 
-| Name                    | Type            | Required | Constraints | Description                                                                                    | Notes                                                                                             |
-| ----------------------- | --------------- | -------- | ----------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| id                      | string(int64)   | false    | none        | Unique Identifier                                                                              | Unique identifier.                                                                                |
-| userId                  | string(int64)   | false    | none        | User ID                                                                                        | ID of the owning user.                                                                           |
-| accountId               | string(int64)   | false    | none        | Account ID                                                                                     | ID of the owning account.                                                                       |
-| coinId                  | string(int64)   | false    | none        | Coin ID                                                                                        | Collateral coin ID.                                                                             |
-| type                    | string          | false    | none        | Detail Type                                                                                    | Detail type.                                                                                      |
-| deltaAmount             | string(decimal) | false    | none        | Collateral Change Amount                                                                       | Amount of the collateral change.                                                                |
-| deltaLegacyAmount       | string(decimal) | false    | none        | Legacy Balance Change Amount                                                                   | Change amount of the legacy balance field.                                                    |
-| beforeAmount            | string(decimal) | false    | none        | Collateral Amount Before Change                                                                | Collateral amount before the change.                                                             |
-| beforeLegacyAmount      | string(decimal) | false    | none        | Legacy Balance Amount Before Change                                                            | Legacy balance before the change.                                                                  |
-| fillCloseSize           | string(decimal) | false    | none        | Transaction Close Size                                                                       | Transaction close size (positive for buy, negative for sell).                                          |
-| fillCloseValue          | string          | false    | none        | Transaction Close Value                                                                       | Transaction close value (positive for buy, negative for sell).                                     |
-| fillCloseFee            | string          | false    | none        | Transaction Close Fee                                                                          | Transaction close fee (typically zero or negative).                                             |
-| fillOpenSize            | string(decimal) | false    | none        | Transaction Open Size                                                                        | Transaction open size (positive for buy, negative for sell).                                          |
-| fillOpenValue           | string          | false    | none        | Transaction Open Value                                                                        | Transaction open value (positive for buy, negative for sell).                                     |
-| fillOpenFee             | string          | false    | none        | Transaction Open Fee                                                                           | Transaction open fee (typically zero or negative).                                             |
-| fillPrice               | string(decimal) | false    | none        | Transaction Price                                                                              | Transaction price (not precise, for display).                                              |
-| liquidateFee            | string(decimal) | false    | none        | Liquidation Fee                                                                                | Liquidation fee (if close transaction is a liquidation, typically zero or negative).            |
-| realizePnl              | string(decimal) | false    | none        | Realized Profit and Loss                                                                        | Realized profit and loss from a close (if a close transaction. Not precise, for display). |
-| isLiquidate             | boolean         | false    | none        | Is Liquidation                                                                                   | Whether the transaction is a liquidation.                                                      |
-| isDeleverage            | boolean         | false    | none        | Is Auto-Deleveraging                                                                         | Whether the transaction is from auto-deleveraging.                                            |
-| fundingTime             | string(int64)   | false    | none        | Funding Settlement Time                                                                      | Funding settlement time.                                                                        |
-| fundingRate             | string(decimal) | false    | none        | Funding Rate                                                                                    | Funding rate.                                                                                    |
-| fundingIndexPrice       | string(decimal) | false    | none        | Funding Index Price                                                                           | Index price related to funding rate.                                                         |
-| fundingOraclePrice      | string(decimal) | false    | none        | Funding Oracle Price                                                                          | Oracle price related to funding rate.                                                        |
-| fundingPositionSize     | string(decimal) | false    | none        | Position Size During Funding Settlement                                                      | Position size during funding settlement (positive for long, negative for short).             |
-| depositId               | string(int64)   | false    | none        | Deposit Order ID                                                                               | Associated deposit order ID when type=DEPOSIT.                                                 |
-| withdrawId              | string(int64)   | false    | none        | Withdrawal Order ID                                                                            | Associated withdrawal order ID when type=WITHDRAW.                                              |
-| transferInId            | string(int64)   | false    | none        | Transfer In Order ID                                                                           | Associated transfer-in order ID when type=TRANSFER_IN.                                           |
-| transferOutId           | string(int64)   | false    | none        | Transfer Out Order ID                                                                          | Associated transfer-out order ID when type=TRANSFER_OUT.                                          |
-| transferReason          | string          | false    | none        | Transfer Reason                                                                               | Transfer reason when type=TRANSFER_IN/TRANSFER_OUT.                                         |
-| orderId                 | string(int64)   | false    | none        | Order ID                                                                                       | Associated order ID when type=POSITION_BUY/POSITION_SELL/FILL_FEE_INCOME.                      |
-| orderFillTransactionId  | string(int64)   | false    | none        | Order Fill Transaction ID                                                                    | Associated order fill transaction ID when type=POSITION_BUY/POSITION_SELL/FILL_FEE_INCOME.   |
-| orderAccountId          | string(int64)   | false    | none        | Order Account ID                                                                             | Associated order account ID when type=FILL_FEE_INCOME.                                         |
-| positionContractId      | string(int64)   | false    | none        | Position Contract ID                                                                           | Associated position contract ID when type=POSITION_BUY/POSITION_SELL/POSITION_FUNDING/FILL_FEE_INCOME. |
-| positionTransactionId  | string(int64)   | false    | none        | Position Transaction ID                                                                    | Associated position transaction ID when type=POSITION_BUY/POSITION_SELL/POSITION_FUNDING.     |
-| forceWithdrawId         | string          | false    | none        | Force Withdrawal Order ID                                                                      | Associated force withdrawal order ID when type=WITHDRAW.                                    |
-| forceTradeId            | string          | false    | none        | Force Trade ID                                                                                 | Associated force trade order ID when type=POSITION_BUY/POSITION_SELL.                           |
-| extraType               | string          | false    | none        | Extra Type                                                                                     | Extra type for upper-layer business use.                                                     |
-| extraDataJson           | string          | false    | none        | Extra Data                                                                                    | Extra data in JSON format, default is empty string.                                          |
-| censorStatus            | string          | false    | none        | Current Censoring Status                                                                       | Current censoring status.                                                                     |
-| censorTxId              | string(int64)   | false    | none        | Censoring Processing Sequence Number                                                       | Censoring processing sequence number, exists when censor_status=CENSOR_SUCCESS/CENSOR_FAILURE/L2_APPROVED/L2_REJECT/L2_REJECT_APPROVED.   |
-| censorTime              | string(int64)   | false    | none        | Censoring Processing Time                                                                    | Censoring processing time, exists when censor_status=CENSOR_SUCCESS/CENSOR_FAILURE/L2_APPROVED/L2_REJECT/L2_REJECT_APPROVED.   |
-| censorFailCode          | string          | false    | none        | Censoring Failure Code                                                                         | Censoring failure code, exists when censor_status=CENSOR_FAILURE.                           |
-| censorFailReason        | string          | false    | none        | Censoring Failure Reason                                                                       | Censoring failure reason, exists when censor_status=CENSOR_FAILURE.                         |
-| l2TxId                  | string(int64)   | false    | none        | L2 Push Transaction ID                                                                          | L2 push transaction ID, exists when censor_status=CENSOR_SUCCESS/L2_APPROVED/L2_REJECT/L2_REJECT_APPROVED.    |
-| l2RejectTime            | string(int64)   | false    | none        | L2 Rejection Time                                                                             | L2 rejection time, exists when censor_status=L2_REJECT/L2_REJECT_APPROVED.                 |
-| l2RejectCode            | string          | false    | none        | L2 Rejection Error Code                                                                        | L2 rejection error code, exists when censor_status=L2_REJECT/L2_REJECT_APPROVED.             |
-| l2RejectReason          | string          | false    | none        | L2 Rejection Reason                                                                          | L2 rejection reason, exists when censor_status=L2_REJECT/L2_REJECT_APPROVED.             |
-| l2ApprovedTime          | string(int64)   | false    | none        | L2 Batch Verification Time                                                                   | L2 batch verification time, exists when censor_status=L2_APPROVED/L2_REJECT_APPROVED.         |
-| createdTime             | string(int64)   | false    | none        | Creation Time                                                                                  | Creation time.                                                                              |
-| updatedTime             | string(int64)   | false    | none        | Update Time                                                                                   | Update time.                                                                                 |
+|Name|Type|Description|
+|---|---|---|
+|id|string(int64)|Unique Identifier|
+|userId|string(int64)|User ID|
+|accountId|string(int64)|Account ID|
+|coinId|string(int64)|Coin ID|
+|type|string|Detail Type|
+|deltaAmount|string(decimal)|Collateral Change Amount|
+|deltaLegacyAmount|string(decimal)|Legacy Balance Change Amount|
+|beforeAmount|string(decimal)|Collateral Amount Before Change|
+|beforeLegacyAmount|string(decimal)|Legacy Balance Amount Before Change|
+|fillCloseSize|string(decimal)|Transaction Close Size|
+|fillCloseValue|string|Transaction Close Value|
+|fillCloseFee|string|Transaction Close Fee|
+|fillOpenSize|string(decimal)|Transaction Open Size|
+|fillOpenValue|string|Transaction Open Value|
+|fillOpenFee|string|Transaction Open Fee|
+|fillPrice|string(decimal)|Transaction Price|
+|liquidateFee|string(decimal)|Liquidation Fee|
+|realizePnl|string(decimal)|Realized Profit and Loss|
+|isLiquidate|boolean|Is Liquidation|
+|isDeleverage|boolean|Is Auto-Deleveraging|
+|fundingTime|string(int64)|Funding Settlement Time|
+|fundingRate|string(decimal)|Funding Rate|
+|fundingIndexPrice|string(decimal)|Funding Index Price|
+|fundingOraclePrice|string(decimal)|Funding Oracle Price|
+|fundingPositionSize|string(decimal)|Position Size During Funding Settlement|
+|depositId|string(int64)|Deposit Order ID|
+|withdrawId|string(int64)|Withdrawal Order ID|
+|transferInId|string(int64)|Transfer In Order ID|
+|transferOutId|string(int64)|Transfer Out Order ID|
+|transferReason|string|Transfer Reason|
+|orderId|string(int64)|Order ID|
+|orderFillTransactionId|string(int64)|Order Fill Transaction ID|
+|orderAccountId|string(int64)|Order Account ID|
+|positionContractId|string(int64)|Position Contract ID|
+|positionTransactionId|string(int64)|Position Transaction ID|
+|forceWithdrawId|string|Force Withdrawal Order ID|
+|forceTradeId|string|Force Trade ID|
+|extraType|string|Extra Type|
+|extraDataJson|string|Extra Data|
+|censorStatus|string|Current Censoring Status|
+|censorTxId|string(int64)|Censoring Processing Sequence Number|
+|censorTime|string(int64)|Censoring Processing Time|
+|censorFailCode|string|Censoring Failure Code|
+|censorFailReason|string|Censoring Failure Reason|
+|l2TxId|string(int64)|L2 Push Transaction ID|
+|l2RejectTime|string(int64)|L2 Rejection Time|
+|l2RejectCode|string|L2 Rejection Error Code|
+|l2RejectReason|string|L2 Rejection Reason|
+|l2ApprovedTime|string(int64)|L2 Batch Verification Time|
+|createdTime|string(int64)|Creation Time|
+|updatedTime|string(int64)|Update Time|
 
 #### Enumerated Values
 
@@ -1480,148 +1480,148 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 <a id="collateraltransaction>"></a>
 ### collateraltransaction
 
-| Name           | Type                                     | Required | Constraints | Description                        | Notes                                                                  |
-| -------------- | ---------------------------------------- | -------- | ----------- | ---------------------------------- | ---------------------------------------------------------------------- |
-| code           | string                                   | false    | none        | Status Code                        | Returns "SUCCESS" on success; otherwise, it indicates failure.          |
-| data           | [PageDataCollateralTransaction](#schemapagedatacollateraltransaction) | false    | none        | Generic Paginated Response | Generic paginated response.                                                              |
-| errorParam     | object                                   | false    | none        | Error Parameters                   | Error message parameter information                                     |
-| requestTime    | string(timestamp)                        | false    | none        | Server Request Time               | Time at which the server received the request                           |
-| responseTime   | string(timestamp)                        | false    | none        | Server Response Time              | Time at which the server sent the response                              |
-| traceId        | string                                   | false    | none        | Trace ID                          | Invocation trace ID                                                  |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status Code|
+|data|[PageDataCollateralTransaction](#schemapagedatacollateraltransaction)|Generic Paginated Response|
+|errorParam|object|Error Parameters|
+|requestTime|string(timestamp)|Server Request Time|
+|responseTime|string(timestamp)|Server Response Time|
+|traceId|string|Trace ID|
 
 
 <a id="schemapagedatacollateraltransaction"></a>
 ### schemapagedatacollateraltransaction
 
-| Name               | Type                             | Required | Constraints | Description                 | Notes                                                               |
-| ------------------ | -------------------------------- | -------- | ----------- | --------------------------- | ------------------------------------------------------------------- |
-| dataList           | [[CollateralTransaction](#schemacollateraltransaction)] | false    | none        | Data List                  | List of collateral transaction data.                                               |
-| nextPageOffsetData | string                           | false    | none        | Next Page Offset        | Offset for retrieving the next page. If no next page data, empty string. |
+|Name|Type|Description|
+|---|---|---|
+|dataList|[[CollateralTransaction](#schemacollateraltransaction)]|Data List|
+|nextPageOffsetData|string|Next Page Offset|
 
 
 ### position
 
-| Name           | Type                   | Required | Constraints | Description        | Notes                                                                  |
-| -------------- | ---------------------- | -------- | ----------- | ------------------ | ---------------------------------------------------------------------- |
-| code           | string                 | false    | none        | Status Code        | Returns "SUCCESS" on success; otherwise, it indicates failure.          |
-| data           | [[Position](#schemaposition)] | false    | none        | Response Data     | Correct response data.                                                  |
-| errorParam     | object                 | false    | none        | Error Parameters   | Error message parameter information                                     |
-| requestTime    | string(timestamp)      | false    | none        | Server Request Time | Time at which the server received the request                           |
-| responseTime   | string(timestamp)      | false    | none        | Server Response Time| Time at which the server sent the response                              |
-| traceId        | string                 | false    | none        | Trace ID           | Invocation trace ID                                                  |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status Code|
+|data|[[Position](#schemaposition)]|Response Data|
+|errorParam|object|Error Parameters|
+|requestTime|string(timestamp)|Server Request Time|
+|responseTime|string(timestamp)|Server Response Time|
+|traceId|string|Trace ID|
 
 
 <a id="positionterm"></a>
 ### positionterm
 
-| Name           | Type                                   | Required | Constraints | Description                | Notes                                                                    |
-| -------------- | -------------------------------------- | -------- | ----------- | -------------------------- | ------------------------------------------------------------------------ |
-| code           | string                                 | false    | none        | Status Code                | Returns "SUCCESS" on success; otherwise, it indicates failure.            |
-| data           | [PageDataPositionTerm](#schemapagedatapositionterm)  | false    | none        | Generic Paginated Response | Generic paginated response.                                                              |
-| errorParam     | object                                 | false    | none        | Error Parameters           | Error message parameter information                                       |
-| requestTime    | string(timestamp)                      | false    | none        | Server Request Time       | Time at which the server received the request                           |
-| responseTime   | string(timestamp)                      | false    | none        | Server Response Time      | Time at which the server sent the response                              |
-| traceId        | string                                 | false    | none        | Trace ID                  | Invocation trace ID                                                     |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status Code|
+|data|[PageDataPositionTerm](#schemapagedatapositionterm)|Generic Paginated Response|
+|errorParam|object|Error Parameters|
+|requestTime|string(timestamp)|Server Request Time|
+|responseTime|string(timestamp)|Server Response Time|
+|traceId|string|Trace ID|
 
 
 <a id="schemapagedatapositionterm"></a>
 ### schemapagedatapositionterm
 
-| Name               | Type                           | Required | Constraints | Description                 | Notes                                                               |
-| ------------------ | ------------------------------ | -------- | ----------- | --------------------------- | ------------------------------------------------------------------- |
-| dataList           | [[PositionTerm](#schemapositionterm)] | false    | none        | Data List                  | List of position term data.                                                    |
-| nextPageOffsetData | string                         | false    | none        | Next Page Offset        | Offset for retrieving the next page. If no next page data, empty string. |
+|Name|Type|Description|
+|---|---|---|
+|dataList|[[PositionTerm](#schemapositionterm)]|Data List|
+|nextPageOffsetData|string|Next Page Offset|
 
 
 <a id="schemapositionterm"></a>
 ### schemapositionterm
 
-| Name            | Type          | Required | Constraints | Description                         | Notes                                                                        |
-| --------------- | ------------- | -------- | ----------- | ----------------------------------- | ---------------------------------------------------------------------------- |
-| userId          | string        | false    | none        | User ID                             | ID of the owning user.                                                                     |
-| accountId       | string        | false    | none        | Account ID                          | ID of the owning account.                                                                   |
-| coinId          | string        | false    | none        | Collateral Coin ID                 | ID of the associated collateral coin.                                                 |
-| contractId      | string        | false    | none        | Contract ID                         | ID of the associated contract.                                                           |
-| termCount       | integer(int32) | false    | none        | Term Count                          | Term count. Starts from 1, increases by one each time a position is fully closed and then re-opened.        |
-| cumOpenSize     | string        | false    | none        | Cumulative Open Size                | Cumulative open size.                                                               |
-| cumOpenValue    | string        | false    | none        | Cumulative Open Value              | Cumulative open value.                                                              |
-| cumOpenFee      | string        | false    | none        | Cumulative Open Fee                | Cumulative open fees.                                                                |
-| cumCloseSize    | string        | false    | none        | Cumulative Close Size              | Cumulative close size.                                                              |
-| cumCloseValue   | string        | false    | none        | Cumulative Close Value             | Cumulative close value.                                                                |
-| cumCloseFee     | string        | false    | none        | Cumulative Close Fee               | Cumulative close fees.                                                               |
-| cumFundingFee   | string        | false    | none        | Cumulative Funding Fee            | Cumulative funding fees that have been settled.                                |
-| cumLiquidateFee | string        | false    | none        | Cumulative Liquidation Fee          | Cumulative liquidation fees.                                                       |
-| createdTime     | string(int64) | false    | none        | Creation Time                      | Creation time.                                                                      |
-| updatedTime     | string(int64) | false    | none        | Update Time                        | Update time.                                                                      |
-| currentLeverage | string        | false    | none        | Leverage at Close             | Leverage multiple at the time of close position.                                                      |
+|Name|Type|Description|
+|---|---|---|
+|userId|string|User ID|
+|accountId|string|Account ID|
+|coinId|string|Collateral Coin ID|
+|contractId|string|Contract ID|
+|termCount|integer(int32)|Term Count|
+|cumOpenSize|string|Cumulative Open Size|
+|cumOpenValue|string|Cumulative Open Value|
+|cumOpenFee|string|Cumulative Open Fee|
+|cumCloseSize|string|Cumulative Close Size|
+|cumCloseValue|string|Cumulative Close Value|
+|cumCloseFee|string|Cumulative Close Fee|
+|cumFundingFee|string|Cumulative Funding Fee|
+|cumLiquidateFee|string|Cumulative Liquidation Fee|
+|createdTime|string(int64)|Creation Time|
+|updatedTime|string(int64)|Update Time|
+|currentLeverage|string|Leverage at Close|
 
 
 <a id="positiontransaction"></a>
 ### positiontransaction
 
-| Name           | Type                                 | Required | Constraints | Description        | Notes                                                                  |
-| -------------- | ------------------------------------ | -------- | ----------- | ------------------ | ---------------------------------------------------------------------- |
-| code           | string                               | false    | none        | Status Code        | Returns "SUCCESS" on success; otherwise, it indicates failure.          |
-| data           | [[PositionTransaction](#schemapositiontransaction)] | false    | none        | Response Data     | Correct response data.                                                  |
-| errorParam     | object                               | false    | none        | Error Parameters   | Error message parameter information                                     |
-| requestTime    | string(timestamp)                    | false    | none        | Server Request Time | Time at which the server received the request                           |
-| responseTime   | string(timestamp)                    | false    | none        | Server Response Time| Time at which the server sent the response                              |
-| traceId        | string                               | false    | none        | Trace ID           | Invocation trace ID                                                  |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status Code|
+|data|[[PositionTransaction](#schemapositiontransaction)]|Response Data|
+|errorParam|object|Error Parameters|
+|requestTime|string(timestamp)|Server Request Time|
+|responseTime|string(timestamp)|Server Response Time|
+|traceId|string|Trace ID|
 
 
 <a id="schemapositiontransaction"></a>
 ### schemapositiontransaction
 
-| Name                    | Type          | Required | Constraints | Description                                                                              | Notes                                                                                            |
-| ----------------------- | ------------- | -------- | ----------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| id                      | string(int64) | false    | none        | Unique Identifier                                                                        | Unique identifier.                                                                               |
-| userId                  | string(int64) | false    | none        | User ID                                                                                  | ID of the owning user.                                                                         |
-| accountId               | string(int64) | false    | none        | Account ID                                                                               | ID of the owning account.                                                                      |
-| coinId                  | string(int64) | false    | none        | Collateral Coin ID                                                                       | ID of the associated collateral coin.                                                            |
-| contractId              | string(int64) | false    | none        | Contract ID                                                                               | ID of the associated contract.                                                                  |
-| type                    | string        | false    | none        | Detail Type                                                                              | Detail type.                                                                                     |
-| deltaOpenSize           | string        | false    | none        | Change in Open Size                                                                    | Change in holding size.                                                                         |
-| deltaOpenValue          | string        | false    | none        | Change in Open Value                                                                   | Change in open value.                                                                          |
-| deltaOpenFee            | string        | false    | none        | Change in Open Fee                                                                      | Change in open fee.                                                                           |
-| deltaFundingFee         | string        | false    | none        | Change in Funding Fee                                                                   | Change in funding fee.                                                                        |
-| beforeOpenSize          | string        | false    | none        | Open Size Before Change                                                                | Holding size before the change.                                                                  |
-| beforeOpenValue         | string        | false    | none        | Open Value Before Change                                                               | Open value before the change.                                                                   |
-| beforeOpenFee           | string        | false    | none        | Open Fee Before Change                                                                 | Open fee before the change.                                                                    |
-| beforeFundingFee        | string        | false    | none        | Funding Fee Before Change                                                              | Funding fee before the change.                                                                  |
-| fillCloseSize           | string        | false    | none        | Transaction Close Size                                                                  | Transaction close size (positive for buy, negative for sell).                                          |
-| fillCloseValue          | string        | false    | none        | Transaction Close Value                                                                  | Transaction close value (positive for buy, negative for sell).                                      |
-| fillCloseFee            | string        | false    | none        | Transaction Close Fee                                                                     | Transaction close fee (typically zero or negative).                                            |
-| fillOpenSize            | string        | false    | none        | Transaction Open Size                                                                  | Transaction open size (positive for buy, negative for sell).                                          |
-| fillOpenValue           | string        | false    | none        | Transaction Open Value                                                                   | Transaction open value (positive for buy, negative for sell).                                      |
-| fillOpenFee             | string        | false    | none        | Transaction Open Fee                                                                      | Transaction open fee (typically zero or negative).                                            |
-| fillPrice               | string        | false    | none        | Transaction Price                                                                         | Transaction price (not precise, for display).                                              |
-| liquidateFee            | string        | false    | none        | Liquidation Fee                                                                           | Liquidation fee (if close transaction is a liquidation, typically zero or negative).          |
-| realizePnl              | string        | false    | none        | Realized Profit and Loss                                                                 | Realized profit and loss from a close (if a close transaction. Not precise, for display). |
-| isLiquidate             | boolean       | false    | none        | Is Liquidation                                                                             | Whether the transaction is a liquidation.                                                       |
-| isDeleverage            | boolean       | false    | none        | Is Auto-Deleveraging                                                                      | Whether the transaction is from auto-deleveraging.                                              |
-| fundingTime             | string(int64) | false    | none        | Funding Settlement Time                                                                  | Funding settlement time.                                                                       |
-| fundingRate             | string        | false    | none        | Funding Rate                                                                             | Funding rate.                                                                                   |
-| fundingIndexPrice       | string        | false    | none        | Funding Index Price                                                                     | Index price related to funding rate.                                                         |
-| fundingOraclePrice      | string        | false    | none        | Funding Oracle Price                                                                    | Oracle price related to funding rate.                                                        |
-| fundingPositionSize     | string        | false    | none        | Position Size During Funding Settlement                                                  | Position size during funding settlement (positive for long, negative for short).               |
-| orderId                 | string(int64) | false    | none        | Order ID                                                                                  | Associated order ID.                                                                              |
-| orderFillTransactionId  | string(int64) | false    | none        | Order Fill Transaction ID                                                               | Associated order fill transaction ID.                                                       |
-| collateralTransactionId | string(int64) | false    | none        | Collateral Transaction ID                                                             | Associated collateral transaction detail ID.                                                |
-| forceTradeId            | string        | false    | none        | Force Trade ID                                                                            | Associated force trade order ID.                                                               |
-| extraType               | string        | false    | none        | Extra Type                                                                               | Extra type for upper-layer business use.                                                     |
-| extraDataJson           | string        | false    | none        | Extra Data                                                                              | Extra data in JSON format, default is empty string.                                           |
-| censorStatus            | string        | false    | none        | Current Censoring Status                                                                  | Current censoring status.                                                                       |
-| censorTxId              | string(int64) | false    | none        | Censoring Processing Sequence Number                                                       | Censoring processing sequence number, exists when censor_status=CENSOR_SUCCESS/CENSOR_FAILURE/L2_APPROVED/L2_REJECT/L2_REJECT_APPROVED.   |
-| censorTime              | string(int64) | false    | none        | Censoring Processing Time                                                                   | Censoring processing time, exists when censor_status=CENSOR_SUCCESS/CENSOR_FAILURE/L2_APPROVED/L2_REJECT/L2_REJECT_APPROVED.   |
-| censorFailCode          | string        | false    | none        | Censoring Failure Code                                                                     | Censoring failure code, exists when censor_status=CENSOR_FAILURE.                              |
-| censorFailReason        | string        | false    | none        | Censoring Failure Reason                                                                   | Censoring failure reason, exists when censor_status=CENSOR_FAILURE.                            |
-| l2TxId                  | string(int64) | false    | none        | L2 Push Transaction ID                                                                  | L2 push transaction ID, exists when censor_status=CENSOR_SUCCESS/L2_APPROVED/L2_REJECT/L2_REJECT_APPROVED.   |
-| l2RejectTime            | string(int64) | false    | none        | L2 Rejection Time                                                                        | L2 rejection time, exists when censor_status=L2_REJECT/L2_REJECT_APPROVED.                  |
-| l2RejectCode            | string        | false    | none        | L2 Rejection Error Code                                                                    | L2 rejection error code, exists when censor_status=L2_REJECT/L2_REJECT_APPROVED.               |
-| l2RejectReason          | string        | false    | none        | L2 Rejection Reason                                                                      | L2 rejection reason, exists when censor_status=L2_REJECT/L2_REJECT_APPROVED.                  |
-| l2ApprovedTime          | string(int64) | false    | none        | L2 Batch Verification Time                                                               | L2 batch verification time, exists when censor_status=L2_APPROVED/L2_REJECT_APPROVED.          |
-| createdTime             | string(int64) | false    | none        | Creation Time                                                                                | Creation time.                                                                                  |
-| updatedTime             | string(int64) | false    | none        | Update Time                                                                               | Update time.                                                                                    |
+|Name|Type|Description|
+|---|---|---|
+|id|string(int64)|Unique Identifier|
+|userId|string(int64)|User ID|
+|accountId|string(int64)|Account ID|
+|coinId|string(int64)|Collateral Coin ID|
+|contractId|string(int64)|Contract ID|
+|type|string|Detail Type|
+|deltaOpenSize|string|Change in Open Size|
+|deltaOpenValue|string|Change in Open Value|
+|deltaOpenFee|string|Change in Open Fee|
+|deltaFundingFee|string|Change in Funding Fee|
+|beforeOpenSize|string|Open Size Before Change|
+|beforeOpenValue|string|Open Value Before Change|
+|beforeOpenFee|string|Open Fee Before Change|
+|beforeFundingFee|string|Funding Fee Before Change|
+|fillCloseSize|string|Transaction Close Size|
+|fillCloseValue|string|Transaction Close Value|
+|fillCloseFee|string|Transaction Close Fee|
+|fillOpenSize|string|Transaction Open Size|
+|fillOpenValue|string|Transaction Open Value|
+|fillOpenFee|string|Transaction Open Fee|
+|fillPrice|string|Transaction Price|
+|liquidateFee|string|Liquidation Fee|
+|realizePnl|string|Realized Profit and Loss|
+|isLiquidate|boolean|Is Liquidation|
+|isDeleverage|boolean|Is Auto-Deleveraging|
+|fundingTime|string(int64)|Funding Settlement Time|
+|fundingRate|string|Funding Rate|
+|fundingIndexPrice|string|Funding Index Price|
+|fundingOraclePrice|string|Funding Oracle Price|
+|fundingPositionSize|string|Position Size During Funding Settlement|
+|orderId|string(int64)|Order ID|
+|orderFillTransactionId|string(int64)|Order Fill Transaction ID|
+|collateralTransactionId|string(int64)|Collateral Transaction ID|
+|forceTradeId|string|Force Trade ID|
+|extraType|string|Extra Type|
+|extraDataJson|string|Extra Data|
+|censorStatus|string|Current Censoring Status|
+|censorTxId|string(int64)|Censoring Processing Sequence Number|
+|censorTime|string(int64)|Censoring Processing Time|
+|censorFailCode|string|Censoring Failure Code|
+|censorFailReason|string|Censoring Failure Reason|
+|l2TxId|string(int64)|L2 Push Transaction ID|
+|l2RejectTime|string(int64)|L2 Rejection Time|
+|l2RejectCode|string|L2 Rejection Error Code|
+|l2RejectReason|string|L2 Rejection Reason|
+|l2ApprovedTime|string(int64)|L2 Batch Verification Time|
+|createdTime|string(int64)|Creation Time|
+|updatedTime|string(int64)|Update Time|
 
 #### Enumerated Values
 
@@ -1646,29 +1646,29 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 <a id="positiontransactionpage"></a>
 ### positiontransactionpage
 
-| Name           | Type                                       | Required | Constraints | Description                        | Notes                                                                  |
-| -------------- | ------------------------------------------ | -------- | ----------- | ---------------------------------- | ---------------------------------------------------------------------- |
-| code           | string                                     | false    | none        | Status Code                        | Returns "SUCCESS" on success; otherwise, it indicates failure.          |
-| data           | [PageDataPositionTransaction](#schemapagedatapositiontransaction) | false    | none        | Generic Paginated Response         | Generic paginated response.                                                              |
-| errorParam     | object                                     | false    | none        | Error Parameters                   | Error message parameter information                                     |
-| requestTime    | string(timestamp)                          | false    | none        | Server Request Time               | Time at which the server received the request                           |
-| responseTime   | string(timestamp)                          | false    | none        | Server Response Time              | Time at which the server sent the response                              |
-| traceId        | string                                     | false    | none        | Trace ID                          | Invocation trace ID                                                  |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status Code|
+|data|[PageDataPositionTransaction](#schemapagedatapositiontransaction)|Generic Paginated Response|
+|errorParam|object|Error Parameters|
+|requestTime|string(timestamp)|Server Request Time|
+|responseTime|string(timestamp)|Server Response Time|
+|traceId|string|Trace ID|
 
 
 <a id="schemapagedatapositiontransaction"></a>
 ### schemapagedatapositiontransaction
 
-| Name               | Type                                  | Required | Constraints | Description                 | Notes                                                               |
-| ------------------ | ------------------------------------- | -------- | ----------- | --------------------------- | ------------------------------------------------------------------- |
-| dataList           | [[PositionTransaction](#schemapositiontransaction)] | false    | none        | Data List                  | List of position transaction data.                                          |
-| nextPageOffsetData | string                                | false    | none        | Next Page Offset        | Offset for retrieving the next page. If no next page data, empty string. |
+|Name|Type|Description|
+|---|---|---|
+|dataList|[[PositionTransaction](#schemapositiontransaction)]|Data List|
+|nextPageOffsetData|string|Next Page Offset|
 
 
 
 <a id="opIdupdateLeverageSetting"></a>
 
-## POST Update Leverage Setting [V2 NEW]
+## POST Update Leverage Setting
 
 POST /api/v2/private/account/updateLeverageSetting
 
@@ -1676,11 +1676,11 @@ Update leverage setting for trading account.
 
 ### Request Parameters
 
-| Name | Location | Type | Required | Description |
-| ---- | -------- | ---- | -------- | ----------- |
-| accountId | body | string(int64) | Yes | Account ID |
-| contractId | body | string(int64) | Yes | Contract ID. If 0, updates the account's default leverage setting |
-| leverage | body | string | Yes | Leverage multiplier (e.g., "10", "20", "50") |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string(int64)|Yes|Account ID|
+|contractId|string(int64)|Yes|Contract ID. If 0, updates the account's default leverage setting|
+|leverage|string|Yes|Leverage multiplier (e.g., "10", "20", "50")|
 
 > Request Example
 
@@ -1722,7 +1722,7 @@ Update leverage setting for trading account.
 
 <a id="opIdgetPositionOrders"></a>
 
-## GET Get Position Orders [V2 NEW]
+## GET Get Position Orders
 
 GET /api/v2/private/account/getPositionOrders
 
@@ -1730,13 +1730,13 @@ Get historical orders associated with a specific position term.
 
 ### Request Parameters
 
-| Name | Location | Type | Required | Description |
-| ---- | -------- | ---- | -------- | ----------- |
-| accountId | query | string(int64) | Yes | Account ID |
-| contractId | query | string(int64) | Yes | Contract ID |
-| termCount | query | integer | Yes | Position term count |
-| page | query | integer | No | Page number, must be ≥1. Default: 1 |
-| pageSize | query | integer | No | Items per page, range: 1-100. Default: 20 |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string(int64)|Yes|Account ID|
+|contractId|string(int64)|Yes|Contract ID|
+|termCount|integer|Yes|Position term count|
+|page|integer|No|Page number, must be ≥1. Default: 1|
+|pageSize|integer|No|Items per page, range: 1-100. Default: 20|
 
 > Response Example
 
@@ -1794,24 +1794,24 @@ Get historical orders associated with a specific position term.
 <a id="resultpositionorderpagemodel"></a>
 ### resultpositionorderpagemodel
 
-| Name | Type | Required | Constraints | Description | Notes |
-| ---- | ---- | -------- | ----------- | ----------- | ----- |
-| code | string | false | none | Status Code | Returns "SUCCESS" on success |
-| data | [PositionOrderPageModel](#schemapositionorderpagemodel) | false | none | Position Order Page Data | Position order page data |
-| errorParam | object | false | none | Error Parameters | Error message parameter information |
-| requestTime | string(timestamp) | false | none | Server Request Time | Time at which the server received the request |
-| responseTime | string(timestamp) | false | none | Server Response Time | Time at which the server sent the response |
-| traceId | string | false | none | Trace ID | Invocation trace ID |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status Code|
+|data|[PositionOrderPageModel](#schemapositionorderpagemodel)|Position Order Page Data|
+|errorParam|object|Error Parameters|
+|requestTime|string(timestamp)|Server Request Time|
+|responseTime|string(timestamp)|Server Response Time|
+|traceId|string|Trace ID|
 
 <a id="schemapositionorderpagemodel"></a>
 ### schemapositionorderpagemodel
 
-| Name | Type | Required | Constraints | Description | Notes |
-| ---- | ---- | -------- | ----------- | ----------- | ----- |
-| page | integer | false | none | Current Page | Current page number |
-| pageSize | integer | false | none | Page Size | Number of items per page |
-| total | integer | false | none | Total Count | Total number of orders |
-| orderList | [[Order](#schemaorder)] | false | none | Order List | List of orders associated with the position term |
+|Name|Type|Description|
+|---|---|---|
+|page|integer|Current Page|
+|pageSize|integer|Page Size|
+|total|integer|Total Count|
+|orderList|[[Order](#schemaorder)]|Order List|
 
 **Notes:**
 - This is a new endpoint added in V2

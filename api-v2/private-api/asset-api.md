@@ -25,9 +25,9 @@ POST /api/v2/private/assets/createNormalWithdraw
 
 ### Request Parameters
 
-| Name              | Location | Type                                 | Required | Description |
-|-------------------|----------|--------------------------------------|----------|-------------|
-| body              | body     | [CreateNormalWithdrawParam](#schemacreatenormalwithdrawparam) | No       | None        |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|body|[CreateNormalWithdrawParam](#schemacreatenormalwithdrawparam)|No|None|
 
 > Response Example
 
@@ -82,9 +82,9 @@ POST /api/v2/private/assets/createCrossWithdraw
 
 ### Request Parameters
 
-| Name              | Location | Type                                 | Required | Description |
-|-------------------|----------|--------------------------------------|----------|-------------|
-| body              | body     | [CreateCrossWithdrawParam](#schemacreatecrosswithdrawparam) | No       | None        |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|body|[CreateCrossWithdrawParam](#schemacreatecrosswithdrawparam)|No|None|
 
 > Response Example
 
@@ -113,9 +113,9 @@ GET /api/v2/private/assets/getNormalWithdrawableAmount
 
 ### Request Parameters
 
-| Name    | Location | Type   | Required | Description |
-|---------|----------|--------|----------|-------------|
-| address | query    | string | Yes      | User address |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|address|string|Yes|User address|
 
 > Response Example
 
@@ -149,10 +149,10 @@ GET /api/v2/private/assets/getCrossWithdrawSignInfo
 
 ### Request Parameters
 
-| Name    | Location | Type   | Required | Description |
-|---------|----------|--------|----------|-------------|
-| chainId | query    | string | No       | Chain ID    |
-| amount  | query    | string | No       | Withdrawal amount  |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|chainId|string|No|Chain ID|
+|amount|string|No|Withdrawal amount|
 
 > Response Example
 
@@ -189,15 +189,15 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 ### Request Parameters
 
-| Name           | Location | Type   | Required | Description                                         |
-|----------------|----------|--------|----------|-----------------------------------------------------|
-| accountId      | query    | string | No       | Account ID                                          |
-| startTime      | query    | string | No       | Start time, Unix time in seconds                   |
-| endTime        | query    | string | No       | End time, Unix time in seconds                     |
-| chainId        | query    | string | No       | Chain ID                                          |
-| typeList       | query    | string | No       | Order type list                                 |
-| size           | query    | string | No       | Number of items per page. Must be > 0 and <= 100. |
-| offsetData     | query    | string | No       | Offset for page retrieval. If not provided, returns first page |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string|Yes|Account ID|
+|startTime|string|No|Start time, Unix time in seconds|
+|endTime|string|No|End time, Unix time in seconds|
+|chainId|string|No|Chain ID|
+|typeList|string|No|Order type list|
+|size|string|Yes|Number of items per page. Must be > 0 and <= 100.|
+|offsetData|string|No|Offset for page retrieval. If not provided, returns first page|
 
 > Response Example
 
@@ -245,44 +245,44 @@ GET /api/v2/private/assets/getAllOrdersPage
 <a id="schemaresultpagedatassetorder"></a>
 ### schemaresultpagedatassetorder
 
-| Name             | Type                             | Required | Constraints | Description                  | Notes                                                                 |
-|------------------|----------------------------------|----------|-------------|------------------------------|-----------------------------------------------------------------------|
-| code             | string                           | false    | none        | Status code               | Returns "SUCCESS" for success, otherwise it's a failure.                |
-| data             | [PageDataAssetOrder](#schemapagedataassetorder) | false    | none        | Generic paginated return |                                                                       |
-| errorParam       | object                           | false    | none        | Error parameter information  |                                                                       |
-| requestTime      | string(timestamp)                 | false    | none        | Server request receive time    |                                                                       |
-| responseTime     | string(timestamp)                 | false    | none        | Server response return time   |                                                                       |
-| traceId          | string                           | false    | none        | Call trace ID                  |                                                                       |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code|
+|data|[PageDataAssetOrder](#schemapagedataassetorder)|Generic paginated return|
+|errorParam|object|Error parameter information|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 
 <a id="schemapagedataassetorder"></a>
 ### schemapagedataassetorder
 
-| Name             | Type                                 | Required | Constraints | Description                   | Notes                                               |
-|------------------|--------------------------------------|----------|-------------|-------------------------------|-----------------------------------------------------|
-| dataList         | [[AssetOrder](#schemaassetorder)]    | false    | none        | List of data |                                                     |
-| nextPageOffsetData | string                                 | false    | none        | Offset for next page | Empty string when there are no further pages. |
+|Name|Type|Description|
+|---|---|---|
+|dataList|[[AssetOrder](#schemaassetorder)]|List of data|
+|nextPageOffsetData|string|Offset for next page|
 
 
 <a id="schemaassetorder"></a>
 
 ### schemaassetorder
 
-| Name                  | Type            | Required | Constraints | Description                | Notes                                 |
-|-----------------------|-----------------|----------|-------------|----------------------------|---------------------------------------|
-| orderId               | string(int64)    | false    | none        | Order ID                    |                                       |
-| time                  | string(int64)    | false    | none        | Order creation time         |                                       |
-| type                  | string           | false    | none        | Order type                   |                                       |
-| status                | integer(int32)  | false    | none        | Order status                |                                       |
-| amount                | string           | false    | none        | Order amount                |                                       |
-| fee                   | string           | false    | none        | Order fee                    |                                       |
-| txId                  | string           | false    | none        | Chain tx_id                 |                                       |
-| chain                 | string           | false    | none        | Chain                        |                                       |
-| address               | string           | false    | none        | Address                      |                                       |
-| coin                  | string           | false    | none        | Coin                       |                                       |
-| chainId               | string           | false    | none        | Chain ID                  |                                       |
-| transferSenderAccountId | string           | false    | none        | Transfer out account ID     |                                       |
-| transferReceiverAccountId | string           | false    | none        | Transfer in account ID      |                                       |
+|Name|Type|Description|
+|---|---|---|
+|orderId|string(int64)|Order ID|
+|time|string(int64)|Order creation time|
+|type|string|Order type|
+|status|integer(int32)|Order status|
+|amount|string|Order amount|
+|fee|string|Order fee|
+|txId|string|Chain tx_id|
+|chain|string|Chain|
+|address|string|Address|
+|coin|string|Coin|
+|chainId|string|Chain ID|
+|transferSenderAccountId|string|Transfer out account ID|
+|transferReceiverAccountId|string|Transfer in account ID|
 
 #### Enum Values
 
@@ -304,59 +304,59 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 ### schemaresultlistcrosswithdraw
 
-| Name             | Type                                   | Required | Constraints | Description          | Notes                                                                 |
-|------------------|----------------------------------------|----------|-------------|----------------------|-----------------------------------------------------------------------|
-| code             | string                           | false    | none        | Status code          |
-| data             | [[CrossWithdraw](#schemacrosswithdraw)] | false    | none        | Correct response data |                                                                      |
-| requestTime      | string(timestamp)                 | false    | none        | Server request receive time   |                                                                      |
-| responseTime     | string(timestamp)                 | false    | none        | Server response return time    |                                                                       |
-| traceId          | string                           | false    | none        | Call trace ID          |                                                                       |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code|
+|data|[[CrossWithdraw](#schemacrosswithdraw)]|Correct response data|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 
 <a id="schemacrosswithdraw"></a>
 
 ### schemacrosswithdraw
 
-| Name                      | Type            | Required | Constraints | Description                               | Notes                                                                           |
-|---------------------------|-----------------|----------|-------------|-------------------------------------------|---------------------------------------------------------------------------------|
-| id                        | string(int64)    | false    | none        | Withdrawal order ID                         |                                                                                 |
-| userId                    | string(int64)    | false    | none        | User ID                                  |                                                                                 |
-| accountId                 | string(int64)    | false    | none        | Account ID                               |                                                                                 |
-| coinId                    | string(int64)    | false    | none        | Collateral coin ID                        |                                                                                 |
-| amount                    | string           | false    | none        | Withdrawal amount                         |                                                                                 |
-| ethAddress                | string           | false    | none        | ETH address for withdrawal, may differ from the account's ETH address.        |                                                                    |
-| erc20Address              | string           | false    | none        | L1 ERC20 contract address for the withdrawn asset |                                                                                  |
-| lpAccountId               | string(int64)    | false    | none        | LP account ID for L2 receiving user transfers |                                                                                 |
-| lpAccountL2Key            | string(int64)    | false    | none        | L2 key for the receiving account         |                                                                                 |
-| clientCrossWithdrawId     | string           | false    | none        | Client-defined ID for idempotent checks   |                                                                                 |
-| fee                       | string           | false    | none        | Transaction fee                             |                                                                                |
-| chainId                   | string           | false    | none        | Chain ID for withdrawal                   |                                                                                 |
-| l2Nonce                   | string(int64)    | false    | none        | L2 signature nonce.  First 32 bits of sha256(client_withdraw_id)|                                      |
-| l2ExpireTime              | string(int64)    | false    | none        | L2 signature expiration time. Unix time in hours, must be at least 24 hours after order creation.        |                                      |
-| l2Signature               | [L2Signature](#schemal2signature) | false    | none        | L2 signature information            |                                                                                |
-| extraType                 | string           | false    | none        | Additional type for upper-layer business usage     |                                                                                 |
-| extraDataJson             | string           | false    | none        | Extra data, JSON format, defaults to empty string.  |                                                                                 |
-| status                    | string           | false    | none        | Normal withdrawal order status            |                                                                                 |
-| collateralTransactionId    | string           | false    | none        | Related collateral detail ID.  Exists when status=SUCCESS_XXX/FAILED_L2_REJECTED|                         |
-| censorTxId                | string(int64)    | false    | none        | Censorship processing sequence number. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECTED |          |
-| censorTime                | string(int64)    | false    | none        | Censorship processing time. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECTED |                                |
-| censorFailCode             | string           | false    | none        | Censorship failure error code. Exists when status=FAILED_CENSOR_FAILURE |                             |
-| censorFailReason           | string           | false    | none        | Censorship failure reason. Exists when status=FAILED_CENSOR_FAILURE |                                       |
-| l2TxId                     | string(int64)    | false    | none        | L2 transaction ID.  Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECTED |                                                                                  |
-| l2HandleTime             | string(int64)    | false    | none        | L2 processing time.  Exists when status=SUCCESS_L1_CONFIRMING/SUCCESS_L1_WITHDRAWING/SUCCESS_L1_COMPLETED/FAILED_L2_REJECTED |      |
-| l2RejectCode             | string           | false    | none        | L2 reject error code. Exists when status=FAILED_L2_REJECTED|                                        |
-| l2RejectReason           | string           | false    | none        | L2 reject reason. Exists when status=FAILED_L2_REJECTED|                                         |
-| l1ConfirmedTx              | [L1Tx](#schemal1tx) | false    | none        | L1 transaction information           |                                                                          |
-| l1ConfirmedTime            | string(int64)    | false    | none        | L1 transaction confirmation time        |                                                                       |
-| l1CompletedTx              | [L1Tx](#schemal1tx) | false    | none        | L1 transaction information           |                                                                          |
-| l1CompletedEthAddress     | string           | false    | none        | L1 withdrawal completion ETH address     |                                                                        |
-| l1CompletedTime            | string(int64)    | false    | none        | L1 withdrawal completion time           |                                                                          |
-| l1RejectedReasonCode       | string           | false    | none        | L1 rejection reason code                |                                                                          |
-| l1RejectedReasonMsg        | string           | false    | none        | L1 rejection reason message             |                                                                         |
-| riskSignature              | [L2Signature](#schemal2signature) | false    | none        | L2 signature information            |                                                                                |
-| transferOutId             | string(int64)    | false    | none        | Transfer out order ID                 |                                                                               |
-| createdTime               | string(int64)    | false    | none        | Creation time                         |                                                                        |
-| updatedTime               | string(int64)    | false    | none        | Update time                           |                                                                        |
+|Name|Type|Description|
+|---|---|---|
+|id|string(int64)|Withdrawal order ID|
+|userId|string(int64)|User ID|
+|accountId|string(int64)|Account ID|
+|coinId|string(int64)|Collateral coin ID|
+|amount|string|Withdrawal amount|
+|ethAddress|string|ETH address for withdrawal, may differ from the account's ETH address.|
+|erc20Address|string|L1 ERC20 contract address for the withdrawn asset|
+|lpAccountId|string(int64)|LP account ID for L2 receiving user transfers|
+|lpAccountL2Key|string(int64)|L2 key for the receiving account|
+|clientCrossWithdrawId|string|Client-defined ID for idempotent checks|
+|fee|string|Transaction fee|
+|chainId|string|Chain ID for withdrawal|
+|l2Nonce|string(int64)|L2 signature nonce.  First 32 bits of sha256(client_withdraw_id)|
+|l2ExpireTime|string(int64)|L2 signature expiration time. Unix time in hours, must be at least 24 hours after order creation.|
+|l2Signature|[L2Signature](#schemal2signature)|L2 signature information|
+|extraType|string|Additional type for upper-layer business usage|
+|extraDataJson|string|Extra data, JSON format, defaults to empty string.|
+|status|string|Normal withdrawal order status|
+|collateralTransactionId|string|Related collateral detail ID.  Exists when status=SUCCESS_XXX/FAILED_L2_REJECTED|
+|censorTxId|string(int64)|Censorship processing sequence number. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECTED|
+|censorTime|string(int64)|Censorship processing time. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECTED|
+|censorFailCode|string|Censorship failure error code. Exists when status=FAILED_CENSOR_FAILURE|
+|censorFailReason|string|Censorship failure reason. Exists when status=FAILED_CENSOR_FAILURE|
+|l2TxId|string(int64)|L2 transaction ID.  Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECTED|
+|l2HandleTime|string(int64)|L2 processing time.  Exists when status=SUCCESS_L1_CONFIRMING/SUCCESS_L1_WITHDRAWING/SUCCESS_L1_COMPLETED/FAILED_L2_REJECTED|
+|l2RejectCode|string|L2 reject error code. Exists when status=FAILED_L2_REJECTED|
+|l2RejectReason|string|L2 reject reason. Exists when status=FAILED_L2_REJECTED|
+|l1ConfirmedTx|[L1Tx](#schemal1tx)|L1 transaction information|
+|l1ConfirmedTime|string(int64)|L1 transaction confirmation time|
+|l1CompletedTx|[L1Tx](#schemal1tx)|L1 transaction information|
+|l1CompletedEthAddress|string|L1 withdrawal completion ETH address|
+|l1CompletedTime|string(int64)|L1 withdrawal completion time|
+|l1RejectedReasonCode|string|L1 rejection reason code|
+|l1RejectedReasonMsg|string|L1 rejection reason message|
+|riskSignature|[L2Signature](#schemal2signature)|L2 signature information|
+|transferOutId|string(int64)|Transfer out order ID|
+|createdTime|string(int64)|Creation time|
+|updatedTime|string(int64)|Update time|
 
 #### Enum Values
 
@@ -386,47 +386,47 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 ### schemal1tx
 
-| Name        | Type            | Required | Constraints | Description                 | Notes                                 |
-|-------------|-----------------|----------|-------------|-----------------------------|---------------------------------------|
-| hash        | string          | false    | none        | Transaction hash            |                                       |
-| index       | integer(int32)  | false    | none        | Index of the tx hash       |                                       |
-| time        | string(int64)    | false    | none        | Tx chain timestamp, in milliseconds       |                                  |
-| blockHeight | string(int64)    | false    | none        | Block height of the tx       |                                       |
+|Name|Type|Description|
+|---|---|---|
+|hash|string|Transaction hash|
+|index|integer(int32)|Index of the tx hash|
+|time|string(int64)|Tx chain timestamp, in milliseconds|
+|blockHeight|string(int64)|Block height of the tx|
 
 
 <a id="schemal2signature"></a>
 
 ### schemal2signature
 
-| Name | Type   | Required | Constraints | Description           | Notes              |
-|------|--------|----------|-------------|-----------------------|--------------------|
-| r    | string | false    | none        | Bigint for hex string |                    |
-| s    | string | false    | none        | Bigint for hex string |                    |
-| v    | string | false    | none        | Bigint for hex string |                    |
+|Name|Type|Description|
+|---|---|---|
+|r|string|Bigint for hex string|
+|s|string|Bigint for hex string|
+|v|string|Bigint for hex string|
 
 <a id="schemaresultgetcrosswithdrawsigninfo"></a>
 
 ### schemaresultgetcrosswithdrawsigninfo
 
-| Name             | Type                                        | Required | Constraints | Description                               | Notes                                                                 |
-|------------------|---------------------------------------------|----------|-------------|-------------------------------------------|-----------------------------------------------------------------------|
-| code             | string                           | false    | none        | Status code                               | Returns "SUCCESS" for success, otherwise it's a failure.                |
-| data             | [GetCrossWithdrawSignInfo](#schemagetcrosswithdrawsigninfo) | false    | none        | Get information required for cross-chain withdrawal signature - Response|                                                                      |
-| errorParam       | object                           | false    | none        | Error parameter information            |                                                                       |
-| requestTime      | string(timestamp)                 | false    | none        | Server request receive time               |                                                                       |
-| responseTime     | string(timestamp)                 | false    | none        | Server response return time              |                                                                       |
-| traceId          | string                           | false    | none        | Call trace ID                              |                                                                       |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code|
+|data|[GetCrossWithdrawSignInfo](#schemagetcrosswithdrawsigninfo)|Get information required for cross-chain withdrawal signature - Response|
+|errorParam|object|Error parameter information|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 
 <a id="schemagetcrosswithdrawsigninfo"></a>
 ### schemagetcrosswithdrawsigninfo
 
-| Name                 | Type   | Required | Constraints | Description                                  | Notes                                  |
-|----------------------|--------|----------|-------------|----------------------------------------------|----------------------------------------|
-| lpAccountId          | string | false    | none        | LP account ID for L2 receiving user transfers |                                        |
-| crossWithdrawL2Key  | string | false    | none        | L2 key for fast withdrawal account      |                                        |
-| crossWithdrawMaxAmount| string | false    | none        | Maximum amount for fast cross-chain withdrawal|                                         |
-| fee                   | string | false    | none        | Transaction fee                                  |                                        |
+|Name|Type|Description|
+|---|---|---|
+|lpAccountId|string|LP account ID for L2 receiving user transfers|
+|crossWithdrawL2Key|string|L2 key for fast withdrawal account|
+|crossWithdrawMaxAmount|string|Maximum amount for fast cross-chain withdrawal|
+|fee|string|Transaction fee|
 
 
 
@@ -435,40 +435,40 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 ### schemaresultlistnormalwithdraw
 
-| Name             | Type                                   | Required | Constraints | Description          | Notes                                                                 |
-|------------------|----------------------------------------|----------|-------------|----------------------|-----------------------------------------------------------------------|
-| code             | string                           | false    | none        | Status code          | Returns "SUCCESS" for success, otherwise it's a failure.                |
-| data             | [[NormalWithdraw](#schemanormalwithdraw)] | false    | none        | Correct response data |                                                                       |
-| errorParam       | object                           | false    | none        | Error parameter information|                                                                       |
-| requestTime      | string(timestamp)                 | false    | none        | Server request receive time   |                                                                      |
-| responseTime     | string(timestamp)                 | false    | none        | Server response return time    |                                                                       |
-| traceId          | string                           | false    | none        | Call trace ID          |                                                                       |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code|
+|data|[[NormalWithdraw](#schemanormalwithdraw)]|Correct response data|
+|errorParam|object|Error parameter information|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 
 <a id="schemanormalwithdraw"></a>
 
 ### schemanormalwithdraw
 
-| Name                | Type            | Required | Constraints | Description                                 | Notes                                                                           |
-|---------------------|-----------------|----------|-------------|---------------------------------------------|---------------------------------------------------------------------------------|
-| id                  | string(int64)    | false    | none        | Withdrawal order ID                         |                                                                                 |
-| userId              | string(int64)    | false    | none        | User ID                                     |                                                                                 |
-| accountId           | string(int64)    | false    | none        | Account ID                                   |                                                                                 |
-| coinId              | string(int64)    | false    | none        | Collateral coin ID                           |                                                                                 |
-| amount              | string           | false    | none        | Withdrawal amount                            |                                                                                 |
-| ethAddress          | string           | false    | none        | ETH address for withdrawal, may differ from the account's ETH address.  |                                                                    |
-| clientWithdrawId     | string           | false    | none        | Client-defined ID for idempotent checks     |                                                                                 |
-| l2Nonce             | string(int64)    | false    | none        | L2 signature nonce. First 32 bits of sha256(client_withdraw_id)          |                                           |
-| l2ExpireTime        | string(int64)    | false    | none        | L2 signature expiration time. Unix time in hours, must be at least 24 hours after order creation.   |                                           |
-| l2Signature         | [L2Signature](#schemal2signature) | false    | none        | L2 signature information                |                                                                                |
-| status              | string           | false    | none        | Normal withdrawal order status            |                                                                                 |
-| tradeWithdrawId       | string(int64)   | false    | none        | Corresponding trading service withdraw order ID    |                                                                                 |
-| riskSignature        | [L2Signature](#schemal2signature) | false    | none        | L2 signature information                |                                                                                |
-| l1ConfirmedTx         | [L1Tx](#schemal1tx) | false    | none        | L1 transaction information                  |                                                                          |
-| l1ConfirmedTime       | string(int64)    | false    | none        | L1 transaction confirmation time             |                                                                       |
-| l1CompletedTime       | string(int64)    | false    | none        | L1 withdrawal completion time                |                                                                       |
-| createdTime           | string(int64)    | false    | none        | Creation time                              |                                                                        |
-| updatedTime           | string(int64)    | false    | none        | Update time                                |                                                                        |
+|Name|Type|Description|
+|---|---|---|
+|id|string(int64)|Withdrawal order ID|
+|userId|string(int64)|User ID|
+|accountId|string(int64)|Account ID|
+|coinId|string(int64)|Collateral coin ID|
+|amount|string|Withdrawal amount|
+|ethAddress|string|ETH address for withdrawal, may differ from the account's ETH address.|
+|clientWithdrawId|string|Client-defined ID for idempotent checks|
+|l2Nonce|string(int64)|L2 signature nonce. First 32 bits of sha256(client_withdraw_id)|
+|l2ExpireTime|string(int64)|L2 signature expiration time. Unix time in hours, must be at least 24 hours after order creation.|
+|l2Signature|[L2Signature](#schemal2signature)|L2 signature information|
+|status|string|Normal withdrawal order status|
+|tradeWithdrawId|string(int64)|Corresponding trading service withdraw order ID|
+|riskSignature|[L2Signature](#schemal2signature)|L2 signature information|
+|l1ConfirmedTx|[L1Tx](#schemal1tx)|L1 transaction information|
+|l1ConfirmedTime|string(int64)|L1 transaction confirmation time|
+|l1CompletedTime|string(int64)|L1 withdrawal completion time|
+|createdTime|string(int64)|Creation time|
+|updatedTime|string(int64)|Update time|
 
 #### Enum Values
 
@@ -490,39 +490,37 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 ### schemaresultgetnormalwithdrawableamount
 
-| Name             | Type                                          Okay, continuing the translated documentation:
-
-| Name             | Type                                          | Required | Constraints | Description                                 | Notes                                                                 |
-|------------------|-----------------------------------------------|----------|-------------|---------------------------------------------|-----------------------------------------------------------------------|
-| code             | string                           | false    | none        | Status code                                 | Returns "SUCCESS" for success, otherwise it's a failure.                |
-| data             | [GetNormalWithdrawableAmount](#schemagetnormalwithdrawableamount) | false    | none        | Query normal withdrawable claim amount by user address - Response |                                                                      |
-| errorParam       | object                           | false    | none        | Error parameter information              |                                                                       |
-| requestTime      | string(timestamp)                 | false    | none        | Server request receive time                |                                                                       |
-| responseTime     | string(timestamp)                 | false    | none        | Server response return time               |                                                                       |
-| traceId          | string                           | false    | none        | Call trace ID                                |                                                                       |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code|
+|data|[GetNormalWithdrawableAmount](#schemagetnormalwithdrawableamount)|Query normal withdrawable claim amount by user address - Response|
+|errorParam|object|Error parameter information|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 
 <a id="schemagetnormalwithdrawableamount"></a>
 
 ### schemagetnormalwithdrawableamount
 
-| Name   | Type   | Required | Constraints | Description         | Notes    |
-|--------|--------|----------|-------------|---------------------|----------|
-| amount | string | false    | none        | Withdrawable amount |          |
+|Name|Type|Description|
+|---|---|---|
+|amount|string|Withdrawable amount|
 
 
 <a id="schemaresultcreatecrosswithdraw"></a>
 
 ### schemaresultcreatecrosswithdraw
 
-| Name             | Type                                     | Required | Constraints | Description            | Notes                                                                 |
-|------------------|------------------------------------------|----------|-------------|------------------------|-----------------------------------------------------------------------|
-| code             | string                           | false    | none        | Status code            | Returns "SUCCESS" for success, otherwise it's a failure.                |
-| data             | [CreateCrossWithdraw](#schemacreatecrosswithdraw) | false    | none        | Create cross-chain withdrawal order - Response  |                                                                      |
-| errorParam       | object                           | false    | none        | Error parameter information        |                                                                       |
-| requestTime      | string(timestamp)                 | false    | none        | Server request receive time           |                                                                      |
-| responseTime     | string(timestamp)                 | false    | none        | Server response return time          |                                                                      |
-| traceId          | string                           | false    | none        | Call trace ID            |                                                                       |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code|
+|data|[CreateCrossWithdraw](#schemacreatecrosswithdraw)|Create cross-chain withdrawal order - Response|
+|errorParam|object|Error parameter information|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 
 
@@ -530,31 +528,31 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 ### schemacreatecrosswithdraw
 
-| Name            | Type           | Required | Constraints | Description            | Notes    |
-|-----------------|----------------|----------|-------------|------------------------|----------|
-| crossWithdrawId | string(int64) | false    | none        | Cross-chain withdrawal order ID |          |
+|Name|Type|Description|
+|---|---|---|
+|crossWithdrawId|string(int64)|Cross-chain withdrawal order ID|
 
 
 <a id="schemacreatecrosswithdrawparam"></a>
 
 ### schemacreatecrosswithdrawparam
 
-| Name                | Type            | Required | Constraints | Description                                | Notes                               |
-|---------------------|-----------------|----------|-------------|--------------------------------------------|-------------------------------------|
-| accountId           | string(int64)   | false    | none        | Account ID                                 |                                     |
-| coinId              | string(int64)   | false    | none        | Coin ID                                    |                                     |
-| amount              | string          | false    | none        | Withdrawal amount                          |                                     |
-| ethAddress          | string          | false    | none        | Withdrawal address. If empty, withdraw to the corresponding address of the current account. |                                     |
-| erc20Address       | string          | false    | none        | L1 ERC20 contract address for the withdrawn asset|                                     |
-| lpAccountId         | string          | false    | none        | LP account ID for L2 receiving user transfers|                                     |
-| clientCrossWithdrawId| string          | false    | none        | Client-defined ID, used for signature & idempotent check. Must be filled.|      |
-| expireTime          | string(int64)   | false    | none        | Expiration time                         |                                     |
-| l2Signature         | string          | false    | none        | L2 signature                             |                                     |
-| fee                 | string          | false    | none        | Gas + fee obtained from front-end           |                                     |
-| chainId             | string          | false    | none        | Chain ID for withdrawal                    |                                     |
-| mpcAddress         | string          | false    | none        | Which mpc address initiated the withdraw | |
-| mpcSignature         | string          | false    | none        |  Signature of the mpc address to the withdraw field| |
-| mpcSignTime         | string          | false    | none        | mpc signature timestamp,unix timestamp in seconds     |    |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string(int64)|Yes|Account ID|
+|coinId|string(int64)|Yes|Coin ID|
+|amount|string|Yes|Withdrawal amount|
+|ethAddress|string|No|Withdrawal address. If empty, withdraw to the corresponding address of the current account.|
+|erc20Address|string|No|L1 ERC20 contract address for the withdrawn asset|
+|lpAccountId|string|No|LP account ID for L2 receiving user transfers|
+|clientCrossWithdrawId|string|No|Client-defined ID, used for signature & idempotent check. Must be filled.|
+|expireTime|string(int64)|No|Expiration time|
+|l2Signature|string|No|L2 signature|
+|fee|string|No|Gas + fee obtained from front-end|
+|chainId|string|Yes|Chain ID for withdrawal|
+|mpcAddress|string|No|Which mpc address initiated the withdraw|
+|mpcSignature|string|No|Signature of the mpc address to the withdraw field|
+|mpcSignTime|string|No|mpc signature timestamp,unix timestamp in seconds|
 
 
 
@@ -562,14 +560,14 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 ### createnormalwithdraw
 
-| Name             | Type                                    | Required | Constraints | Description              | Notes                                                                 |
-|------------------|-----------------------------------------|----------|-------------|--------------------------|-----------------------------------------------------------------------|
-| code             | string                           | false    | none        | Status code              | Returns "SUCCESS" for success, otherwise it's a failure.                |
-| data             | [CreateNormalWithdraw](#schemacreatenormalwithdraw) | false    | none        | Create normal withdrawal order - Response  |                                                                      |
-| errorParam       | object                           | false    | none        | Error parameter information          |                                                                       |
-| requestTime      | string(timestamp)                 | false    | none        | Server request receive time             |                                                                      |
-| responseTime     | string(timestamp)                 | false    | none        | Server response return time            |                                                                       |
-| traceId          | string                           | false    | none        | Call trace ID              |                                                                       |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code|
+|data|[CreateNormalWithdraw](#schemacreatenormalwithdraw)|Create normal withdrawal order - Response|
+|errorParam|object|Error parameter information|
+|requestTime|string(timestamp)|Server request receive time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 
 
@@ -577,24 +575,24 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 ### schemacreatenormalwithdraw
 
-| Name       | Type           | Required | Constraints | Description           | Notes    |
-|------------|----------------|----------|-------------|-----------------------|----------|
-| withdrawId | string(int64)  |false     | none         | Withdrawal order ID  |          |
+|Name|Type|Description|
+|---|---|---|
+|withdrawId|string(int64)|Withdrawal order ID|
 
 
 <a id="schemacreatenormalwithdrawparam"></a>
 
 ### schemacreatenormalwithdrawparam
 
-| Name             | Type            | Required | Constraints | Description                                | Notes                                 |
-|------------------|-----------------|----------|-------------|--------------------------------------------|---------------------------------------|
-| accountId        | string(int64)   | false    | none        | Account ID                                 |                                       |
-| coinId           | string(int64)   | false    | none        | Coin ID                                    |                                       |
-| amount           | string          | false    | none        | Withdrawal amount                          |                                       |
-| fee              | string          | false    | none        | Withdrawal fee                             |                                       |
-| ethAddress       | string          | false    | none        | Withdrawal address. If empty, withdraw to the corresponding address of the current account.  |                                      |
-| clientWithdrawId | string          | false    | none        | Client-defined ID, used for signature & idempotent check. Must be filled.   |                                       |
-| signature        | string          | true     | none        | EIP-712 signature (V2, required)           |                                       |
-| signer           | string          | true     | none        | Signer address (V2, required)              |                                       |
-| nonce            | integer(int64)  | true     | none        | On-chain nonce (V2, required)              |                                       |
-| l2ExpireTime     | string(int64)   | false    | none        | L2 signature expiration time (milliseconds)|                                       |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|accountId|string(int64)|Yes|Account ID|
+|coinId|string(int64)|Yes|Coin ID|
+|amount|string|Yes|Withdrawal amount|
+|fee|string|Yes|Withdrawal fee|
+|ethAddress|string|No|Withdrawal address. If empty, withdraw to the corresponding address of the current account.|
+|clientWithdrawId|string|No|Client-defined ID, used for signature & idempotent check. Must be filled.|
+|signature|string|No|EIP-712 signature (V2, required)|
+|signer|string|No|Signer address (V2, required)|
+|nonce|integer(int64)|No|On-chain nonce (V2, required)|
+|l2ExpireTime|string(int64)|No|L2 signature expiration time (milliseconds)|

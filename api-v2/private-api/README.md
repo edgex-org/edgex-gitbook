@@ -25,9 +25,9 @@ Manage trading accounts and query account information:
 - **Update Account Name** - Change account name
 - **Update Account Signers** - Modify authorized signers
 - **Create/Delete API Signer** - Manage SDK signers
-- **Update Leverage Setting** - Configure leverage for trading ⭐ **[V2 New]**
+- **Update Leverage Setting** - Configure leverage for trading
 - **Get Position By Contract ID** - Query positions by contract
-- **Get Position Orders** - Get historical orders by position term ⭐ **[V2 New]**
+- **Get Position Orders** - Get historical orders by position term
 - **Get Position Transaction Page** - Position transaction history (paginated)
 - **Get Position Transaction By ID** - Batch get position transactions
 - **Get Position Term Page** - Position term records (paginated)
@@ -44,13 +44,13 @@ Create, cancel, and query orders:
 
 - **Create Order** - Place a new order (requires L2 signature)
 - **Cancel Order By ID** - Cancel order by order ID
-- **Cancel Order By Client Order ID** - Cancel order by client order ID ⭐ **[V2 New]**
+- **Cancel Order By Client Order ID** - Cancel order by client order ID
 - **Cancel All Orders** - Cancel all active orders
 - **Get Max Order Size** - Calculate maximum order size
 - **Get Orders By ID** - Batch get orders by order IDs
 - **Get Orders By Client Order ID** - Batch get orders by client order IDs
 - **Get Active Order Page** - Active orders (paginated)
-- **Get History Order Page** - Historical orders (paginated, GET or POST) ⭐ **[V2 Enhanced]**
+- **Get History Order Page** - Historical orders (paginated, GET or POST)
 - **Get History Order By ID** - Batch get historical orders by IDs
 - **Get History Order By Client Order ID** - Batch get historical orders by client IDs
 - **Get History Order Fill Transaction Page** - Order fill transactions (paginated)

@@ -8,10 +8,10 @@ GET /api/v2/public/quote/getDepth
 
 ### Request Parameters
 
-| Name       | Location | Type   | Required | Description                   |
-|------------|----------|--------|----------|-------------------------------|
-| contractId | query    | string | No       | Contract ID                   |
-| level      | query    | integer | Yes      | Depth level. Currently 15 and 200 levels available |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|contractId|string|No|Contract ID|
+|level|integer|Yes|Depth level. Currently 15 and 200 levels available|
 
 > Response Example
 
@@ -82,15 +82,15 @@ GET /api/v2/public/quote/getKline
 
 ### Request Parameters
 
-| Name                       | Location | Type   | Required | Description                             |
-|----------------------------|----------|--------|----------|-----------------------------------------|
-| contractId                 | query    | string | No       | Contract ID                             |
-| priceType                  | query    | string | No       | Price type                             |
-| klineType                  | query    | string | No       | K-line type                            |
-| size                       | query    | integer | No       | Number to retrieve. Must be greater than 0 and less than or equal to 1000. Default is 1000 |
-| offsetData                 | query    | string | No       | Pagination offset. If empty, get the first page |
-| filterBeginKlineTimeInclusive | query    | string | No       | Query start time (if 0, means from current time). Returns in descending order by time |
-| filterEndKlineTimeExclusive   | query    | string | No       | Query end time                           |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|contractId|string|No|Contract ID|
+|priceType|string|No|Price type|
+|klineType|string|No|K-line type|
+|size|integer|No|Number to retrieve. Must be greater than 0 and less than or equal to 1000. Default is 1000|
+|offsetData|string|No|Pagination offset. If empty, get the first page|
+|filterBeginKlineTimeInclusive|string|No|Query start time (if 0, means from current time). Returns in descending order by time|
+|filterEndKlineTimeExclusive|string|No|Query end time|
 
 > Request Example
 ```
@@ -148,14 +148,14 @@ GET /api/v2/public/quote/getMultiContractKline
 
 ### Request Parameters
 
-| Name                       | Location | Type   | Required | Description                             |
-|----------------------------|----------|--------|----------|-----------------------------------------|
-| contractIdList             | query    | array  | No       | Collection of Contract IDs              |
-| priceType                  | query    | string | No       | Price type                             |
-| klineType                  | query    | string | No       | K-line type                            |
-| size                       | query    | integer | No       | Number to retrieve. Must be greater than 0 and less than or equal to 200. Default is 200 |
-| filterBeginKlineTimeInclusive | query    | string | No       | Query start time (if 0, means from current time). Returns in descending order by time |
-| filterEndKlineTimeExclusive   | query    | string | No       | Query end time                           |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|contractIdList|array|No|Collection of Contract IDs|
+|priceType|string|No|Price type|
+|klineType|string|No|K-line type|
+|size|integer|No|Number to retrieve. Must be greater than 0 and less than or equal to 200. Default is 200|
+|filterBeginKlineTimeInclusive|string|No|Query start time (if 0, means from current time). Returns in descending order by time|
+|filterEndKlineTimeExclusive|string|No|Query end time|
 
 > Request Example
 ```text
@@ -215,9 +215,9 @@ GET /api/v2/public/quote/getAccurateOpenInterest
 
 ### Request Parameters
 
-| Name           | Location | Type   | Required | Description            |
-|----------------|----------|--------|----------|------------------------|
-| contractIdList | query    | array  | No       | Collection of Contract IDs |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|contractIdList|array|No|Collection of Contract IDs|
 
 > Response Example
 
@@ -255,9 +255,9 @@ GET /api/v2/public/quote/getTicker
 
 ### Request Parameters
 
-| Name       | Location | Type   | Required | Description   |
-|------------|----------|--------|----------|---------------|
-| contractId | query    | string | No       | Contract ID   |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|contractId|string|No|Contract ID|
 
 > Response Example
 
@@ -315,9 +315,9 @@ GET /api/v2/public/quote/getTicketSummary
 
 ### Request Parameters
 
-| Name   | Location | Type   | Required | Description    |
-|--------|----------|--------|----------|----------------|
-| period | query    | string | No       | Summary period |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|period|string|No|Summary period|
 
 > Response Example
 
@@ -356,10 +356,10 @@ GET /api/v2/public/quote/getStatDayTrade
 
 ### Request Parameters
 
-| Name                     | Location | Type   | Required | Description                                          |
-|--------------------------|----------|--------|----------|------------------------------------------------------|
-| startDayTimeInclusive    | query    | string | No       | Filter to get trade statistics for specified start time |
-| endDayTimeExclusive      | query    | string | No       | Filter to get trade statistics for specified end time   |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|startDayTimeInclusive|string|Yes|Filter to get trade statistics for specified start time|
+|endDayTimeExclusive|string|Yes|Filter to get trade statistics for specified end time|
 
 > Response Example
 
@@ -398,11 +398,11 @@ GET /api/v2/public/quote/getExchangeLongShortRatio
 
 ### Request Parameters
 
-| Name                 | Location | Type   | Required | Description                                          |
-|----------------------|----------|--------|----------|------------------------------------------------------|
-| range                | query    | string | No       | If empty, return data with the smallest range     |
-| filterContractIdList | query    | array  | No       | If empty, return data for all contracts               |
-| filterExchangeList   | query    | array  | No       | If empty, return data for all exchanges               |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|range|string|No|If empty, return data with the smallest range|
+|filterContractIdList|array|No|If empty, return data for all contracts|
+|filterExchangeList|array|No|If empty, return data for all exchanges|
 
 > Response Example
 
@@ -457,10 +457,10 @@ Get daily fees across all contracts in a time range.
 
 ### Request Parameters
 
-| Name                          | Location | Type    | Required | Description                              |
-|-------------------------------|----------|---------|----------|------------------------------------------|
-| filterBeginKlineTimeInclusive | query    | integer | Yes      | Inclusive start timestamp (milliseconds) |
-| filterEndKlineTimeExclusive   | query    | integer | Yes      | Exclusive end timestamp (milliseconds)   |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|filterBeginKlineTimeInclusive|integer|Yes|Inclusive start timestamp (milliseconds)|
+|filterEndKlineTimeExclusive|integer|Yes|Exclusive end timestamp (milliseconds)|
 
 > Response Example
 
@@ -505,9 +505,9 @@ Get stocks market status and limit price information.
 
 ### Request Parameters
 
-| Name       | Location | Type    | Required | Description                                             |
-|------------|----------|---------|----------|---------------------------------------------------------|
-| contractId | query    | integer | No       | Contract ID; when specified, returns status and limit price for the contract |
+|Name|Type|Required|Description|
+|---|---|---|---|
+|contractId|integer|No|Contract ID; when specified, returns status and limit price for the contract|
 
 > Response Example
 
@@ -543,28 +543,28 @@ Get stocks market status and limit price information.
 <a id="schemaresultlistdepth"></a>
 ### schemaresultlistdepth
 
-| Name        | Type                   | Required | Constraints | Description                                   |
-|-------------|------------------------|----------|-------------|-----------------------------------------------|
-| code        | string                 | false    | none        | Status code. "SUCCESS" for success, others for failures  |
-| data        | [[Depth](#schemadepth)] | false    | none        | Correct response data                           |
-| errorParam  | object                 | false    | none        | Parameter information in error messages           |
-| requestTime | string(timestamp)      | false    | none        | Server request reception time              |
-| responseTime| string(timestamp)      | false    | none        | Server response return time                  |
-| traceId     | string                 | false    | none        | Call trace ID                              |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, others for failures|
+|data|[[Depth](#schemadepth)]|Correct response data|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request reception time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="schemadepth"></a>
 ### schemadepth
 
-| Name        | Type                | Required | Constraints | Description          |
-|-------------|---------------------|----------|-------------|----------------------|
-| startVersion | string(int64)        | false    | none        | Start order book version number  |
-| endVersion  | string(int64)        | false    | none        | End order book version number   |
-| level       | integer(int32)      | false    | none        | Depth level         |
-| contractId  | string(int64)        | false    | none        | Contract ID          |
-| contractName | string              | false    | none        | Contract name        |
-| asks        | [[BookOrder](#schemabookorder)]| false    | none        | Ask list             |
-| bids        | [[BookOrder](#schemabookorder)]| false    | none        | Bid list             |
-| depthType   | string              | false    | none        | Depth type           |
+|Name|Type|Description|
+|---|---|---|
+|startVersion|string(int64)|Start order book version number|
+|endVersion|string(int64)|End order book version number|
+|level|integer(int32)|Depth level|
+|contractId|string(int64)|Contract ID|
+|contractName|string|Contract name|
+|asks|[[BookOrder](#schemabookorder)]|Ask list|
+|bids|[[BookOrder](#schemabookorder)]|Bid list|
+|depthType|string|Depth type|
 
 #### Enum Values
 
@@ -578,51 +578,51 @@ Get stocks market status and limit price information.
 <a id="schemabookorder"></a>
 ### schemabookorder
 
-| Name  | Type           | Required | Constraints | Description |
-|-------|----------------|----------|-------------|-------------|
-| price | string(decimal)| false    | none        | Price       |
-| size  | string(decimal)| false    | none        | Quantity    |
+|Name|Type|Description|
+|---|---|---|
+|price|string(decimal)|Price|
+|size|string(decimal)|Quantity|
 
 <a id="schemaresultpagedatakline"></a>
 ### schemaresultpagedatakline
 
-| Name        | Type                 | Required | Constraints | Description                                  |
-|-------------|----------------------|----------|-------------|----------------------------------------------|
-| code        | string               | false    | none        | Status code. "SUCCESS" for success, others for failures |
-| data        | [PageDataKline](#schemapagedatakline) | false    | none        | Generic paginated response                       |
-| errorParam  | object               | false    | none        | Parameter information in error messages           |
-| requestTime | string(timestamp)    | false    | none        | Server request reception time              |
-| responseTime| string(timestamp)    | false    | none        | Server response return time                  |
-| traceId     | string               | false    | none        | Call trace ID                              |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, others for failures|
+|data|[PageDataKline](#schemapagedatakline)|Generic paginated response|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request reception time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="schemapagedatakline"></a>
 ### schemapagedatakline
 
-| Name               | Type             | Required | Constraints | Description                          |
-|--------------------|------------------|----------|-------------|--------------------------------------|
-| dataList           | [[Kline](#schemakline)]| false    | none        | Data list                            |
-| nextPageOffsetData | string           | false    | none        | Offset for the next page. If there is no next page, it's an empty string |
+|Name|Type|Description|
+|---|---|---|
+|dataList|[[Kline](#schemakline)]|Data list|
+|nextPageOffsetData|string|Offset for the next page. If there is no next page, it's an empty string|
 
 <a id="schemakline"></a>
 ### schemakline
 
-| Name        | Type                | Required | Constraints | Description            |
-|-------------|---------------------|----------|-------------|------------------------|
-| klineId     | string(int64)        | false    | none        | K-Line ID              |
-| contractId  | string(int64)        | false    | none        | Perpetual contract ID  |
-| contractName | string              | false    | none        | Perpetual contract name |
-| klineType   | string              | false    | none        | K-Line type            |
-| klineTime   | string(int64)        | false    | none        | K-Line time            |
-| priceType   | string              | false    | none        | Price type of the K-line    |
-| trades      | string(int64)        | false    | none        | Number of trades        |
-| size        | string(decimal)      | false    | none        | Volume                 |
-| value       | string(decimal)      | false    | none        | Value                  |
-| high        | string(decimal)      | false    | none        | High price              |
-| low         | string(decimal)      | false    | none        | Low price               |
-| open        | string(decimal)      | false    | none        | Opening price          |
-| close       | string(decimal)      | false    | none        | Closing price          |
-| makerBuySize| string(decimal)     | false    | none        | Maker buy volume |
-| makerBuyValue | string(decimal)     | false    | none        | Maker buy value |
+|Name|Type|Description|
+|---|---|---|
+|klineId|string(int64)|K-Line ID|
+|contractId|string(int64)|Perpetual contract ID|
+|contractName|string|Perpetual contract name|
+|klineType|string|K-Line type|
+|klineTime|string(int64)|K-Line time|
+|priceType|string|Price type of the K-line|
+|trades|string(int64)|Number of trades|
+|size|string(decimal)|Volume|
+|value|string(decimal)|Value|
+|high|string(decimal)|High price|
+|low|string(decimal)|Low price|
+|open|string(decimal)|Opening price|
+|close|string(decimal)|Closing price|
+|makerBuySize|string(decimal)|Maker buy volume|
+|makerBuyValue|string(decimal)|Maker buy value|
 
 #### Enum Values
 
@@ -655,113 +655,113 @@ Get stocks market status and limit price information.
 <a id="schemaresultlistcontractkline"></a>
 ### schemaresultlistcontractkline
 
-| Name        | Type                  | Required | Constraints | Description                                   |
-|-------------|-----------------------|----------|-------------|-----------------------------------------------|
-| code        | string                | false    | none        | Status code. "SUCCESS" for success, others for failures |
-| data        | [[ContractMultiKline](#schemacontractmultikline)]| false    | none        | Correct response data                           |
-| errorParam  | object                | false    | none        | Parameter information in error messages           |
-| requestTime | string(timestamp)     | false    | none        | Server request reception time              |
-| responseTime| string(timestamp)     | false    | none        | Server response return time                  |
-| traceId     | string                | false    | none        | Call trace ID                              |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, others for failures|
+|data|[[ContractMultiKline](#schemacontractmultikline)]|Correct response data|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request reception time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="schemacontractmultikline"></a>
 ### schemacontractmultikline
 
-| Name        | Type                | Required | Constraints | Description               |
-|-------------|---------------------|----------|-------------|---------------------------|
-| contractId  | string(int64)        | false    | none        | Perpetual contract ID     |
-| klineList   | [[Kline](#schemakline)]  | false    | none        | Collection of kline data |
+|Name|Type|Description|
+|---|---|---|
+|contractId|string(int64)|Perpetual contract ID|
+|klineList|[[Kline](#schemakline)]|Collection of kline data|
 
 <a id="schemaresultlistopeninterest"></a>
 ### schemaresultlistopeninterest
 
-| Name        | Type                   | Required | Constraints | Description                                   |
-|-------------|------------------------|----------|-------------|-----------------------------------------------|
-| code        | string                 | false    | none        | Status code. "SUCCESS" for success, others for failures  |
-| data        | [[OpenInterest](#schemaopeninterest)] | false    | none        | Correct response data                           |
-| errorParam  | object                 | false    | none        | Parameter information in error messages           |
-| requestTime | string(timestamp)      | false    | none        | Server request reception time              |
-| responseTime| string(timestamp)      | false    | none        | Server response return time                  |
-| traceId     | string                 | false    | none        | Call trace ID                              |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, others for failures|
+|data|[[OpenInterest](#schemaopeninterest)]|Correct response data|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request reception time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="schemaopeninterest"></a>
 ### schemaopeninterest
 
-| Name      | Type           | Required | Constraints | Description       |
-|-----------|----------------|----------|-------------|-------------------|
-| contractId| string(int64)   | false    | none        | Contract ID       |
-| timestamp | string         | false    | none        | Statistic timestamp |
-| size      | string(int64)   | false    | none        | Open interest size |
+|Name|Type|Description|
+|---|---|---|
+|contractId|string(int64)|Contract ID|
+|timestamp|string|Statistic timestamp|
+|size|string(int64)|Open interest size|
 
 <a id="schemaresultlistticker"></a>
 ### schemaresultlistticker
 
-| Name        | Type                   | Required | Constraints | Description                                   |
-|-------------|------------------------|----------|-------------|-----------------------------------------------|
-| code        | string                 | false    | none        | Status code. "SUCCESS" for success, others for failures  |
-| data        | [[Ticker](#schematicker)] | false    | none        | Correct response data                           |
-| errorParam  | object                 | false    | none        | Parameter information in error messages           |
-| requestTime | string(timestamp)      | false    | none        | Server request reception time              |
-| responseTime| string(timestamp)      | false    | none        | Server response return time                  |
-| traceId     | string                 | false    | none        | Call trace ID                              |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, others for failures|
+|data|[[Ticker](#schematicker)]|Correct response data|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request reception time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="schematicker"></a>
 ### schematicker
 
-| Name            | Type           | Required | Constraints | Description                    |
-|-----------------|----------------|----------|-------------|--------------------------------|
-| contractId      | string(int64)   | false    | none        | Contract ID                    |
-| contractName    | string         | false    | none        | Contract Name                  |
-| priceChange     | string(decimal) | false    | none        | Price change                   |
-| priceChangePercent | string(decimal)| false    | none        | Price change percentage         |
-| trades          | string(int64)   | false    | none        | 24-hour number of trades      |
-| size            | string(decimal) | false    | none        | 24-hour trading volume         |
-| value           | string(decimal) | false    | none        | 24-hour trading value          |
-| high            | string(decimal) | false    | none        | 24-hour high price              |
-| low             | string(decimal) | false    | none        | 24-hour low price              |
-| open            | string(decimal) | false    | none        | 24-hour opening price          |
-| close           | string(decimal) | false    | none        | 24-hour closing price          |
-| highTime        | string(int64)   | false    | none        | 24-hour high price time        |
-| lowTime         | string(int64)   | false    | none        | 24-hour low price time        |
-| startTime       | string(int64)   | false    | none        | 24-hour quote start time       |
-| endTime         | string(int64)   | false    | none        | 24-hour quote end time         |
-| lastPrice       | string(decimal) | false    | none        | Latest trade price            |
-| indexPrice      | string(decimal) | false    | none        | Current index price            |
-| oraclePrice     | string(decimal) | false    | none        | Current oracle price         |
-| markPrice       | string(decimal) | false    | none        | Current mark price           |
-| openInterest    | string(decimal) | false    | none        | Open Interest                |
-| fundingRate     | string         | false    | none        | Current already settled funding rate    |
-| fundingTime     | string(int64)   | false    | none        | Funding rate settlement time   |
-| nextFundingTime | string(int64)   | false    | none        | Next funding rate settlement time|
+|Name|Type|Description|
+|---|---|---|
+|contractId|string(int64)|Contract ID|
+|contractName|string|Contract Name|
+|priceChange|string(decimal)|Price change|
+|priceChangePercent|string(decimal)|Price change percentage|
+|trades|string(int64)|24-hour number of trades|
+|size|string(decimal)|24-hour trading volume|
+|value|string(decimal)|24-hour trading value|
+|high|string(decimal)|24-hour high price|
+|low|string(decimal)|24-hour low price|
+|open|string(decimal)|24-hour opening price|
+|close|string(decimal)|24-hour closing price|
+|highTime|string(int64)|24-hour high price time|
+|lowTime|string(int64)|24-hour low price time|
+|startTime|string(int64)|24-hour quote start time|
+|endTime|string(int64)|24-hour quote end time|
+|lastPrice|string(decimal)|Latest trade price|
+|indexPrice|string(decimal)|Current index price|
+|oraclePrice|string(decimal)|Current oracle price|
+|markPrice|string(decimal)|Current mark price|
+|openInterest|string(decimal)|Open Interest|
+|fundingRate|string|Current already settled funding rate|
+|fundingTime|string(int64)|Funding rate settlement time|
+|nextFundingTime|string(int64)|Next funding rate settlement time|
 
 <a id="gettickersummarymodel"></a>
 ### gettickersummarymodel
 
-| Name        | Type                      | Required | Constraints | Description                               |
-|-------------|---------------------------|----------|-------------|-------------------------------------------|
-| code        | string                    | false    | none        | Status code. "SUCCESS" for success, others for failures |
-| data        | [GetTickerSummary](#schemagettickersummary)  | false    | none        | Get quote summary response                |
-| errorParam  | object                    | false    | none        | Parameter information in error messages         |
-| requestTime | string(timestamp)         | false    | none        | Server request reception time            |
-| responseTime| string(timestamp)         | false    | none        | Server response return time                |
-| traceId     | string                    | false    | none        | Call trace ID                           |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, others for failures|
+|data|[GetTickerSummary](#schemagettickersummary)|Get quote summary response|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request reception time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="schemagettickersummary"></a>
 ### schemagettickersummary
 
-| Name          | Type                 | Required | Constraints | Description      |
-|---------------|----------------------|----------|-------------|------------------|
-| tickerSummary | [TickerSummary](#schematickersummary) | false    | none        | Quote summary  |
+|Name|Type|Description|
+|---|---|---|
+|tickerSummary|[TickerSummary](#schematickersummary)|Quote summary|
 
 <a id="schematickersummary"></a>
 ### schematickersummary
 
-| Name         | Type   | Required | Constraints | Description              |
-|--------------|--------|----------|-------------|--------------------------|
-| period       | string | false    | none        | Summary period             |
-| trades       | string | false    | none        | Total exchange number of trades  |
-| value        | string | false    | none        | Total traded value         |
-| openInterest | string | false    | none        | Current total open interest |
+|Name|Type|Description|
+|---|---|---|
+|period|string|Summary period|
+|trades|string|Total exchange number of trades|
+|value|string|Total traded value|
+|openInterest|string|Current total open interest|
 
 #### Enum Values
 
@@ -776,101 +776,101 @@ Get stocks market status and limit price information.
 <a id="schemaresultliststatdaytrade"></a>
 ### schemaresultliststatdaytrade
 
-| Name        | Type                   | Required | Constraints | Description                                   |
-|-------------|------------------------|----------|-------------|-----------------------------------------------|
-| code        | string                 | false    | none        | Status code. "SUCCESS" for success, others for failures  |
-| data        | [[StatDayTrade](#schemastatdaytrade)] | false    | none        | Correct response data                           |
-| errorParam  | object                 | false    | none        | Parameter information in error messages           |
-| requestTime | string(timestamp)      | false    | none        | Server request reception time              |
-| responseTime| string(timestamp)      | false    | none        | Server response return time                  |
-| traceId     | string                 | false    | none        | Call trace ID                              |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, others for failures|
+|data|[[StatDayTrade](#schemastatdaytrade)]|Correct response data|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request reception time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="schemastatdaytrade"></a>
 ### schemastatdaytrade
 
-| Name        | Type          | Required | Constraints | Description          |
-|-------------|---------------|----------|-------------|----------------------|
-| dayTime     | string(int64)  | false    | none        | Date                 |
-| totalTrades | string(int64)  | false    | none        | Total number of trades |
-| totalValue  | string        | false    | none        | Total trading value  |
-| createTime  | string(int64)  | false    | none        | Creation time        |
+|Name|Type|Description|
+|---|---|---|
+|dayTime|string(int64)|Date|
+|totalTrades|string(int64)|Total number of trades|
+|totalValue|string|Total trading value|
+|createTime|string(int64)|Creation time|
 
 <a id="getexchangelongshortratiomodel"></a>
 ### getexchangelongshortratiomodel
 
-| Name        | Type                      | Required | Constraints | Description                               |
-|-------------|---------------------------|----------|-------------|-------------------------------------------|
-| code        | string                    | false    | none        | Status code. "SUCCESS" for success, others for failures |
-| data        | [GetExchangeLongShortRatio](#schemagetexchangelongshortratio)  | false    | none        | Exchange long short ratio response        |
-| errorParam  | object                    | false    | none        | Parameter information in error messages         |
-| requestTime | string(timestamp)         | false    | none        | Server request reception time            |
-| responseTime| string(timestamp)         | false    | none        | Server response return time                |
-| traceId     | string                    | false    | none        | Call trace ID                           |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, others for failures|
+|data|[GetExchangeLongShortRatio](#schemagetexchangelongshortratio)|Exchange long short ratio response|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request reception time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="schemagetexchangelongshortratio"></a>
 ### schemagetexchangelongshortratio
 
-| Name                         | Type         | Required | Constraints | Description                                        |
-|------------------------------|--------------|----------|-------------|----------------------------------------------------|
-| exchangeLongShortRatioList   | [[ExchangeLongShortRatio](#schemaexchangelongshortratio)] | false | none | Exchange long short ratio data list |
-| allRangeList                 | [string]     | false    | none        | All range data, related to account configuration. Possible values: 1m, 3m, 5m, 15m, 30m, 1h, 4h, 6h, 8h, 12h, 1d, 1w |
+|Name|Type|Description|
+|---|---|---|
+|exchangeLongShortRatioList|[[ExchangeLongShortRatio](#schemaexchangelongshortratio)]|Exchange long short ratio data list|
+|allRangeList|[string]|All range data, related to account configuration. Possible values: 1m, 3m, 5m, 15m, 30m, 1h, 4h, 6h, 8h, 12h, 1d, 1w|
 
 <a id="schemaexchangelongshortratio"></a>
 ### schemaexchangelongshortratio
 
-| Name        | Type          | Required | Constraints | Description   |
-|-------------|---------------|----------|-------------|---------------|
-| range       | string        | false    | none        | Time range    |
-| contractId  | string(int64)  | false    | none        | Contract ID   |
-| exchange    | string        | false    | none        | Exchange      |
-| buyRatio    | string        | false    | none        | Buy ratio     |
-| sellRatio   | string        | false    | none        | Sell ratio    |
-| buyVolUsd   | string        | false    | none        | Buy volume USD |
-| sellVolUsd  | string        | false    | none        | Sell volume USD |
-| createdTime | string(int64)  | false    | none        | Creation time |
-| updatedTime | string(int64)  | false    | none        | Update time   |
+|Name|Type|Description|
+|---|---|---|
+|range|string|Time range|
+|contractId|string(int64)|Contract ID|
+|exchange|string|Exchange|
+|buyRatio|string|Buy ratio|
+|sellRatio|string|Sell ratio|
+|buyVolUsd|string|Buy volume USD|
+|sellVolUsd|string|Sell volume USD|
+|createdTime|string(int64)|Creation time|
+|updatedTime|string(int64)|Update time|
 
 <a id="schemaresultlistdailyestimatedfee"></a>
 ### schemaresultlistdailyestimatedfee
 
-| Name        | Type                   | Required | Constraints | Description                                   |
-|-------------|------------------------|----------|-------------|-----------------------------------------------|
-| code        | string                 | false    | none        | Status code. "SUCCESS" for success, others for failures  |
-| data        | [[DailyEstimatedFee](#schemadailyestimatedfee)] | false    | none        | Correct response data                           |
-| errorParam  | object                 | false    | none        | Parameter information in error messages           |
-| requestTime | string(timestamp)      | false    | none        | Server request reception time              |
-| responseTime| string(timestamp)      | false    | none        | Server response return time                  |
-| traceId     | string                 | false    | none        | Call trace ID                              |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, others for failures|
+|data|[[DailyEstimatedFee](#schemadailyestimatedfee)]|Correct response data|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request reception time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="schemadailyestimatedfee"></a>
 ### schemadailyestimatedfee
 
-| Name         | Type           | Required | Constraints | Description    |
-|--------------|----------------|----------|-------------|----------------|
-| dayTimestamp | integer(int64)  | false    | none        | Day timestamp  |
-| fee          | string(decimal) | false    | none        | Fee amount     |
-| revenue      | string(decimal) | false    | none        | Revenue amount |
+|Name|Type|Description|
+|---|---|---|
+|dayTimestamp|integer(int64)|Day timestamp|
+|fee|string(decimal)|Fee amount|
+|revenue|string(decimal)|Revenue amount|
 
 <a id="getmarketstatusmodel"></a>
 ### getmarketstatusmodel
 
-| Name           | Type           | Required | Constraints | Description                                   |
-|----------------|----------------|----------|-------------|-----------------------------------------------|
-| code           | string         | false    | none        | Status code. "SUCCESS" for success, others for failures |
-| data           | [GetMarketStatus](#schemagetmarketstatus) | false    | none        | Market status response                        |
-| errorParam     | object         | false    | none        | Parameter information in error messages           |
-| requestTime    | string(timestamp) | false    | none        | Server request reception time              |
-| responseTime   | string(timestamp) | false    | none        | Server response return time                  |
-| traceId        | string         | false    | none        | Call trace ID                              |
+|Name|Type|Description|
+|---|---|---|
+|code|string|Status code. "SUCCESS" for success, others for failures|
+|data|[GetMarketStatus](#schemagetmarketstatus)|Market status response|
+|errorParam|object|Parameter information in error messages|
+|requestTime|string(timestamp)|Server request reception time|
+|responseTime|string(timestamp)|Server response return time|
+|traceId|string|Call trace ID|
 
 <a id="schemagetmarketstatus"></a>
 ### schemagetmarketstatus
 
-| Name           | Type           | Required | Constraints | Description                              |
-|----------------|----------------|----------|-------------|------------------------------------------|
-| status         | boolean        | false    | none        | Current market status, true indicates open |
-| force          | boolean        | false    | none        | Whether status is forcibly set by backend |
-| contractId     | integer(int64)  | false    | none        | Current returned contract ID             |
-| markPrice      | string         | false    | none        | Contract latest mark price               |
-| limitLowPrice  | string         | false    | none        | Lower limit price                        |
-| limitHighPrice | string         | false    | none        | Upper limit price                        |
+|Name|Type|Description|
+|---|---|---|
+|status|boolean|Current market status, true indicates open|
+|force|boolean|Whether status is forcibly set by backend|
+|contractId|integer(int64)|Current returned contract ID|
+|markPrice|string|Contract latest mark price|
+|limitLowPrice|string|Lower limit price|
+|limitHighPrice|string|Upper limit price|

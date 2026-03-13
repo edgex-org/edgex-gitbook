@@ -34,12 +34,16 @@ To sign L2 messages, you need your **Signer Key** (Private Key).
 
 ### Obtaining Your Signer Key
 
-The Signer Key is generated together with your API credentials in the same location. See [Authentication Guide](authentication.md#how-to-get-api-credentials) for the complete step-by-step guide.
+The Signer Key is generated in the same SDK Signer dialog as API credentials.
 
-**Quick Navigation**:
-1. **API Management** → **Perps V2**
-2. Click **"Detail"** button in the SDK Signer column
-3. Copy the **Private Key** from the dialog (this is your Signer Key)
+**Steps:**
+1. Log in to EdgeX platform
+2. Click your profile icon (top-right) → **API Management**
+3. Open **Perps V2** tab
+4. In the **SDK Signer** column, click **Detail**
+5. Copy **Private Key** from the dialog (this is your Signer Key)
+
+You can also copy API Key / Secret / Passphrase in the same dialog. For HTTP authentication usage, see [Authentication Guide](authentication.md).
 
 <figure><img src="../../.gitbook/assets/get-l2-private-key.png" alt=""><figcaption><p>SDK Signer dialog showing Private Key (Signer Key) and API credentials</p></figcaption></figure>
 
