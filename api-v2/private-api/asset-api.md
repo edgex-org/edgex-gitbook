@@ -1,5 +1,22 @@
 # Asset Private API
 
+## When to Use This Page
+
+Use this page when you need to create withdrawal orders, query withdrawable balances, or inspect deposit and withdrawal history for an account.
+
+## Minimal Workflow
+
+1. Query withdrawable amount or cross-chain signing info when needed.
+2. Build the withdrawal request with the exact `l2*` fields required by the endpoint.
+3. Submit the withdrawal order.
+4. Poll the order-history endpoint to track status changes.
+
+## Common Notes
+
+- These endpoints use the same private REST authentication described in [Authentication](../authentication.md).
+- If an endpoint also requires an L2 signature, keep the backend field names exactly as returned, including `l2Nonce`, `l2ExpireTime`, and `l2Signature`.
+- For client-defined IDs, keep your generation rule stable so retries remain idempotent.
+
 <a id="opIdcreateNormalWithdraw"></a>
 
 ## POST Create Normal Withdrawal Order
@@ -250,10 +267,10 @@ GET /api/v2/private/assets/getAllOrdersPage
 |Name|Type|Description|
 |---|---|---|
 |code|string|Status code|
-|data|[PageDataAssetOrder](#schemapagedataassetorder)|Generic paginated return|
-|errorParam|object|Error parameter information|
-|requestTime|string(timestamp)|Server request receive time|
-|responseTime|string(timestamp)|Server response return time|
+|data|[PageDataAssetOrder](#schemapagedataassetorder)|Paginated asset-order data.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 
@@ -262,8 +279,8 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 |Name|Type|Description|
 |---|---|---|
-|dataList|[[AssetOrder](#schemaassetorder)]|List of data|
-|nextPageOffsetData|string|Offset for next page|
+|dataList|[[AssetOrder](#schemaassetorder)]|Asset-order records for the current page.|
+|nextPageOffsetData|string|Offset token for the next page. Empty when there is no next page.|
 
 
 <a id="schemaassetorder"></a>
@@ -278,7 +295,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 |status|integer(int32)|Order status|
 |amount|string|Order amount|
 |fee|string|Order fee|
-|txId|string|Chain tx_id|
+|txId|string|Chain transaction ID.|
 |chain|string|Chain|
 |address|string|Address|
 |coin|string|Coin|
@@ -309,9 +326,9 @@ GET /api/v2/private/assets/getAllOrdersPage
 |Name|Type|Description|
 |---|---|---|
 |code|string|Status code|
-|data|[[CrossWithdraw](#schemacrosswithdraw)]|Correct response data|
-|requestTime|string(timestamp)|Server request receive time|
-|responseTime|string(timestamp)|Server response return time|
+|data|[[CrossWithdraw](#schemacrosswithdraw)]|Cross-chain withdrawal records returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 
@@ -336,8 +353,8 @@ GET /api/v2/private/assets/getAllOrdersPage
 |l2Nonce|string(int64)|L2 signature nonce.  First 32 bits of sha256(client_withdraw_id)|
 |l2ExpireTime|string(int64)|L2 signature expiration time. Unix time in hours, must be at least 24 hours after order creation.|
 |l2Signature|[L2Signature](#schemal2signature)|L2 signature information|
-|extraType|string|Additional type for upper-layer business usage|
-|extraDataJson|string|Extra data, JSON format, defaults to empty string.|
+|extraType|string|Optional business-specific type used by upstream services.|
+|extraDataJson|string|Optional extra metadata in JSON format. Empty string when unused.|
 |status|string|Normal withdrawal order status|
 |collateralTransactionId|string|Related collateral detail ID.  Exists when status=SUCCESS_XXX/FAILED_L2_REJECTED|
 |censorTxId|string(int64)|Censorship processing sequence number. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECTED|
@@ -413,10 +430,10 @@ GET /api/v2/private/assets/getAllOrdersPage
 |Name|Type|Description|
 |---|---|---|
 |code|string|Status code|
-|data|[GetCrossWithdrawSignInfo](#schemagetcrosswithdrawsigninfo)|Get information required for cross-chain withdrawal signature - Response|
-|errorParam|object|Error parameter information|
-|requestTime|string(timestamp)|Server request receive time|
-|responseTime|string(timestamp)|Server response return time|
+|data|[GetCrossWithdrawSignInfo](#schemagetcrosswithdrawsigninfo)|Signing parameters required before creating a cross-chain withdrawal.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 
@@ -440,10 +457,10 @@ GET /api/v2/private/assets/getAllOrdersPage
 |Name|Type|Description|
 |---|---|---|
 |code|string|Status code|
-|data|[[NormalWithdraw](#schemanormalwithdraw)]|Correct response data|
-|errorParam|object|Error parameter information|
-|requestTime|string(timestamp)|Server request receive time|
-|responseTime|string(timestamp)|Server response return time|
+|data|[[NormalWithdraw](#schemanormalwithdraw)]|Normal withdrawal records returned by the server.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 
@@ -495,10 +512,10 @@ GET /api/v2/private/assets/getAllOrdersPage
 |Name|Type|Description|
 |---|---|---|
 |code|string|Status code|
-|data|[GetNormalWithdrawableAmount](#schemagetnormalwithdrawableamount)|Query normal withdrawable claim amount by user address - Response|
-|errorParam|object|Error parameter information|
-|requestTime|string(timestamp)|Server request receive time|
-|responseTime|string(timestamp)|Server response return time|
+|data|[GetNormalWithdrawableAmount](#schemagetnormalwithdrawableamount)|Withdrawable amount available for the queried address.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 
@@ -518,10 +535,10 @@ GET /api/v2/private/assets/getAllOrdersPage
 |Name|Type|Description|
 |---|---|---|
 |code|string|Status code|
-|data|[CreateCrossWithdraw](#schemacreatecrosswithdraw)|Create cross-chain withdrawal order - Response|
-|errorParam|object|Error parameter information|
-|requestTime|string(timestamp)|Server request receive time|
-|responseTime|string(timestamp)|Server response return time|
+|data|[CreateCrossWithdraw](#schemacreatecrosswithdraw)|Identifiers returned after creating a cross-chain withdrawal order.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 
@@ -554,21 +571,21 @@ GET /api/v2/private/assets/getAllOrdersPage
 |chainId|string|Yes|Chain ID for withdrawal|
 |mpcAddress|string|No|Which mpc address initiated the withdraw|
 |mpcSignature|string|No|Signature of the mpc address to the withdraw field|
-|mpcSignTime|string|No|mpc signature timestamp,unix timestamp in seconds|
+|mpcSignTime|string|No|MPC signature timestamp in seconds.|
 
 
 
 <a id="createnormalwithdraw"></a>
 
-### createnormalwithdraw
+### CreateNormalWithdrawResult
 
 |Name|Type|Description|
 |---|---|---|
 |code|string|Status code|
-|data|[CreateNormalWithdraw](#schemacreatenormalwithdraw)|Create normal withdrawal order - Response|
-|errorParam|object|Error parameter information|
-|requestTime|string(timestamp)|Server request receive time|
-|responseTime|string(timestamp)|Server response return time|
+|data|[CreateNormalWithdraw](#schemacreatenormalwithdraw)|Identifiers returned after creating a normal withdrawal order.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 
@@ -594,7 +611,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 |fee|string|Yes|Withdrawal fee|
 |ethAddress|string|No|Withdrawal address. If empty, withdraw to the corresponding address of the current account.|
 |clientWithdrawId|string|No|Client-defined ID, used for signature & idempotent check. Must be filled.|
-|signature|string|No|EIP-712 signature (V2, required)|
-|signer|string|No|Signer address (V2, required)|
-|nonce|integer(int64)|No|On-chain nonce (V2, required)|
+|signature|string|No|EIP-712 signature required by the backend for V2 withdrawal requests.|
+|signer|string|No|Signer address that produced the EIP-712 signature.|
+|nonce|integer(int64)|No|Nonce used in the V2 signature payload.|
 |l2ExpireTime|string(int64)|No|L2 signature expiration time (milliseconds)|

@@ -1,5 +1,22 @@
 # Transfer Private API
 
+## When to Use This Page
+
+Use this page when you need to create transfer-out orders, query transfer-in or transfer-out records, or check how much balance can still be transferred out of an account.
+
+## Minimal Workflow
+
+1. Check transfer-out available amount if your client needs a pre-check.
+2. Build the transfer-out payload with the required `l2*` fields.
+3. Submit the transfer-out request.
+4. Query transfer records by ID to confirm the final state.
+
+## Common Notes
+
+- These endpoints use the same private REST authentication rules as the rest of API V2.
+- For list-style GET parameters, serialize the query exactly the same way you sign it.
+- Do not rename `l2Nonce`, `l2ExpireTime`, or `l2Signature`; keep backend field names unchanged.
+
 <a id="opIdgetTransferInById"></a>
 
 ## GET Get Transfer In Orders by ID
@@ -242,10 +259,10 @@ POST /api/v2/private/transfer/createTransferOut
 |Name|Type|Description|
 |---|---|---|
 |code|string|Status code. "SUCCESS" for success, other values indicate failure.|
-|data|[PageDataTransferIn](#schemapagedatatransferin)|Generic paginated response data|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request receiving timestamp|
-|responseTime|string(timestamp)|Server response returning timestamp|
+|data|[PageDataTransferIn](#schemapagedatatransferin)|Paginated transfer-in data.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 
@@ -254,8 +271,8 @@ POST /api/v2/private/transfer/createTransferOut
 
 |Name|Type|Description|
 |---|---|---|
-|dataList|[[TransferIn](#schematransferin)]|Data list|
-|nextPageOffsetData|string|Offset to retrieve the next page. If no next page data, the value will be an empty string|
+|dataList|[[TransferIn](#schematransferin)]|Transfer-in records for the current query.|
+|nextPageOffsetData|string|Offset token for the next page. Empty when there is no next page.|
 
 <a id="schematransferin"></a>
 ### TransferInRecord
@@ -270,26 +287,26 @@ POST /api/v2/private/transfer/createTransferOut
 |senderAccountId|string(int64)|Sender Account ID|
 |senderL2Key|string|Sender account L2 key. bigint for hex str|
 |senderTransferOutId|string(int64)|Sender transfer out order ID|
-|clientTransferId|string|Client defined ID. Used for idempotent checks and signature generation nonce|
+|clientTransferId|string|Client-defined ID used for idempotency and signature-related nonce generation.|
 |isConditionTransfer|boolean|Whether it is a conditional transfer|
 |conditionFactRegistryAddress|string|Address of condition fact registry contract. Required when is_condition_transfer=true|
 |conditionFactErc20Address|string|ERC20 address used to generate the condition fact. Required when is_conditional_transfer=true|
 |conditionFactAmount|string|Amount used to generate condition fact. Required when is_conditional_transfer=true.|
 |conditionFact|string|The conditional transfer fact. Required when is_condition_transfer=true|
 |transferReason|string|Transfer reason|
-|extraType|string|Additional type. Used by upper layer business|
-|extraDataJson|string|Additional data in JSON format. Defaults to empty string|
+|extraType|string|Optional business-specific type used by upstream services.|
+|extraDataJson|string|Optional extra metadata in JSON format. Empty string when unused.|
 |status|string|Transfer status|
 |collateralTransactionId|string(int64)|ID of related collateral detail. Exists when status=SUCCESS_XXX/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED|
-|censorTxId|string(int64)|Censor processing sequence. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED|
+|censorTxId|string(int64)|Internal censor-processing sequence number. Present only for the listed status groups.|
 |censorTime|string(int64)|Censor processing time. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED|
 |censorFailCode|string|Censor failure error code. Exists when status=FAILED_CENSOR_FAILURE|
 |censorFailReason|string|Censor failure reason. Exists when status=FAILED_CENSOR_FAILURE|
-|l2TxId|string(int64)|L2 push transaction ID. Exists when censor_status=CENSOR_SUCCESS/L2_APPROVED/L2_REJECT/L2_REJECT_APPROVED|
+|l2TxId|string(int64)|L2 transaction ID. Present only when the transfer has reached the listed L2 processing states.|
 |l2RejectTime|string(int64)|L2 rejection time. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED|
 |l2RejectCode|string|L2 rejection error code. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED|
 |l2RejectReason|string|L2 rejection reason. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED|
-|l2ApprovedTime|string(int64)|L2 batch verification time. Exists when status=L2_APPROVED/L2_REJECT_APPROVED|
+|l2ApprovedTime|string(int64)|Timestamp when L2 approval completed. Present only for the listed terminal states.|
 |createdTime|string(int64)|Creation time|
 |updatedTime|string(int64)|Update time|
 
@@ -321,10 +338,10 @@ POST /api/v2/private/transfer/createTransferOut
 |Name|Type|Description|
 |---|---|---|
 |code|string|Status code. "SUCCESS" for success, other values indicate failure.|
-|data|[PageDataTransferOut](#schemapagedatatransferout)|Generic paginated response data|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request receiving timestamp|
-|responseTime|string(timestamp)|Server response returning timestamp|
+|data|[PageDataTransferOut](#schemapagedatatransferout)|Paginated transfer-out data.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 
@@ -333,8 +350,8 @@ POST /api/v2/private/transfer/createTransferOut
 
 |Name|Type|Description|
 |---|---|---|
-|dataList|[[TransferOut](#schematransferout)]|Data list|
-|nextPageOffsetData|string|Offset to retrieve the next page. If no next page data, the value will be an empty string|
+|dataList|[[TransferOut](#schematransferout)]|Transfer-out records for the current query.|
+|nextPageOffsetData|string|Offset token for the next page. Empty when there is no next page.|
 
 
 <a id="schematransferout"></a>
@@ -349,7 +366,7 @@ POST /api/v2/private/transfer/createTransferOut
 |amount|string|Transfer amount|
 |receiverAccountId|string(int64)|Receiver Account ID|
 |receiverL2Key|string|Receiver account L2 key. bigint for hex str|
-|clientTransferId|string|Client defined ID. Used for idempotent checks and signature generation nonce|
+|clientTransferId|string|Client-defined ID used for idempotency and signature-related nonce generation.|
 |isConditionTransfer|boolean|Whether it is a conditional transfer|
 |conditionFactRegistryAddress|string|Address of condition fact registry contract. Required when is_conditional_transfer=true|
 |conditionFactErc20Address|string|ERC20 address used to generate the condition fact. Required when is_conditional_transfer=true|
@@ -359,20 +376,20 @@ POST /api/v2/private/transfer/createTransferOut
 |l2Nonce|string(int64)|L2 signature nonce. Take the first 32 bits of sha256(client_transfer_id)|
 |l2ExpireTime|string(int64)|L2 signature expiration time in milliseconds. When generating/verifying the signature, the hour should be used: l2_expire_time / 3600000|
 |l2Signature|[L2Signature](#schemal2signature)|L2 signature information|
-|extraType|string|Additional type. Used by upper layer business|
-|extraDataJson|string|Additional data in JSON format. Defaults to empty string|
+|extraType|string|Optional business-specific type used by upstream services.|
+|extraDataJson|string|Optional extra metadata in JSON format. Empty string when unused.|
 |status|string|Transfer status|
 |receiverTransferInId|string(int64)|ID of receiver transfer in order.|
 |collateralTransactionId|string(int64)|ID of related collateral detail. Exists when status=SUCCESS_XXX/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED|
-|censorTxId|string(int64)|Censor processing sequence. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED|
+|censorTxId|string(int64)|Internal censor-processing sequence number. Present only for the listed status groups.|
 |censorTime|string(int64)|Censor processing time. Exists when status=SUCCESS_XXX/FAILED_CENSOR_FAILURE/FAILED_L2_REJECT/FAILED_L2_REJECT_APPROVED|
 |censorFailCode|string|Censor failure error code. Exists when status=FAILED_CENSOR_FAILURE|
 |censorFailReason|string|Censor failure reason. Exists when status=FAILED_CENSOR_FAILURE|
-|l2TxId|string(int64)|L2 push transaction ID. Exists when censor_status=CENSOR_SUCCESS/L2_APPROVED/L2_REJECT/L2_REJECT_APPROVED|
+|l2TxId|string(int64)|L2 transaction ID. Present only when the transfer has reached the listed L2 processing states.|
 |l2RejectTime|string(int64)|L2 rejection time. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED|
 |l2RejectCode|string|L2 rejection error code. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED|
 |l2RejectReason|string|L2 rejection reason. Exists when censor_status=L2_REJECT/L2_REJECT_APPROVED|
-|l2ApprovedTime|string(int64)|L2 batch verification time. Exists when status=L2_APPROVED/L2_REJECT_APPROVED|
+|l2ApprovedTime|string(int64)|Timestamp when L2 approval completed. Present only for the listed terminal states.|
 |createdTime|string(int64)|Creation time|
 |updatedTime|string(int64)|Update time|
 
@@ -413,10 +430,10 @@ POST /api/v2/private/transfer/createTransferOut
 |Name|Type|Description|
 |---|---|---|
 |code|string|Status code. "SUCCESS" for success, other values indicate failure.|
-|data|[[TransferIn](#schematransferin)]|Correct response data|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request receiving timestamp|
-|responseTime|string(timestamp)|Server response returning timestamp|
+|data|[[TransferIn](#schematransferin)]|Transfer-in records returned by the server.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 
@@ -427,9 +444,9 @@ POST /api/v2/private/transfer/createTransferOut
 |---|---|---|
 |code|string|Status code. "SUCCESS" for success, other values indicate failure.|
 |data|[GetTransferAvailableAmount](#schemagettransferavailableamount)|Get Transfer Available Amount - Response|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request receiving timestamp|
-|responseTime|string(timestamp)|Server response returning timestamp|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 
@@ -447,10 +464,10 @@ POST /api/v2/private/transfer/createTransferOut
 |Name|Type|Description|
 |---|---|---|
 |code|string|Status code. "SUCCESS" for success, other values indicate failure.|
-|data|[[TransferOut](#schematransferout)]|Correct response data|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request receiving timestamp|
-|responseTime|string(timestamp)|Server response returning timestamp|
+|data|[[TransferOut](#schematransferout)]|Transfer-out records returned by the server.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 
@@ -461,9 +478,9 @@ POST /api/v2/private/transfer/createTransferOut
 |---|---|---|
 |code|string|Status code. "SUCCESS" for success, other values indicate failure.|
 |data|[CreateTransferOut](#schemacreatetransferout)|Create Transfer Out Order - Response|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request receiving timestamp|
-|responseTime|string(timestamp)|Server response returning timestamp|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 
@@ -511,9 +528,9 @@ POST /api/v2/private/transfer/createTransferOut
 |---|---|---|
 |code|string|Status code. "SUCCESS" for success, other values indicate failure.|
 |data|[GetBatchTransferOutAvailableAmount](#schemagetbatchtransferoutavailableamount)|Get Batch Transfer Out Available Amount - Response|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request receiving timestamp|
-|responseTime|string(timestamp)|Server response returning timestamp|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 
