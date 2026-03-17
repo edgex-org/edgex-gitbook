@@ -562,10 +562,10 @@ Get stocks market status and limit price information.
 |-------------|-------------------------|-------------------|------------|
 | 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#getmarketstatusmodel) |
 
-# Data Models
+## Data Models
 
 <a id="schemaresultlistdepth"></a>
-### schemaresultlistdepth
+### DepthResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -577,7 +577,7 @@ Get stocks market status and limit price information.
 |traceId|string|Call trace ID|
 
 <a id="schemadepth"></a>
-### schemadepth
+### DepthPayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -600,7 +600,7 @@ Get stocks market status and limit price information.
 | depthType | UNRECOGNIZED       |
 
 <a id="schemabookorder"></a>
-### schemabookorder
+### BookOrder
 
 |Name|Type|Description|
 |---|---|---|
@@ -608,7 +608,7 @@ Get stocks market status and limit price information.
 |size|string(decimal)|Quantity|
 
 <a id="schemaresultpagedatakline"></a>
-### schemaresultpagedatakline
+### KlinePageResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -620,7 +620,7 @@ Get stocks market status and limit price information.
 |traceId|string|Call trace ID|
 
 <a id="schemapagedatakline"></a>
-### schemapagedatakline
+### KlinePage
 
 |Name|Type|Description|
 |---|---|---|
@@ -628,7 +628,7 @@ Get stocks market status and limit price information.
 |nextPageOffsetData|string|Offset for the next page. If there is no next page, it's an empty string|
 
 <a id="schemakline"></a>
-### schemakline
+### KlineRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -677,7 +677,7 @@ Get stocks market status and limit price information.
 | priceType | UNRECOGNIZED       |
 
 <a id="schemaresultlistcontractkline"></a>
-### schemaresultlistcontractkline
+### ContractMultiKlineResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -689,7 +689,7 @@ Get stocks market status and limit price information.
 |traceId|string|Call trace ID|
 
 <a id="schemacontractmultikline"></a>
-### schemacontractmultikline
+### ContractMultiKline
 
 |Name|Type|Description|
 |---|---|---|
@@ -697,7 +697,7 @@ Get stocks market status and limit price information.
 |klineList|[[Kline](#schemakline)]|Collection of kline data|
 
 <a id="schemaresultlistopeninterest"></a>
-### schemaresultlistopeninterest
+### OpenInterestResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -709,7 +709,7 @@ Get stocks market status and limit price information.
 |traceId|string|Call trace ID|
 
 <a id="schemaopeninterest"></a>
-### schemaopeninterest
+### OpenInterestRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -718,7 +718,7 @@ Get stocks market status and limit price information.
 |size|string(int64)|Open interest size|
 
 <a id="schemaresultlistticker"></a>
-### schemaresultlistticker
+### TickerResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -730,7 +730,7 @@ Get stocks market status and limit price information.
 |traceId|string|Call trace ID|
 
 <a id="schematicker"></a>
-### schematicker
+### TickerRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -759,7 +759,7 @@ Get stocks market status and limit price information.
 |nextFundingTime|string(int64)|Next funding rate settlement time|
 
 <a id="gettickersummarymodel"></a>
-### gettickersummarymodel
+### GetTickerSummaryResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -771,14 +771,14 @@ Get stocks market status and limit price information.
 |traceId|string|Call trace ID|
 
 <a id="schemagettickersummary"></a>
-### schemagettickersummary
+### GetTickerSummaryPayload
 
 |Name|Type|Description|
 |---|---|---|
 |tickerSummary|[TickerSummary](#schematickersummary)|Quote summary|
 
 <a id="schematickersummary"></a>
-### schematickersummary
+### TickerRecordsummary
 
 |Name|Type|Description|
 |---|---|---|
@@ -798,7 +798,7 @@ Get stocks market status and limit price information.
 | period   | UNRECOGNIZED     |
 
 <a id="schemaresultliststatdaytrade"></a>
-### schemaresultliststatdaytrade
+### StatDayTradeResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -810,7 +810,7 @@ Get stocks market status and limit price information.
 |traceId|string|Call trace ID|
 
 <a id="schemastatdaytrade"></a>
-### schemastatdaytrade
+### StatDayTradeRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -820,7 +820,7 @@ Get stocks market status and limit price information.
 |createTime|string(int64)|Creation time|
 
 <a id="getexchangelongshortratiomodel"></a>
-### getexchangelongshortratiomodel
+### GetExchangeLongShortRatioResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -832,7 +832,7 @@ Get stocks market status and limit price information.
 |traceId|string|Call trace ID|
 
 <a id="schemagetexchangelongshortratio"></a>
-### schemagetexchangelongshortratio
+### GetExchangeLongShortRatioPayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -840,7 +840,7 @@ Get stocks market status and limit price information.
 |allRangeList|[string]|All range data, related to account configuration. Possible values: 1m, 3m, 5m, 15m, 30m, 1h, 4h, 6h, 8h, 12h, 1d, 1w|
 
 <a id="schemaexchangelongshortratio"></a>
-### schemaexchangelongshortratio
+### ExchangeLongShortRatioRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -855,7 +855,7 @@ Get stocks market status and limit price information.
 |updatedTime|string(int64)|Update time|
 
 <a id="schemaresultlistdailyestimatedfee"></a>
-### schemaresultlistdailyestimatedfee
+### DailyEstimatedFeeResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -867,7 +867,7 @@ Get stocks market status and limit price information.
 |traceId|string|Call trace ID|
 
 <a id="schemadailyestimatedfee"></a>
-### schemadailyestimatedfee
+### DailyEstimatedFeeRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -876,7 +876,7 @@ Get stocks market status and limit price information.
 |revenue|string(decimal)|Revenue amount|
 
 <a id="getmarketstatusmodel"></a>
-### getmarketstatusmodel
+### GetMarketStatusResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -888,7 +888,7 @@ Get stocks market status and limit price information.
 |traceId|string|Call trace ID|
 
 <a id="schemagetmarketstatus"></a>
-### schemagetmarketstatus
+### GetMarketStatusPayload
 
 |Name|Type|Description|
 |---|---|---|
