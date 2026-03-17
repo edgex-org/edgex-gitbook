@@ -172,6 +172,50 @@ The `event` field in `trade-event` messages indicates what triggered the data up
 | `FINISH_LIQUIDATING` | Account liquidation finished |
 | `UNRECOGNIZED` | Unrecognized event type |
 
+## Minimal Schema Reference
+
+### PrivateWsEnvelope
+
+| Field | Type | Description |
+|------|------|-------------|
+| `type` | string | Top-level message type such as `trade-event`, `ping`, `pong`, or `error` |
+| `content` | object or null | Event payload for `trade-event` or error payload for `error` |
+| `time` | string(int64) or null | Timestamp used by heartbeat messages |
+
+### PrivateWsHeartbeat
+
+| Field | Type | Description |
+|------|------|-------------|
+| `type` | string | `ping` or `pong` |
+| `time` | string(int64) | Heartbeat timestamp echoed between client and server |
+
+### PrivateWsError
+
+| Field | Type | Description |
+|------|------|-------------|
+| `type` | string | Always `error` |
+| `content.code` | string | Machine-readable error code |
+| `content.msg` | string | Human-readable error message |
+| `content.details` | string or null | Optional additional details |
+
+### TradeEventDataSummary
+
+| Array Field | Item Meaning |
+|------------|--------------|
+| `account` | Account-level updates |
+| `collateral` | Collateral balance updates |
+| `collateralTransaction` | Collateral transaction updates |
+| `position` | Position snapshots or changes |
+| `positionTransaction` | Position transaction updates |
+| `deposit` | Deposit record updates |
+| `withdraw` | Withdrawal record updates |
+| `transferIn` | Transfer-in updates |
+| `transferOut` | Transfer-out updates |
+| `order` | Order updates |
+| `orderFillTransaction` | Fill-level execution updates |
+
+**Event usage note:** `Snapshot` may contain multiple populated arrays, while update events such as `ORDER_UPDATE` or `ACCOUNT_UPDATE` usually populate only the arrays related to the changed entities.
+
 ## Data Object Structure
 
 The `data` object contains arrays of various entities. Each array is populated based on the event type. Not all arrays will be present or populated in every message.

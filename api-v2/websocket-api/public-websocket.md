@@ -715,6 +715,114 @@ Subscribe to real-time trade execution data.
 - Multiple trades may be pushed in a single message if they occur simultaneously
 - Account IDs may be anonymized/masked for privacy depending on configuration
 
+## Minimal Schema Reference
+
+The examples above describe the WebSocket behavior channel by channel. The following schema reference summarizes the reusable message structures for public WebSocket consumers.
+
+### PublicWsEnvelope
+
+| Field | Type | Description |
+|------|------|-------------|
+| `type` | string | Top-level message type such as `connected`, `subscribed`, `unsubscribed`, `payload`, `ping`, `pong`, or `error` |
+| `channel` | string or null | Channel identifier for subscription, payload, and some error messages |
+| `request` | string or null | Original request payload for error messages when available |
+| `content` | object or null | Message-specific body |
+| `time` | string(int64) or null | Timestamp used by heartbeat messages |
+| `sid` | string or null | Session identifier, mainly present in the initial `connected` message |
+
+### PublicWsPayload
+
+| Field | Type | Description |
+|------|------|-------------|
+| `type` | string | Always `payload` |
+| `channel` | string | Channel identifier such as `ticker.10000001` |
+| `content.dataType` | string | Usually `Snapshot` or `Changed` |
+| `content.channel` | string | Same logical channel as the top-level `channel` |
+| `content.data` | array | Array of channel-specific payload items |
+
+### MetadataPayloadItem
+
+| Field | Type | Description |
+|------|------|-------------|
+| `global` | object | Global platform settings such as timezone and server time |
+| `coinList` | array | Coin metadata entries |
+| `contractList` | array | Contract metadata entries |
+| `multiChain` | object | Multi-chain withdrawal and chain configuration |
+
+### TickerPayloadItem
+
+| Field | Type | Description |
+|------|------|-------------|
+| `contractId` | string(int64) | Contract identifier |
+| `contractName` | string | Contract symbol |
+| `lastPrice` | string(decimal) | Latest traded price |
+| `markPrice` | string(decimal) | Current mark price |
+| `indexPrice` | string(decimal) | Current index price |
+| `openInterest` | string(decimal) | Current open interest |
+| `fundingRate` | string(decimal) | Current funding rate |
+| `bestAskPrice` | string(decimal) | Best ask |
+| `bestBidPrice` | string(decimal) | Best bid |
+| `marketOpen` | boolean | Whether the market is currently open |
+
+### KlinePayloadItem
+
+| Field | Type | Description |
+|------|------|-------------|
+| `klineId` | string(int64) | Unique identifier for the bar |
+| `contractId` | string(int64) | Contract identifier |
+| `contractName` | string | Contract symbol |
+| `klineType` | string | Interval such as `MINUTE_1` or `HOUR_1` |
+| `klineTime` | string(int64) | Opening timestamp of the bar |
+| `priceType` | string | `LAST_PRICE` or `MARK_PRICE` |
+| `open` | string(decimal) | Open price |
+| `high` | string(decimal) | High price |
+| `low` | string(decimal) | Low price |
+| `close` | string(decimal) | Close price |
+| `size` | string(decimal) | Traded size during the interval |
+| `value` | string(decimal) | Traded value during the interval |
+
+### DepthSnapshotItem
+
+| Field | Type | Description |
+|------|------|-------------|
+| `startVersion` | string(int64) | Starting order-book version |
+| `endVersion` | string(int64) | Ending order-book version |
+| `level` | integer | Book depth level such as `15` or `200` |
+| `contractId` | string(int64) | Contract identifier |
+| `contractName` | string | Contract symbol |
+| `depthType` | string | Always `SNAPSHOT` for a full book snapshot |
+| `bids` | array<[price, size]> | Bid levels sorted descending by price |
+| `asks` | array<[price, size]> | Ask levels sorted ascending by price |
+
+### DepthChangedItem
+
+| Field | Type | Description |
+|------|------|-------------|
+| `startVersion` | string(int64) | Starting order-book version |
+| `endVersion` | string(int64) | Ending order-book version |
+| `level` | integer | Book depth level such as `15` or `200` |
+| `contractId` | string(int64) | Contract identifier |
+| `contractName` | string | Contract symbol |
+| `depthType` | string | Always `CHANGED` for incremental updates |
+| `bids` | array<[price, size]> | Changed bid levels only |
+| `asks` | array<[price, size]> | Changed ask levels only |
+
+### TradePayloadItem
+
+| Field | Type | Description |
+|------|------|-------------|
+| `ticketId` | string(int64) | Unique trade identifier |
+| `time` | string(int64) | Execution timestamp |
+| `price` | string(decimal) | Trade price |
+| `size` | string(decimal) | Trade size |
+| `value` | string(decimal) | Trade notional value |
+| `takerOrderId` | string(int64) | Taker order id |
+| `makerOrderId` | string(int64) | Maker order id |
+| `contractId` | string(int64) | Contract identifier |
+| `contractName` | string | Contract symbol |
+| `isBestMatch` | boolean | Whether the fill matched at the best available price |
+| `isBuyerMaker` | boolean | Market-side indicator |
+
 ## Error Handling
 
 When an error occurs (e.g., invalid channel, malformed message), the server responds with an error message:
