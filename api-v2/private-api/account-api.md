@@ -1,6 +1,6 @@
 # Account Private API
 
-**Field naming note**: Some response fields still use historical names such as `starkExRiskValue` and `starkExRiskRate`. Keep these names as-is when parsing server responses; they are field names, not a recommendation to use the V1 StarkEx signing model.
+**Field naming note**: Some response fields still use historical names such as `starkExRiskValue` and `starkExRiskRate`. Keep these names as-is when parsing server responses; they are legacy backend field names, not a recommendation to use the V1 StarkEx signing model. When in doubt, trust the actual response payload and SDK behavior over older terminology.
 
 <a id="opIdgetPositionTransactionPage"></a>
 

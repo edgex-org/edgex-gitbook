@@ -1,5 +1,7 @@
 # Funding Public API
 
+**Field naming note**: Some funding responses still expose historical backend field names such as `starkExFundingIndex`. Keep the server field names unchanged in your parser even though V2 signing and integration semantics have moved away from the old StarkEx model.
+
 <a id="opIdgetLatestFundingRate"></a>
 
 ## GET Get Latest Funding Rate by Contract ID

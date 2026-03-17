@@ -1,5 +1,7 @@
 # Metadata Public API
 
+**Field naming note**: This metadata response still contains several historical `starkEx*` field names returned by the backend. Keep those field names unchanged when parsing API responses; in V2 documentation they should be read as legacy response names, not as a recommendation to use the old V1 signing model.
+
 <a id="opIdgetServerTime"></a>
 
 ## GET Server Time
@@ -494,8 +496,8 @@ GET /api/v2/public/meta/getMetaData
 |stepSize|string(decimal)|Minimum quantity unit|
 |showStepSize|string(decimal)|Minimum unit displayed to the user|
 |iconUrl|string(url)|Coin icon url|
-|starkExAssetId|string(int64)|starkex asset id. If empty, it means it does not exist|
-|starkExResolution|string|starkex processing precision. If empty, it means it does not exist|
+|starkExAssetId|string(int64)|Historical response field name for the asset id used by backend metadata. If empty, the value is not available.|
+|starkExResolution|string|Historical response field name for backend precision metadata. If empty, the value is not available.|
 
 <a id="schemaglobal"></a>
 ### schemaglobal
@@ -513,8 +515,8 @@ GET /api/v2/public/meta/getMetaData
 |fastWithdrawAccountL2Key|string|Fast withdrawal account l2Key, bigint for hex str|
 |fastWithdrawMaxAmount|string|Maximum amount for fast withdrawal|
 |fastWithdrawRegistryAddress|string|Fast withdrawal account address|
-|starkExChainId|string|Chain id of starkex. bigint for hex str|
-|starkExContractAddress|string|starkex contract address.|
+|starkExChainId|string|Historical response field name for the chain id in backend metadata. Bigint in hex string format.|
+|starkExContractAddress|string|Historical response field name for the contract address used by backend metadata.|
 |starkExCollateralCoin|[Coin](#schemacoin)|Coin meta information|
 |starkExMaxFundingRate|integer(int32)|Maximum funding rate per second after starkex precision processing. i.e. stark_ex_max_funding_rate * 2^32 is the actual maximum funding rate per second. E.g.: 1120|
 |starkExOrdersTreeHeight|integer(int32)|Order merkle tree height. E.g.: 64|
