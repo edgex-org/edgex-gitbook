@@ -1,4 +1,4 @@
-# TransferPrivateApi
+# Transfer Private API
 
 <a id="opIdgetTransferInById"></a>
 
@@ -6,12 +6,14 @@
 
 GET /api/v2/private/transfer/getTransferInById
 
+**Query encoding note**: For list-style GET parameters such as `transferInIdList` and `transferOutIdList`, use the same serialization format expected by your SDK or backend gateway. If your client does not support repeated query keys automatically, send the values in the exact format used by your signing payload to avoid signature mismatches.
+
 ### Request Parameters
 
 |Name|Type|Required|Description|
 |---|---|---|---|
 |accountId|string|Yes|Account ID|
-|transferInIdList|array[string]|No|Transfer In ID list|
+|transferInIdList|string|No|Transfer In ID list. Serialize this list using the exact query format expected by your client or SDK when generating the request signature.|
 
 > Response Example
 
@@ -79,7 +81,7 @@ GET /api/v2/private/transfer/getTransferOutById
 |Name|Type|Required|Description|
 |---|---|---|---|
 |accountId|string|Yes|Account ID|
-|transferOutIdList|array[string]|No|Transfer out ID list|
+|transferOutIdList|string|No|Transfer Out ID list. Serialize this list using the exact query format expected by your client or SDK when generating the request signature.|
 
 > Response Example
 
@@ -208,7 +210,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 |Name|Type|Required|Description|
 |---|---|---|---|
-|body|[CreateTransferOutParam](#schemacreatetransferoutparam)|No|none|
+|body|[CreateTransferOutParam](#schemacreatetransferoutparam)|No|Request body for creating a transfer-out order.|
 
 > Response Example
 

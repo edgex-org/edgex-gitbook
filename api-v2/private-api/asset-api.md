@@ -1,10 +1,12 @@
-# AssetsPrivateApi
+# Asset Private API
 
 <a id="opIdcreateNormalWithdraw"></a>
 
 ## POST Create Normal Withdrawal Order
 
 POST /api/v2/private/assets/createNormalWithdraw
+
+**Note**: Asset withdrawal endpoints use the same private REST authentication described in [Authentication](../authentication.md). If an endpoint also requires an L2 signature, prefer the `l2*` field names used across V2 documentation.
 
 > Body Request Parameters
 
@@ -16,9 +18,9 @@ POST /api/v2/private/assets/createNormalWithdraw
     "fee": "0.5",
     "ethAddress": "0x1fB51aa234287C3CA1F957eA9AD0E148Bb814b7A",
     "clientWithdrawId": "745410645654877",
-    "signature": "0x007bf80407c6a7bb14f5ca3b848a5d908627993f23b073c902e359a6fa4a6a92040cea4c98e25e35ad1d8cc4e18758c463c45bf451299ce55aa49abbdb916d03",
+    "l2Signature": "0x007bf80407c6a7bb14f5ca3b848a5d908627993f23b073c902e359a6fa4a6a92040cea4c98e25e35ad1d8cc4e18758c463c45bf451299ce55aa49abbdb916d03",
     "signer": "0x1fB51aa234287C3CA1F957eA9AD0E148Bb814b7A",
-    "nonce": 123456,
+    "l2Nonce": 123456,
     "l2ExpireTime": "1735887600000"
 }
 ```
@@ -27,7 +29,7 @@ POST /api/v2/private/assets/createNormalWithdraw
 
 |Name|Type|Required|Description|
 |---|---|---|---|
-|body|[CreateNormalWithdrawParam](#schemacreatenormalwithdrawparam)|No|None|
+|body|[CreateNormalWithdrawParam](#schemacreatenormalwithdrawparam)|No|Request body for creating a normal withdrawal order.|
 
 > Response Example
 
@@ -84,7 +86,7 @@ POST /api/v2/private/assets/createCrossWithdraw
 
 |Name|Type|Required|Description|
 |---|---|---|---|
-|body|[CreateCrossWithdrawParam](#schemacreatecrosswithdrawparam)|No|None|
+|body|[CreateCrossWithdrawParam](#schemacreatecrosswithdrawparam)|No|Request body for creating a cross-chain withdrawal order.|
 
 > Response Example
 
