@@ -254,7 +254,3 @@ ws.onmessage = (event) => {
 - [Private WebSocket Documentation →](./private-websocket.md)
 - [Authentication Guide →](../authentication.md)
 
----
-
-**Last Updated**: 2026-03-10  
-**API Version**: V2 (WebSocket paths still use v1)

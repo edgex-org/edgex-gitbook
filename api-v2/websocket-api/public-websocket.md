@@ -860,213 +860,38 @@ When an error occurs (e.g., invalid channel, malformed message), the server resp
 - Implement exponential backoff for reconnection attempts
 - Log error messages for debugging
 
-## Connection Management
+## Minimal Client Example
 
-### Connection Lifecycle
+Use a lightweight client that can:
+- connect to `wss://[domain]/api/v1/public/ws`
+- send `subscribe` / `unsubscribe` messages
+- respond to server `ping` messages with `pong`
+- route `payload` messages by `channel`
 
-1. **Connect**: Establish WebSocket connection to `wss://[domain]/api/v1/public/ws`
-2. **Connected**: Receive connection confirmation message with session ID
-3. **Subscribe**: Send subscription requests for desired channels
-4. **Subscribed**: Receive subscription confirmation for each channel
-5. **Snapshot**: Receive initial snapshot data (for applicable channels)
-6. **Updates**: Receive real-time data updates as they occur
-7. **Heartbeat**: Exchange ping/pong messages periodically
-8. **Unsubscribe**: Send unsubscribe requests when no longer needed (optional)
-9. **Disconnect**: Close connection gracefully or handle unexpected disconnections
+A minimal subscription request looks like this:
 
-### Disconnection and Reconnection
-
-**Disconnection Reasons:**
-- Network issues or connection timeout
-- Server maintenance or restart
-- Missing 5 consecutive heartbeat responses
-- Multiple invalid message errors (5+)
-- Client-initiated disconnect
-
-**Reconnection Strategy:**
-1. Implement exponential backoff (start with 1s, max 60s)
-2. Re-establish WebSocket connection
-3. Re-subscribe to all previously active channels
-4. Resume processing data updates
-
-**Important:** Subscription state is not persisted across reconnections. You must re-subscribe after reconnecting.
-
-## Rate Limits
-
-- **Connection Rate Limit**: Maximum 10 new connections per minute per IP
-- **Subscription Limit**: Maximum 100 active channel subscriptions per connection
-- **Message Rate Limit**: Maximum 100 messages per second per connection (includes pings)
-
-Exceeding rate limits may result in temporary connection rejection or throttling.
-
-## Best Practices
-
-1. **Heartbeat Management**
-   - Respond to server pings immediately to maintain connection
-   - Send client pings periodically (every 30-60 seconds) to measure latency
-   - Monitor connection health and reconnect if no pings received
-
-2. **Subscription Management**
-   - Subscribe to only the channels you need
-   - Use `ticker.all.1s` instead of individual ticker subscriptions when monitoring many contracts
-   - Unsubscribe from channels when no longer needed to reduce bandwidth
-
-3. **Data Processing**
-   - Handle both `Snapshot` and `Changed` data types appropriately
-   - For depth updates, maintain a local order book and apply incremental updates correctly
-   - Process updates asynchronously to avoid blocking the WebSocket receive loop
-
-4. **Error Handling**
-   - Validate all outgoing messages before sending
-   - Log and monitor error messages
-   - Implement automatic reconnection with backoff
-   - Alert on repeated errors
-
-5. **Performance Optimization**
-   - Use binary compression if available (e.g., permessage-deflate)
-   - Batch multiple subscriptions in quick succession if possible
-   - Process high-frequency channels (trades, depth) efficiently to avoid backlog
-
-## Example Implementation
-
-### JavaScript/Node.js Example
-
-```javascript
-const WebSocket = require('ws');
-
-class EdgeXPublicWebSocket {
-  constructor(url) {
-    this.url = url;
-    this.ws = null;
-    this.pingInterval = null;
-  }
-
-  connect() {
-    this.ws = new WebSocket(this.url);
-
-    this.ws.on('open', () => {
-      console.log('Connected to EdgeX Public WebSocket');
-      this.startHeartbeat();
-    });
-
-    this.ws.on('message', (data) => {
-      const message = JSON.parse(data);
-      this.handleMessage(message);
-    });
-
-    this.ws.on('close', () => {
-      console.log('Disconnected from EdgeX Public WebSocket');
-      this.stopHeartbeat();
-      // Implement reconnection logic here
-    });
-
-    this.ws.on('error', (error) => {
-      console.error('WebSocket error:', error);
-    });
-  }
-
-  handleMessage(message) {
-    switch (message.type) {
-      case 'connected':
-        console.log('Connection confirmed, session ID:', message.sid);
-        // Subscribe to channels after connection
-        this.subscribe('ticker.10000001');
-        this.subscribe('depth.10000001.15');
-        break;
-      
-      case 'ping':
-        // Respond to server ping
-        this.send({ type: 'pong', time: message.time });
-        break;
-      
-      case 'subscribed':
-        console.log('Subscribed to channel:', message.channel);
-        break;
-      
-      case 'payload':
-        this.processData(message);
-        break;
-      
-      case 'error':
-        console.error('Error from server:', message.content);
-        break;
-    }
-  }
-
-  subscribe(channel) {
-    this.send({ type: 'subscribe', channel });
-  }
-
-  unsubscribe(channel) {
-    this.send({ type: 'unsubscribe', channel });
-  }
-
-  send(data) {
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      this.ws.send(JSON.stringify(data));
-    }
-  }
-
-  startHeartbeat() {
-    // Send client ping every 30 seconds
-    this.pingInterval = setInterval(() => {
-      this.send({ type: 'ping', time: Date.now().toString() });
-    }, 30000);
-  }
-
-  stopHeartbeat() {
-    if (this.pingInterval) {
-      clearInterval(this.pingInterval);
-      this.pingInterval = null;
-    }
-  }
-
-  processData(message) {
-    const { channel, content } = message;
-    console.log(`Data from ${channel}:`, content.dataType, content.data);
-    
-    // Implement your data processing logic here
-    if (channel.startsWith('ticker.')) {
-      // Process ticker data
-    } else if (channel.startsWith('depth.')) {
-      // Process depth data
-      this.updateOrderBook(content);
-    } else if (channel.startsWith('trades.')) {
-      // Process trade data
-    }
-  }
-
-  updateOrderBook(content) {
-    if (content.dataType === 'Snapshot') {
-      // Replace entire order book
-      console.log('Order book snapshot received');
-    } else if (content.dataType === 'Changed') {
-      // Apply incremental updates
-      console.log('Order book update received');
-    }
-  }
-
-  disconnect() {
-    this.stopHeartbeat();
-    if (this.ws) {
-      this.ws.close();
-    }
-  }
+```json
+{
+  "type": "subscribe",
+  "channel": "ticker.10000001"
 }
-
-// Usage
-const client = new EdgeXPublicWebSocket('wss://api.example.com/api/v1/public/ws');
-client.connect();
 ```
 
-## Summary
+A minimal heartbeat response looks like this:
 
-The EdgeX Public WebSocket API provides efficient real-time access to market data without authentication. Key features include:
+```json
+{
+  "type": "pong",
+  "time": "1693208170000"
+}
+```
 
-- **No Authentication Required**: Connect and subscribe without API keys
-- **Real-time Data**: Receive immediate updates for tickers, depth, trades, and K-lines
-- **Efficient Updates**: Snapshot + incremental update pattern minimizes bandwidth
-- **Reliable Heartbeat**: Bidirectional ping/pong mechanism ensures connection health
-- **Flexible Subscriptions**: Subscribe to individual contracts or aggregate channels
+## Connection Management
 
-For private account data streams, see the [Private WebSocket API](./private-websocket.md) documentation.
+1. Connect to `wss://[domain]/api/v1/public/ws`
+2. Wait for the `connected` message
+3. Subscribe to the channels you need
+4. Handle `payload` messages by channel and `dataType`
+5. Reply to every server `ping` with a matching `pong`
+6. Reconnect with backoff if the socket closes unexpectedly
+
