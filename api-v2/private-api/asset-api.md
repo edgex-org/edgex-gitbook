@@ -242,7 +242,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 |-------------|-------------------------|------------------|------------|
 | 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Successful response | [Result](#schemaresultpagedatassetorder) |
 
-# Data Models
+## Data Models
 
 <a id="schemaresultpagedatassetorder"></a>
 ### schemaresultpagedatassetorder
@@ -268,7 +268,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemaassetorder"></a>
 
-### schemaassetorder
+### AssetOrderRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -317,7 +317,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemacrosswithdraw"></a>
 
-### schemacrosswithdraw
+### CrossWithdrawRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -386,7 +386,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemal1tx"></a>
 
-### schemal1tx
+### L1TransactionRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -398,7 +398,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemal2signature"></a>
 
-### schemal2signature
+### L2SignaturePayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -449,7 +449,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemanormalwithdraw"></a>
 
-### schemanormalwithdraw
+### NormalWithdrawRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -537,7 +537,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemacreatecrosswithdrawparam"></a>
 
-### schemacreatecrosswithdrawparam
+### CreateCrossWithdrawRequest
 
 |Name|Type|Required|Description|
 |---|---|---|---|
@@ -584,7 +584,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemacreatenormalwithdrawparam"></a>
 
-### schemacreatenormalwithdrawparam
+### CreateNormalWithdrawRequest
 
 |Name|Type|Required|Description|
 |---|---|---|---|

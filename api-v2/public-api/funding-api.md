@@ -2,6 +2,32 @@
 
 **Field naming note**: Some funding responses still expose historical backend field names such as `starkExFundingIndex`. Keep the server field names unchanged in your parser even though V2 signing and integration semantics have moved away from the old StarkEx model.
 
+## When to Use This Page
+
+Use funding endpoints when you need the latest funding rate, historical funding records, or funding-related displays in a market-data UI.
+
+## Minimal Calls
+
+Get latest funding rate:
+
+```bash
+curl -X GET "https://edgex-prod-v2.edgex.exchange/api/v2/public/funding/getLatestFundingRate?contractId=10000001"
+```
+
+Get funding rate history:
+
+```bash
+curl -X GET "https://edgex-prod-v2.edgex.exchange/api/v2/public/funding/getFundingRatePageByContractId?contractId=10000001&page=1&limit=20"
+```
+
+## Common Notes
+
+- Funding endpoints are public and do not require authentication.
+- Use metadata first if you need contract metadata or display precision before presenting funding data.
+- Preserve legacy response field names exactly as returned by the server.
+
+**Field naming note**: Some funding responses still expose historical backend field names such as `starkExFundingIndex`. Keep the server field names unchanged in your parser even though V2 signing and integration semantics have moved away from the old StarkEx model.
+
 <a id="opIdgetLatestFundingRate"></a>
 
 ## GET Get Latest Funding Rate by Contract ID
@@ -124,10 +150,10 @@ GET /api/v2/public/funding/getFundingRatePage
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|successful response|[Result](#pagedatafundingrate>)|
 
-# Data Models
+## Data Models
 
 <a id="pagedatafundingrate"></a>
-### pagedatafundingrate
+### FundingRatePage
 
 |Name|Type|Description|
 |---|---|---|
@@ -140,7 +166,7 @@ GET /api/v2/public/funding/getFundingRatePage
 
 
 <a id="schemapagedatafundingrate"></a>
-### schemapagedatafundingrate
+### FundingRatePageSchema
 
 |Name|Type|Description|
 |---|---|---|
@@ -148,7 +174,7 @@ GET /api/v2/public/funding/getFundingRatePage
 |nextPageOffsetData|string|Offset data to retrieve the next page. Empty string if there is no next page|
 
 <a id="listfundingrate"></a>
-### listfundingrate
+### FundingRateListResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -161,7 +187,7 @@ GET /api/v2/public/funding/getFundingRatePage
 
 
 <a id="schemafundingrate"></a>
-### schemafundingrate
+### FundingRateItem
 
 |Name|Type|Description|
 |---|---|---|

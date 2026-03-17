@@ -373,7 +373,7 @@ GET /api/v2/public/meta/getMetaData
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|default response|[Result](#MetadataResult)|
 
-# Data Models
+## Data Models
 
 
 <a id="MetadataResult"></a>
@@ -391,7 +391,7 @@ GET /api/v2/public/meta/getMetaData
 
 
 <a id="schemametadata"></a>
-### schemametadata
+### MetadataPayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -403,7 +403,7 @@ GET /api/v2/public/meta/getMetaData
 
 
 <a id="schemamultichain"></a>
-### schemamultichain
+### MultiChainConfig
 
 |Name|Type|Description|
 |---|---|---|
@@ -415,7 +415,7 @@ GET /api/v2/public/meta/getMetaData
 
 
 <a id="schemachain"></a>
-### schemachain
+### ChainConfig
 
 |Name|Type|Description|
 |---|---|---|
@@ -439,7 +439,7 @@ GET /api/v2/public/meta/getMetaData
 
 
 <a id="schemamultichaintoken"></a>
-### schemamultichaintoken
+### MultiChainConfigtoken
 
 |Name|Type|Description|
 |---|---|---|
@@ -455,7 +455,7 @@ GET /api/v2/public/meta/getMetaData
 
 
 <a id="schemacontract"></a>
-### schemacontract
+### ContractMetadata
 
 |Name|Type|Description|
 |---|---|---|
@@ -497,7 +497,7 @@ GET /api/v2/public/meta/getMetaData
 
 
 <a id="schemarisktier"></a>
-### schemarisktier
+### RiskTier
 
 |Name|Type|Description|
 |---|---|---|
@@ -511,7 +511,7 @@ GET /api/v2/public/meta/getMetaData
 
 
 <a id="schemacoin"></a>
-### schemacoin
+### CoinMetadata
 
 |Name|Type|Description|
 |---|---|---|
@@ -524,7 +524,7 @@ GET /api/v2/public/meta/getMetaData
 |starkExResolution|string|Historical response field name for backend precision metadata. If empty, the value is not available.|
 
 <a id="schemaglobal"></a>
-### schemaglobal
+### GlobalMetadata
 
 |Name|Type|Description|
 |---|---|---|
@@ -552,7 +552,7 @@ GET /api/v2/public/meta/getMetaData
 
 
 <a id="getservertime"></a>
-### getservertime
+### ServerTimeResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -564,7 +564,7 @@ GET /api/v2/public/meta/getMetaData
 |traceId|string|Call traceId|
 
 
-### schemagetservertime
+### ServerTimePayload
 
 |Name|Type|Description|
 |---|---|---|

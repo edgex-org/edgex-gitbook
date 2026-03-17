@@ -1064,7 +1064,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------- |
 | 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | successful response | [Result](#accountassetsnapshot>) |
 
-# Data Models
+## Data Models
 
 
 <a id="accountassetsnapshot"></a>
@@ -1353,7 +1353,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |traceId|string|Trace ID|
 
 <a id="schemagetaccountdeleveragelight"></a>
-### Response structure for fetching deleverage light information.
+### DeleverageLightResponse
 
 |Name|Type|Description|
 |---|---|---|
@@ -1361,7 +1361,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="account"></a>
-### account
+### AccountRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -1374,7 +1374,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemapagedataaccount"></a>
-### Generic Paginated Response
+### GenericPaginatedResponse
 
 |Name|Type|Description|
 |---|---|---|
@@ -1382,7 +1382,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |nextPageOffsetData|string|Next Page Offset|
 
 <a id="collateral"></a>
-### collateral
+### CollateralRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -1395,7 +1395,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="collateraltransaction"></a>
-### collateraltransaction
+### CollateralTransactionRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -1408,7 +1408,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemacollateraltransaction"></a>
-### Collateral transaction details
+### CollateralTransactionDetails
 
 |Name|Type|Description|
 |---|---|---|
@@ -1496,7 +1496,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="collateraltransaction>"></a>
-### collateraltransaction
+### CollateralTransactionRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -1517,7 +1517,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |nextPageOffsetData|string|Next Page Offset|
 
 
-### position
+### PositionRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -1530,7 +1530,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="positionterm"></a>
-### positionterm
+### PositionTermRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -1575,7 +1575,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="positiontransaction"></a>
-### positiontransaction
+### PositionTransactionRecord
 
 |Name|Type|Description|
 |---|---|---|

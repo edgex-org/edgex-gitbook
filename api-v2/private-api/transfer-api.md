@@ -237,7 +237,7 @@ POST /api/v2/private/transfer/createTransferOut
 | 200 | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#schemaresultcreatetransferout) |
 
 <a id="schemaresultpagedatatransferin"></a>
-### schemaresultpagedatatransferin
+### TransferInPageResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -250,7 +250,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 
 <a id="schemapagedatatransferin"></a>
-### schemapagedatatransferin
+### TransferInPage
 
 |Name|Type|Description|
 |---|---|---|
@@ -258,7 +258,7 @@ POST /api/v2/private/transfer/createTransferOut
 |nextPageOffsetData|string|Offset to retrieve the next page. If no next page data, the value will be an empty string|
 
 <a id="schematransferin"></a>
-### schematransferin
+### TransferInRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -316,7 +316,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 
 <a id="schemaresultpagedatatransferout"></a>
-### schemaresultpagedatatransferout
+### TransferOutPageResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -329,7 +329,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 
 <a id="schemapagedatatransferout"></a>
-### schemapagedatatransferout
+### TransferOutPage
 
 |Name|Type|Description|
 |---|---|---|
@@ -338,7 +338,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 
 <a id="schematransferout"></a>
-### schematransferout
+### TransferOutRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -398,7 +398,7 @@ POST /api/v2/private/transfer/createTransferOut
 | status | UNRECOGNIZED |
 
 <a id="schemal2signature"></a>
-### schemal2signature
+### L2SignaturePayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -434,7 +434,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 
 <a id="schemagettransferavailableamount"></a>
-### schemagettransferavailableamount
+### TransferOutAvailableAmount
 
 |Name|Type|Description|
 |---|---|---|
@@ -468,7 +468,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 
 <a id="schemacreatetransferout"></a>
-### schemacreatetransferout
+### CreateTransferOutResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -477,7 +477,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 
 <a id="schemacreatetransferoutparam"></a>
-### schemacreatetransferoutparam
+### CreateTransferOutResultparam
 
 |Name|Type|Required|Description|
 |---|---|---|---|
@@ -518,7 +518,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 
 <a id="schemagetbatchtransferoutavailableamount"></a>
-### schemagetbatchtransferoutavailableamount
+### BatchTransferOutAvailableAmount
 
 |Name|Type|Description|
 |---|---|---|
