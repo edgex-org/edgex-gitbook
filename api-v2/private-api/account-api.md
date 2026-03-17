@@ -1068,7 +1068,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="accountassetsnapshot"></a>
-### accountassetsnapshot
+### AccountAssetSnapshotRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -1081,7 +1081,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |traceId|string|Trace ID|
 
 <a id="schemapagedataaccountassetsnapshot"></a>
-### schemapagedataaccountassetsnapshot
+### AccountAssetSnapshotPage
 
 |Name|Type|Description|
 |---|---|---|
@@ -1089,7 +1089,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |nextPageOffsetData|string|Next Page Offset|
 
 <a id="schemaaccountassetsnapshot"></a>
-### schemaaccountassetsnapshot
+### AccountAssetSnapshotPayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -1104,7 +1104,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |totalRealizePnl|string|Total Realized PnL|
 
 <a id="schemaresultgetaccountasset"></a>
-### schemaresultgetaccountasset
+### GetAccountAssetResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -1117,7 +1117,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemagetaccountasset"></a>
-### schemagetaccountasset
+### GetAccountAssetPayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -1130,7 +1130,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |oraclePriceList|[[IndexPrice](#schemaindexprice)]|Oracle Price List|
 
 <a id="schemaindexprice"></a>
-### schemaindexprice
+### IndexPriceRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -1154,7 +1154,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 | priceType | UNRECOGNIZED              |
 
 <a id="schemaoraclepricesignature"></a>
-### schemaoraclepricesignature
+### OraclePriceSignature
 
 |Name|Type|Description|
 |---|---|---|
@@ -1166,7 +1166,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |timestamp|string(int64)|Signature Creation Time|
 
 <a id="schemal2signature"></a>
-### schemal2signature
+### L2SignaturePayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -1175,7 +1175,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |v|string|V Value|
 
 <a id="schemacollateralasset"></a>
-### schemacollateralasset
+### CollateralAssetRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -1192,7 +1192,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |availableAmount|string|Available Amount|
 
 <a id="schemapositionasset"></a>
-### schemapositionasset
+### PositionAssetRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -1241,7 +1241,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemapositionstat"></a>
-### schemapositionstat
+### PositionStatRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -1277,7 +1277,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |updatedTime|string(int64)|Update Time|
 
 <a id="schemaaccount"></a>
-### schemaaccount
+### AccountPayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -1313,7 +1313,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 | status   | UNRECOGNIZED          |
 
 <a id="schematradesetting"></a>
-### schematradesetting
+### TradeSettingRecord
 
 |Name|Type|Description|
 |---|---|---|
@@ -1328,7 +1328,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemaresultaccount"></a>
-### schemaresultaccount
+### AccountResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -1341,7 +1341,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="getaccountdeleveragelight"></a>
-### getaccountdeleveragelight
+### GetAccountDeleverageLightResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -1509,7 +1509,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemapagedatacollateraltransaction"></a>
-### schemapagedatacollateraltransaction
+### CollateralTransactionPage
 
 |Name|Type|Description|
 |---|---|---|
@@ -1543,7 +1543,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemapagedatapositionterm"></a>
-### schemapagedatapositionterm
+### PositionTermPage
 
 |Name|Type|Description|
 |---|---|---|
@@ -1552,7 +1552,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemapositionterm"></a>
-### schemapositionterm
+### PositionTermPayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -1588,7 +1588,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemapositiontransaction"></a>
-### schemapositiontransaction
+### PositionTransactionPayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -1662,7 +1662,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="positiontransactionpage"></a>
-### positiontransactionpage
+### PositionTransactionPageResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -1675,7 +1675,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 
 <a id="schemapagedatapositiontransaction"></a>
-### schemapagedatapositiontransaction
+### PositionTransactionPage
 
 |Name|Type|Description|
 |---|---|---|
@@ -1810,7 +1810,7 @@ Get historical orders associated with a specific position term.
 | 200 | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Success | [Result](#resultpositionorderpagemodel) |
 
 <a id="resultpositionorderpagemodel"></a>
-### resultpositionorderpagemodel
+### PositionOrderPageResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -1822,7 +1822,7 @@ Get historical orders associated with a specific position term.
 |traceId|string|Trace ID|
 
 <a id="schemapositionorderpagemodel"></a>
-### schemapositionorderpagemodel
+### PositionOrderPagePayload
 
 |Name|Type|Description|
 |---|---|---|
