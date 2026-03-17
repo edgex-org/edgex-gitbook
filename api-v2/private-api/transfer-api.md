@@ -477,7 +477,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 
 <a id="schemacreatetransferoutparam"></a>
-### CreateTransferOutResultparam
+### CreateTransferOutRequest
 
 |Name|Type|Required|Description|
 |---|---|---|---|
