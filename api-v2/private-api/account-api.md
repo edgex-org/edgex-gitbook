@@ -1214,7 +1214,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |totalRealizePnl|string|Total Realized PnL|
 
 <a id="schemaposition"></a>
-### schemaposition
+### PositionPayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -1255,7 +1255,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |cumLiquidateFee|string|Cumulative Liquidate Fee|
 
 <a id="schemacollateral"></a>
-### schemacollateral
+### CollateralPayload
 
 |Name|Type|Description|
 |---|---|---|

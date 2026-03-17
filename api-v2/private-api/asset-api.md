@@ -245,7 +245,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 ## Data Models
 
 <a id="schemaresultpagedatassetorder"></a>
-### schemaresultpagedatassetorder
+### AssetOrderPageResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -258,7 +258,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 
 <a id="schemapagedataassetorder"></a>
-### schemapagedataassetorder
+### AssetOrderPage
 
 |Name|Type|Description|
 |---|---|---|
@@ -304,7 +304,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemaresultlistcrosswithdraw"></a>
 
-### schemaresultlistcrosswithdraw
+### CrossWithdrawListResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -408,7 +408,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemaresultgetcrosswithdrawsigninfo"></a>
 
-### schemaresultgetcrosswithdrawsigninfo
+### GetCrossWithdrawSignInfoResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -421,7 +421,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 
 <a id="schemagetcrosswithdrawsigninfo"></a>
-### schemagetcrosswithdrawsigninfo
+### GetCrossWithdrawSignInfoPayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -435,7 +435,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemaresultlistnormalwithdraw"></a>
 
-### schemaresultlistnormalwithdraw
+### NormalWithdrawListResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -490,7 +490,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemaresultgetnormalwithdrawableamount"></a>
 
-### schemaresultgetnormalwithdrawableamount
+### GetNormalWithdrawableAmountResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -504,7 +504,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemagetnormalwithdrawableamount"></a>
 
-### schemagetnormalwithdrawableamount
+### GetNormalWithdrawableAmountPayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -513,7 +513,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemaresultcreatecrosswithdraw"></a>
 
-### schemaresultcreatecrosswithdraw
+### CreateCrossWithdrawResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -528,7 +528,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemacreatecrosswithdraw"></a>
 
-### schemacreatecrosswithdraw
+### CreateCrossWithdrawPayload
 
 |Name|Type|Description|
 |---|---|---|
@@ -575,7 +575,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 <a id="schemacreatenormalwithdraw"></a>
 
-### schemacreatenormalwithdraw
+### CreateNormalWithdrawResult
 
 |Name|Type|Description|
 |---|---|---|

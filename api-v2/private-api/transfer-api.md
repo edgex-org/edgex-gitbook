@@ -408,7 +408,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 
 <a id="schemaresultlisttransferin"></a>
-### schemaresultlisttransferin
+### TransferInListResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -421,7 +421,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 
 <a id="schemaresultgettransferoutavailableamount"></a>
-### schemaresultgettransferoutavailableamount
+### GetTransferOutAvailableAmountResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -442,7 +442,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 
 <a id="schemaresultlisttransferout"></a>
-### schemaresultlisttransferout
+### TransferOutListResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -455,7 +455,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 
 <a id="schemaresultcreatetransferout"></a>
-### schemaresultcreatetransferout
+### CreateTransferOutResult
 
 |Name|Type|Description|
 |---|---|---|
@@ -505,7 +505,7 @@ POST /api/v2/private/transfer/createTransferOut
 | transferReason | UNRECOGNIZED |
 
 <a id="schemaresultgetbatchtransferoutavailableamount"></a>
-### schemaresultgetbatchtransferoutavailableamount
+### GetBatchTransferOutAvailableAmountResult
 
 |Name|Type|Description|
 |---|---|---|
