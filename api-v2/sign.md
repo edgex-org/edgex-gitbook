@@ -1,6 +1,6 @@
 # L2 Signature Guide
 
-This document explains how to create Layer 2 (L2) signatures for operations on the EdgeX platform, including orders, withdrawals, and transfers. EdgeX V2 uses **EIP-712 typed data signing** for all L2 operations.
+This document explains how to create Layer 2 (L2) signatures for operations on the EdgeX platform, including orders, withdrawals, and transfers. EdgeX V2 uses **EIP-712 typed data signing** for L2 operations. These signatures are separate from the HMAC authentication used by private REST and WebSocket connections.
 
 ---
 
@@ -225,10 +225,9 @@ import (
     "time"
     
     "github.com/shopspring/decimal"
-    "github.com/edgex-Tech/edgex-golang-sdk/sdk/internal"
 )
 
-// SignLimitOrder creates an EIP-712 signature for a limit order
+// SignLimitOrder shows the calculation flow for an EIP-712 limit-order signature
 func SignLimitOrder(
     signerPrivateKey string,
     accountID int64,

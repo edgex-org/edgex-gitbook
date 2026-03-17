@@ -72,6 +72,16 @@ POST /api/v2/private/order/createOrder
 
 **Note**: This endpoint requires L2 signature authentication.
 
+### Minimal Limit Order Checklist
+
+Before calling `createOrder`, make sure you have:
+
+1. A valid private REST signature (`X-edgeX-Api-Key`, `X-edgeX-Passphrase`, `X-edgeX-Api-Timestamp`, `X-edgeX-Api-Signature`)
+2. A valid EIP-712 L2 signature payload (`l2Nonce`, `l2Value`, `l2Size`, `l2LimitFee`, `l2ExpireTime`, `l2Signature`)
+3. Required business fields such as `accountId`, `contractId`, `side`, `size`, `type`, and `clientOrderId`
+
+For signature construction details, see [Authentication](../authentication.md) and [L2 Signature Guide](../sign.md).
+
 > Body Request Parameters
 
 ```json
@@ -110,18 +120,18 @@ POST /api/v2/private/order/createOrder
 |Name|Type|Required|Description|
 |---|---|---|---|
 |body|object|No|none|
-|» accountId|string(int64)|Yes|**Required** - Account ID (HTTP layer validates, will throw exception if empty)|
-|» contractId|string(int64)|Yes|**Required** - Contract ID (HTTP layer validates, will throw exception if empty)|
-|» side|string|Yes|Buy/Sell direction. Enum: `BUY`, `SELL`. **Business required** - defaults to UNKNOWN if not provided|
-|» size|string(decimal)|Yes|Order quantity. **Business required** - backend will validate|
-|» price|string(decimal)|Yes|Order price (worst acceptable price). **Business required** for limit orders, enter 0 for market orders|
-|» clientOrderId|string|Yes|Client-defined ID for idempotency checks. **Business required**|
-|» type|string|Yes|Order type. Enum: `LIMIT`, `MARKET`, `STOP_LIMIT`, `STOP_MARKET`, `TAKE_PROFIT_LIMIT`, `TAKE_PROFIT_MARKET`. **Business required** - defaults to UNKNOWN if not provided|
-|» timeInForce|string|Yes|Order execution policy. Enum: `GOOD_TIL_CANCEL`, `FILL_OR_KILL`, `IMMEDIATE_OR_CANCEL`, `POST_ONLY`. **Business required** - Market orders must use `IMMEDIATE_OR_CANCEL`|
+|» accountId|string(int64)|Yes|**Required** - Account ID (Request validation, will throw exception if empty)|
+|» contractId|string(int64)|Yes|**Required** - Contract ID (Request validation, will throw exception if empty)|
+|» side|string|Yes|Buy/Sell direction. Enum: `BUY`, `SELL`. **Required by business rules** - defaults to UNKNOWN if not provided|
+|» size|string(decimal)|Yes|Order quantity. **Required by business rules** - backend will validate|
+|» price|string(decimal)|Yes|Order price (worst acceptable price). **Required by business rules** for limit orders, enter 0 for market orders|
+|» clientOrderId|string|Yes|Client-defined ID for idempotency checks. **Required by business rules**|
+|» type|string|Yes|Order type. Enum: `LIMIT`, `MARKET`, `STOP_LIMIT`, `STOP_MARKET`, `TAKE_PROFIT_LIMIT`, `TAKE_PROFIT_MARKET`. **Required by business rules** - defaults to UNKNOWN if not provided|
+|» timeInForce|string|Yes|Order execution policy. Enum: `GOOD_TIL_CANCEL`, `FILL_OR_KILL`, `IMMEDIATE_OR_CANCEL`, `POST_ONLY`. **Required by business rules** - Market orders must use `IMMEDIATE_OR_CANCEL`|
 |» reduceOnly|boolean|No|Whether this is a reduce-only order. Defaults to false if not provided|
 |» triggerPrice|string(decimal)|No|Trigger price. Required for conditional orders. Enter 0 or empty string if not applicable|
 |» triggerPriceType|string|No|Price type for trigger. Enum: `LAST_PRICE`, `INDEX_PRICE`, `ORACLE_PRICE`, `ASK1_PRICE`, `BID1_PRICE`. Required for conditional orders|
-|» expireTime|string(int64)|No|Expiration time in milliseconds. HTTP layer accepts empty (converts to 0)|
+|» expireTime|string(int64)|No|Expiration time in milliseconds. Request parsing accepts empty values, but business validation may reject them (converts to 0)|
 |» sourceKey|string|No|Source key, UUID|
 |» isPositionTpsl|boolean|No|Whether this is a position take-profit/stop-loss order. Defaults to false|
 |» openTpslParentOrderId|string(int64)|No|Order ID of the opening order for TP/SL|
@@ -129,12 +139,12 @@ POST /api/v2/private/order/createOrder
 |» openTp|object|No|Take-profit parameters for opening order. Required when `isSetOpenTp` is true|
 |» isSetOpenSl|boolean|No|Whether stop-loss is set for opening order. Defaults to false|
 |» openSl|object|No|Stop-loss parameters for opening order. Required when `isSetOpenSl` is true|
-|» l2Nonce|string(int64)|Yes|L2 signature nonce. First 32 bits of sha256(`clientOrderId`). HTTP layer accepts empty|
-|» l2Value|string(decimal)|Yes|L2 signature order value. HTTP layer accepts empty|
-|» l2Size|string(decimal)|Yes|L2 signature order quantity. HTTP layer accepts empty|
-|» l2LimitFee|string(decimal)|Yes|Maximum acceptable fee for L2 signature. HTTP layer accepts empty|
-|» l2ExpireTime|string(int64)|Yes|L2 signature expiration time in milliseconds. Must be >= `expireTime` + 8 days. HTTP layer accepts empty|
-|» l2Signature|string|Yes|L2 signature (128 characters). HTTP layer accepts empty but business logic requires valid signature|
+|» l2Nonce|string(int64)|Yes|L2 signature nonce. First 32 bits of sha256(`clientOrderId`). Request parsing accepts empty values, but business validation may reject them|
+|» l2Value|string(decimal)|Yes|L2 signature order value. Request parsing accepts empty values, but business validation may reject them|
+|» l2Size|string(decimal)|Yes|L2 signature order quantity. Request parsing accepts empty values, but business validation may reject them|
+|» l2LimitFee|string(decimal)|Yes|Maximum acceptable fee for L2 signature. Request parsing accepts empty values, but business validation may reject them|
+|» l2ExpireTime|string(int64)|Yes|L2 signature expiration time in milliseconds. Must be >= `expireTime` + 8 days. Request parsing accepts empty values, but business validation may reject them|
+|» l2Signature|string|Yes|L2 signature (128 characters). Request parsing accepts empty values, but business validation may reject them but business logic requires valid signature|
 |» extraType|string|No|Additional type for upper-layer business use|
 |» extraDataJson|string|No|Additional data in JSON format|
 

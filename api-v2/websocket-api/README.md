@@ -9,7 +9,7 @@ EdgeX provides WebSocket APIs for real-time data streaming. Two separate WebSock
 | **[Public WebSocket](./public-websocket.md)** | `wss://[domain]/api/v1/public/ws` | Not required | Real-time market data |
 | **[Private WebSocket](./private-websocket.md)** | `wss://[domain]/api/v1/private/ws` | Required | Account updates and trading events |
 
-**Note**: WebSocket endpoints still use `/api/v1/` path (not changed to v2).
+**Note**: WebSocket endpoints still use the `/api/v1/` path for backward compatibility.
 
 ## [Public WebSocket](./public-websocket.md)
 
@@ -84,11 +84,11 @@ Receive real-time updates about your account, orders, and positions (authenticat
 ### Authentication Methods
 
 **App/API:**
-- Use 4 HMAC headers:
+- Use the same HMAC credential set as private REST APIs:
   - `X-edgeX-Api-Key`
   - `X-edgeX-Passphrase`
-  - `X-edgeX-Signature`
-  - `X-edgeX-Timestamp`
+  - `X-edgeX-Api-Signature`
+  - `X-edgeX-Api-Timestamp`
 - Include `accountId` and `timestamp` in URL query parameters
 
 ### Data Structure
@@ -114,7 +114,7 @@ Messages contain a `data` object with arrays of updated information:
 
 ### Connection URLs
 
-- **Production**: `wss://pro.edgex.exchange`
+- **Production**: `wss://edgex-quote-prod-v2.edgex.exchange`
 - **Testnet**: `wss://testnet.edgex.exchange`
 
 ### Heartbeat Mechanism
@@ -224,8 +224,8 @@ const ws = new WebSocket(
     headers: {
       'X-edgeX-Api-Key': apiKey,
       'X-edgeX-Passphrase': apiPassphrase,
-      'X-edgeX-Signature': signature,
-      'X-edgeX-Timestamp': timestamp
+      'X-edgeX-Api-Signature': signature,
+      'X-edgeX-Api-Timestamp': timestamp
     }
   }
 );

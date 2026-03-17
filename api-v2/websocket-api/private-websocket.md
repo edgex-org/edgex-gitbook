@@ -39,8 +39,8 @@ This is the primary method used by SDK and server-side clients.
 |------|------|----------|-------------|
 | `X-edgeX-Api-Key` | string | true | API Key |
 | `X-edgeX-Passphrase` | string | true | API Passphrase |
-| `X-edgeX-Signature` | string | true | HMAC-SHA256 signature |
-| `X-edgeX-Timestamp` | string(int64) | true | Millisecond timestamp in request header (should match `query.timestamp`) |
+| `X-edgeX-Api-Signature` | string | true | HMAC-SHA256 signature |
+| `X-edgeX-Api-Timestamp` | string(int64) | true | Millisecond timestamp in request header (should match `query.timestamp`) |
 
 #### Signature Notes
 
@@ -55,14 +55,14 @@ This is the primary method used by SDK and server-side clients.
 GET /api/v1/private/ws?accountId=724625476626153743&timestamp=1705720068228
 X-edgeX-Api-Key: your-api-key
 X-edgeX-Passphrase: your-api-passphrase
-X-edgeX-Signature: your-hmac-signature
-X-edgeX-Timestamp: 1705720068228
+X-edgeX-Api-Signature: your-hmac-signature
+X-edgeX-Api-Timestamp: 1705720068228
 ```
 
 **Important Notes:**
 - WebSocket is a GET request; there is no request body to sign
 - Authentication uses HMAC credentials (`API Key`, `Passphrase`, `API Secret`), not L2 signer key signatures
-- `query.timestamp` and `X-edgeX-Timestamp` should be current and consistent
+- `query.timestamp` and `X-edgeX-Api-Timestamp` should be current and consistent
 
 ## Heartbeat Mechanism
 

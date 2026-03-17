@@ -73,7 +73,7 @@ All public API responses follow the standard format:
 
 ## Base URL
 
-- **Production**: `https://pro.edgex.exchange`
+- **Production**: `https://edgex-prod-v2.edgex.exchange`
 - **Testnet**: `https://testnet.edgex.exchange`
 
 ## Best Practices

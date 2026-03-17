@@ -21,16 +21,20 @@ No authentication is required for public endpoints such as:
 
 Private APIs require **HMAC-SHA256 signature authentication** to ensure that only authorized users can access them. Authentication is achieved using custom HTTP headers that include a timestamp and a cryptographic signature.
 
-### Authentication Headers
+### REST Authentication Headers
 
-The following headers **must** be included in requests to private API endpoints:
+The following headers **must** be included in requests to private REST API endpoints:
 
-| Header Name | Type | Required | Description |
-|------------|------|----------|-------------|
-| `X-edgeX-Api-Key` | string | true | Your API Key (obtained from EdgeX platform) |
-| `X-edgeX-Passphrase` | string | true | Your API Passphrase (set during API key creation) |
-| `X-edgeX-Api-Timestamp` | string | true | Request timestamp in milliseconds (Unix timestamp) |
-| `X-edgeX-Api-Signature` | string | true | HMAC-SHA256 signature of the request |
+- `X-edgeX-Api-Key` (string, required): Your API Key obtained from the EdgeX platform
+- `X-edgeX-Passphrase` (string, required): Your API Passphrase set during API key creation
+- `X-edgeX-Api-Timestamp` (string, required): Request timestamp in milliseconds
+- `X-edgeX-Api-Signature` (string, required): HMAC-SHA256 signature of the request
+
+### Authentication Scope
+
+- **REST private APIs** use the 4 headers listed below.
+- **Private WebSocket** uses the same HMAC credential set, but the handshake details are documented separately in [WebSocket API](./websocket-api/README.md).
+- **L2 operation signatures** for orders, withdrawals, and transfers are documented in [L2 Signature Guide](./sign.md) and are separate from HTTP authentication.
 
 ### API Credentials
 

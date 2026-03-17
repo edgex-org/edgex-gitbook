@@ -6,6 +6,8 @@ Welcome to the EdgeX API V2 documentation. This section provides comprehensive d
 
 EdgeX API V2 offers a complete set of endpoints for interacting with the EdgeX perpetual trading platform, including:
 
+> Note: This GitBook documents the V2 platform API surface. SDK coverage may differ from the full platform endpoint set.
+
 - **Public APIs**: Market data, metadata, and funding rates (no authentication required)
 - **Private APIs**: Account management, order operations, asset management, and transfers (authentication required)
 - **WebSocket APIs**: Real-time market data and account updates
@@ -50,7 +52,7 @@ Real-time data streaming:
 Private API endpoints and private WebSocket connections require authentication. EdgeX uses a signature-based authentication mechanism.
 
 - **[Authentication Guide](./authentication.md)** - HTTP header authentication for REST APIs
-- **[L2 Signature Guide](./sign.md)** - StarkEx Layer 2 signature requirements for trading operations
+- **[L2 Signature Guide](./sign.md)** - EIP-712 Layer 2 signature requirements for trading operations
 
 ## API Conventions
 
