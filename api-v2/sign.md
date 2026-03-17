@@ -707,7 +707,7 @@ amountBigInt := new(big.Int)
 | Aspect | V1 | V2 |
 |--------|----|----|
 | **Algorithm** | Pedersen Hash + ECDSA | EIP-712 Typed Data |
-| **Curve** | Custom StarkEx curve | Standard secp256k1 |
+| **Curve** | Legacy StarkEx curve | Standard secp256k1 |
 | **Signature Format** | r, s, y | Standard Ethereum signature (0x...) |
 | **Wallet Support** | Custom implementation | MetaMask compatible |
 | **Hash Function** | Pedersen hash | Keccak256 (EIP-712) |

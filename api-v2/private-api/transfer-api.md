@@ -68,7 +68,7 @@ GET /api/v2/private/transfer/getTransferInById
 
 | Status Code | Description | Notes | Schema |
 |---|---|---|---|
-| 200 | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultlisttransferin) |
+| 200 | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#schemaresultlisttransferin) |
 
 <a id="opIdgetTransferOutById"></a>
 
@@ -143,7 +143,7 @@ GET /api/v2/private/transfer/getTransferOutById
 
 | Status Code | Description | Notes | Schema |
 |---|---|---|---|
-| 200 | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultlisttransferout) |
+| 200 | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#schemaresultlisttransferout) |
 
 <a id="opIdgetTransferOutAvailableAmount"></a>
 
@@ -180,7 +180,7 @@ GET /api/v2/private/transfer/getTransferOutAvailableAmount
 
 | Status Code | Description | Notes | Schema |
 |---|---|---|---|
-| 200 | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultgettransferoutavailableamount) |
+| 200 | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#schemaresultgettransferoutavailableamount) |
 
 <a id="opIdcreateTransferOut"></a>
 
@@ -234,7 +234,7 @@ POST /api/v2/private/transfer/createTransferOut
 
 | Status Code | Description | Notes | Schema |
 |---|---|---|---|
-| 200 | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultcreatetransferout) |
+| 200 | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#schemaresultcreatetransferout) |
 
 <a id="schemaresultpagedatatransferin"></a>
 ### schemaresultpagedatatransferin

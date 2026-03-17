@@ -1,4 +1,4 @@
-# FundingPublicApi
+# Funding Public API
 
 <a id="opIdgetLatestFundingRate"></a>
 
@@ -182,4 +182,4 @@ GET /api/v2/public/funding/getFundingRatePage
 |interestRate|string|Fixed interest rate|
 |predictedFundingRate|string|Comprehensive interest rate (interestRate/frequency)|
 |fundingRateIntervalMin|string(int64)|Funding rate time interval in minutes|
-|starkExFundingIndex|string|StarkEx funding index|
+|starkExFundingIndex|string|Historical field name for the funding index value returned by the server.|

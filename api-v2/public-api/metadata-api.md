@@ -1,4 +1,4 @@
-# MetaDataPublicApi
+# Metadata Public API
 
 <a id="opIdgetServerTime"></a>
 

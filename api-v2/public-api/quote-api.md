@@ -1,4 +1,4 @@
-# QuotePublicApi
+# Quote Public API
 
 <a id="opIdgetDepth"></a>
 

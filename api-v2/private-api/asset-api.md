@@ -53,7 +53,7 @@ POST /api/v2/private/assets/createNormalWithdraw
 
 | Status Code | Status Code Description | Description      | Data Model |
 |-------------|-------------------------|------------------|------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Default response | [Result](#createnormalwithdraw) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Successful response | [Result](#createnormalwithdraw) |
 
 <a id="opIdcreateCrossWithdraw"></a>
 
@@ -105,7 +105,7 @@ POST /api/v2/private/assets/createCrossWithdraw
 
 | Status Code | Status Code Description | Description      | Data Model |
 |-------------|-------------------------|------------------|------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Default response | [Result](#schemaresultcreatecrosswithdraw) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Successful response | [Result](#schemaresultcreatecrosswithdraw) |
 
 <a id="opIdgetNormalWithdrawableAmount"></a>
 
@@ -141,7 +141,7 @@ GET /api/v2/private/assets/getNormalWithdrawableAmount
 
 | Status Code | Status Code Description | Description      | Data Model |
 |-------------|-------------------------|------------------|------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Default response | [Result](#schemaresultgetnormalwithdrawableamount) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Successful response | [Result](#schemaresultgetnormalwithdrawableamount) |
 
 <a id="opIdgetCrossWithdrawSignInfo"></a>
 
@@ -181,7 +181,7 @@ GET /api/v2/private/assets/getCrossWithdrawSignInfo
 
 | Status Code | Status Code Description | Description      | Data Model |
 |-------------|-------------------------|------------------|------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Default response | [Result](#schemaresultgetcrosswithdrawsigninfo) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Successful response | [Result](#schemaresultgetcrosswithdrawsigninfo) |
 
 <a id="opIdgetAllOrdersPage"></a>
 
@@ -240,7 +240,7 @@ GET /api/v2/private/assets/getAllOrdersPage
 
 | Status Code | Status Code Description | Description      | Data Model |
 |-------------|-------------------------|------------------|------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Default response | [Result](#schemaresultpagedatassetorder) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | Successful response | [Result](#schemaresultpagedatassetorder) |
 
 # Data Models
 
