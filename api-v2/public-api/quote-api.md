@@ -94,7 +94,7 @@ GET /api/v2/public/quote/getDepth
 
 | Status Code | Status Code Meaning     | Description       | Data Model |
 |-------------|-------------------------|-------------------|------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultlistdepth) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#schemaresultlistdepth) |
 
 ### Response Data Structure
 
@@ -162,7 +162,7 @@ https://pro.edgex.exchange/api/v2/public/quote/getKline?contractId=10000002&klin
 
 | Status Code | Status Code Meaning     | Description       | Data Model      |
 |-------------|-------------------------|-------------------|-----------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultpagedatakline) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#schemaresultpagedatakline) |
 
 <a id="opIdgetMultiContractKline"></a>
 
@@ -229,7 +229,7 @@ https://pro.edgex.exchange/api/v2/public/quote/getMultiContractKline?contractIdL
 
 | Status Code | Status Code Meaning     | Description       | Data Model |
 |-------------|-------------------------|-------------------|------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultlistcontractkline) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#schemaresultlistcontractkline) |
 
 <a id="opIdgetAccurateOpenInterest"></a>
 
@@ -269,7 +269,7 @@ GET /api/v2/public/quote/getAccurateOpenInterest
 
 | Status Code | Status Code Meaning     | Description       | Data Model |
 |-------------|-------------------------|-------------------|------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultlistopeninterest) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#schemaresultlistopeninterest) |
 
 <a id="opIdgetTicker"></a>
 
@@ -329,7 +329,7 @@ GET /api/v2/public/quote/getTicker
 
 | Status Code | Status Code Meaning     | Description       | Data Model |
 |-------------|-------------------------|-------------------|------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultlistticker) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#schemaresultlistticker) |
 
 <a id="opIdgetTicketSummary"></a>
 
@@ -370,7 +370,7 @@ GET /api/v2/public/quote/getTicketSummary
 
 | Status Code | Status Code Meaning     | Description       | Data Model      |
 |-------------|-------------------------|-------------------|-----------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#gettickersummarymodel) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#gettickersummarymodel) |
 
 <a id="opIdgetStatDayTrade"></a>
 
@@ -412,7 +412,7 @@ GET /api/v2/public/quote/getStatDayTrade
 
 | Status Code | Status Code Meaning     | Description       | Data Model      |
 |-------------|-------------------------|-------------------|-----------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultliststatdaytrade) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#schemaresultliststatdaytrade) |
 
 <a id="opIdgetExchangeLongShortRatio"></a>
 
@@ -469,7 +469,7 @@ GET /api/v2/public/quote/getExchangeLongShortRatio
 
 | Status Code | Status Code Meaning     | Description       | Data Model      |
 |-------------|-------------------------|-------------------|-----------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#getexchangelongshortratiomodel) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#getexchangelongshortratiomodel) |
 
 <a id="opIdfee"></a>
 
@@ -517,7 +517,7 @@ Get daily fees across all contracts in a time range.
 
 | Status Code | Status Code Meaning     | Description       | Data Model |
 |-------------|-------------------------|-------------------|------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#schemaresultlistdailyestimatedfee) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#schemaresultlistdailyestimatedfee) |
 
 <a id="opIdgetMarketStatus"></a>
 
@@ -560,7 +560,7 @@ Get stocks market status and limit price information.
 
 | Status Code | Status Code Meaning     | Description       | Data Model |
 |-------------|-------------------------|-------------------|------------|
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | default response | [Result](#getmarketstatusmodel) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#getmarketstatusmodel) |
 
 # Data Models
 

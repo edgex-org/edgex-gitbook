@@ -393,16 +393,16 @@ METHOD="GET"
 REQUEST_URI="/api/v2/private/account/getAccountAsset"
 REQUEST_BODY="accountId=724625476626153743"
 
-# Build signature message
+// Build signature message
 MESSAGE="${TIMESTAMP}${METHOD}${REQUEST_URI}${REQUEST_BODY}"
 
-# Base64 encode API secret
+// Base64 encode API secret
 BASE64_KEY=$(echo -n "$API_SECRET" | base64)
 
-# Generate HMAC-SHA256 signature
+// Generate HMAC-SHA256 signature
 SIGNATURE=$(echo -n "$MESSAGE" | openssl dgst -sha256 -hmac "$BASE64_KEY" -hex | awk '{print $2}')
 
-# Make request
+// Make request
 curl --location --request GET \
   "https://edgex-testnet-internal-v2.edgex.exchange${REQUEST_URI}?${REQUEST_BODY}" \
   --header "X-edgeX-Api-Key: ${API_KEY}" \

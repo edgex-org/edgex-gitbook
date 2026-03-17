@@ -57,7 +57,7 @@ GET /api/v2/public/funding/getLatestFundingRate
 
 |Status Code|Status Code Description|Description|Data Model|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|default response|[Result](#schemapagedatafundingrate>)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|successful response|[Result](#schemapagedatafundingrate>)|
 
 <a id="opIdgetFundingRatePage"></a>
 
@@ -122,7 +122,7 @@ GET /api/v2/public/funding/getFundingRatePage
 
 |Status Code|Status Code Description|Description|Data Model|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|default response|[Result](#pagedatafundingrate>)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|successful response|[Result](#pagedatafundingrate>)|
 
 # Data Models
 

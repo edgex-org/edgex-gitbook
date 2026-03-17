@@ -45,13 +45,13 @@ Query funding rate information:
 ## Usage Example
 
 ```bash
-# Get server time
+## Get server time
 curl -X GET "https://api.edgex.exchange/api/v2/public/meta/getServerTime"
 
-# Get market depth for BTC contract
+## Get market depth for BTC contract
 curl -X GET "https://api.edgex.exchange/api/v2/public/quote/getDepth?contractId=10000001&level=15"
 
-# Get latest funding rate
+## Get latest funding rate
 curl -X GET "https://api.edgex.exchange/api/v2/public/funding/getLatestFundingRate?contractId=10000001"
 ```
 

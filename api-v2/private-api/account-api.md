@@ -113,7 +113,7 @@ GET /api/v2/private/account/getPositionTransactionPage
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#positiontransactionpage) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | successful response | [Result](#positiontransactionpage) |
 
 <a id="opIdgetPositionTransactionById"></a>
 
@@ -202,7 +202,7 @@ GET /api/v2/private/account/getPositionTransactionById
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#positiontransaction) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | successful response | [Result](#positiontransaction) |
 
 <a id="opIdgetPositionTermPage"></a>
 
@@ -283,7 +283,7 @@ GET /api/v2/private/account/getPositionTermPage
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#positionterm) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | successful response | [Result](#positionterm) |
 
 <a id="opIdgetCollateralByCoinId"></a>
 
@@ -377,7 +377,7 @@ GET /api/v2/private/account/getPositionByContractId
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | Inline     |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | successful response | Inline     |
 
 ### Response Data Structure
 
@@ -465,7 +465,7 @@ GET /api/v2/private/account/getCollateralTransactionPage
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | Inline     |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | successful response | Inline     |
 
 ### Response Data Structure
 
@@ -556,7 +556,7 @@ GET /api/v2/private/account/getCollateralTransactionById
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | Inline     |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | successful response | Inline     |
 
 ### Response Data Structure
 
@@ -612,7 +612,7 @@ GET /api/v2/private/account/getCollateralByCoinId
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | Inline     |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | successful response | Inline     |
 
 ### Response Data Structure
 
@@ -693,7 +693,7 @@ GET /api/v2/private/account/getAccountPage
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#schemaresultaccount) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | successful response | [Result](#schemaresultaccount) |
 
 <a id="opIdgetAccountDeleverageLight"></a>
 
@@ -731,7 +731,7 @@ GET /api/v2/private/account/getAccountDeleverageLight
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#getaccountdeleveragelight) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | successful response | [Result](#getaccountdeleveragelight) |
 
 <a id="opIdgetAccountById"></a>
 
@@ -804,7 +804,7 @@ GET /api/v2/private/account/getAccountById
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#account) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | successful response | [Result](#account) |
 
 <a id="opIdgetAccountAsset"></a>
 
@@ -996,7 +996,7 @@ GET /api/v2/private/account/getAccountAsset
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ---------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#accountassetsnapshot) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | successful response | [Result](#accountassetsnapshot) |
 
 <a id="opIdgetAccountAssetSnapshotPage"></a>
 
@@ -1062,7 +1062,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 
 | Status Code | Status Code Description                                                                  | Description        | Data Model                                        |
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------- |
-| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | default response | [Result](#accountassetsnapshot>) |
+| 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | successful response | [Result](#accountassetsnapshot>) |
 
 # Data Models
 
