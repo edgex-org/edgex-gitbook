@@ -1,5 +1,43 @@
 # Order Private API
 
+## When to Use This Page
+
+Use order endpoints when you need to create, cancel, or query orders. This page is the core trading workflow entry after you already have metadata, account context, REST authentication, and V2 L2 signing in place.
+
+## Minimal Workflow
+
+1. Load metadata to confirm `contractId`, precision, and related config.
+2. Generate private REST headers as described in [Authentication](../authentication.md).
+3. Generate the EIP-712 L2 signature payload described in [L2 Signature Guide](../sign.md).
+4. Call `createOrder` with both REST authentication and L2 signature fields.
+
+## Minimal Create Order Example
+
+```bash
+curl -X POST "https://edgex-prod-v2.edgex.exchange/api/v2/private/order/createOrder"   -H "Content-Type: application/json"   -H "X-edgeX-Api-Key: your_api_key"   -H "X-edgeX-Passphrase: your_api_passphrase"   -H "X-edgeX-Api-Timestamp: 1234567890123"   -H "X-edgeX-Api-Signature: calculated_signature"   -d '{
+    "accountId": "123456",
+    "contractId": "10000001",
+    "side": "BUY",
+    "size": "0.001",
+    "price": "97393.8",
+    "clientOrderId": "demo-order-001",
+    "type": "LIMIT",
+    "timeInForce": "GOOD_TIL_CANCEL",
+    "l2Nonce": "808219",
+    "l2Value": "97.3938",
+    "l2Size": "0.001",
+    "l2LimitFee": "0.048697",
+    "l2ExpireTime": "1737254372359",
+    "l2Signature": "your_l2_signature"
+  }'
+```
+
+## Common Notes
+
+- Order creation requires both private REST authentication and EIP-712 L2 signing.
+- Make sure the payload used for request signing matches the actual request body exactly.
+- Use metadata and account queries first so order precision, balances, and margin assumptions are correct.
+
 <a id="opIdgetMaxCreateOrderSize"></a>
 
 ## POST Get Maximum Order Creation Size

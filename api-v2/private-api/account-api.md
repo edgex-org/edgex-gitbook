@@ -2,6 +2,22 @@
 
 **Field naming note**: Some response fields still use historical names such as `starkExRiskValue` and `starkExRiskRate`. Keep these names as-is when parsing server responses; they are legacy backend field names, not a recommendation to use the V1 StarkEx signing model. When in doubt, trust the actual response payload and SDK behavior over older terminology.
 
+## When to Use This Page
+
+Use account endpoints after authentication succeeds and you need to read balances, positions, collateral state, leverage-related settings, or account transaction history.
+
+## Minimal Call
+
+```bash
+curl -X GET "https://edgex-prod-v2.edgex.exchange/api/v2/private/account/getAccountAsset?accountId=123456"   -H "X-edgeX-Api-Key: your_api_key"   -H "X-edgeX-Passphrase: your_api_passphrase"   -H "X-edgeX-Api-Timestamp: 1234567890123"   -H "X-edgeX-Api-Signature: calculated_signature"
+```
+
+## Common Notes
+
+- Private account endpoints require REST authentication; see [Authentication](../authentication.md).
+- Use metadata endpoints first if you need contract precision, coin metadata, or risk-tier context before interpreting balances and positions.
+- Preserve legacy response field names exactly as returned by the server.
+
 <a id="opIdgetPositionTransactionPage"></a>
 
 ## GET Get Position Transaction Page

@@ -2,6 +2,30 @@
 
 **Field naming note**: This metadata response still contains several historical `starkEx*` field names returned by the backend. Keep those field names unchanged when parsing API responses; in V2 documentation they should be read as legacy response names, not as a recommendation to use the old V1 signing model.
 
+## When to Use This Page
+
+Read this page first when integrating EdgeX V2. Metadata endpoints provide the contract catalog, coin metadata, precision, risk tiers, and global configuration required before placing orders or building a trading UI.
+
+## Minimal Calls
+
+Get server time:
+
+```bash
+curl -X GET "https://edgex-prod-v2.edgex.exchange/api/v2/public/meta/getServerTime"
+```
+
+Get full platform metadata:
+
+```bash
+curl -X GET "https://edgex-prod-v2.edgex.exchange/api/v2/public/meta/getMetaData"
+```
+
+## Common Notes
+
+- Call metadata endpoints before building order-entry logic so you can load contract precision, fee-related metadata, and global config.
+- Treat `starkEx*` fields as legacy response names from the backend; do not rename them in your parser.
+- If SDK behavior and old wording conflict, trust the live response payload and current SDK behavior.
+
 <a id="opIdgetServerTime"></a>
 
 ## GET Server Time

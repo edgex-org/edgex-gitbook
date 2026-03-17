@@ -1,5 +1,29 @@
 # Quote Public API
 
+## When to Use This Page
+
+Use quote endpoints for market data reads such as order book depth, K-line history, ticker snapshots, open interest, and market status. These endpoints are public and do not require authentication.
+
+## Minimal Calls
+
+Get depth:
+
+```bash
+curl -X GET "https://edgex-prod-v2.edgex.exchange/api/v2/public/quote/getDepth?contractId=10000001&level=15"
+```
+
+Get ticker summary:
+
+```bash
+curl -X GET "https://edgex-prod-v2.edgex.exchange/api/v2/public/quote/getTickerSummary?contractId=10000001"
+```
+
+## Common Notes
+
+- Load metadata first so you know which `contractId`, precision, and enums are valid.
+- Quote endpoints are read-only; no authentication headers are required.
+- For charting or polling clients, prefer a stable refresh cadence and switch to WebSocket when you need real-time updates.
+
 <a id="opIdgetDepth"></a>
 
 ## GET Query Order Book Depth
