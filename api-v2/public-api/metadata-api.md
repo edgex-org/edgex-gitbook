@@ -54,7 +54,7 @@ GET /api/v2/public/meta/getServerTime
 
 |Status Code|Status Code Description|Description|Data Model|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|default response|[Result](#getservertime)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|successful response|[Result](#getservertime)|
 
 <a id="opIdgetMetaData"></a>
 
@@ -371,7 +371,7 @@ GET /api/v2/public/meta/getMetaData
 
 |Status Code|Status Code Description|Description|Data Model|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|default response|[Result](#MetadataResult)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|successful response|[Result](#MetadataResult)|
 
 ## Data Models
 
