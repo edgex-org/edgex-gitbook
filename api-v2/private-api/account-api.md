@@ -1064,6 +1064,12 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 | ----------- | ---------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------- |
 | 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                                  | successful response | [Result](#accountassetsnapshot>) |
 
+## Data Model Notes
+
+- Start with `GetAccountAssetPayload` if you are integrating balances, collateral, and position summaries.
+- The remaining models mostly support paginated history endpoints for collateral, position, and transaction data.
+- Preserve server field names exactly as returned, especially account, collateral, and position identifiers.
+
 ## Data Models
 
 
@@ -1078,7 +1084,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |» **additionalProperties**|string|Error Parameters|
 |requestTime|string(timestamp)|Server Request Time|
 |responseTime|string(timestamp)|Server Response Time|
-|traceId|string|Trace ID|
+|traceId|string|Trace ID for request tracing and support follow-up.|
 
 <a id="schemapagedataaccountassetsnapshot"></a>
 ### AccountAssetSnapshotPage
@@ -1086,7 +1092,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |Name|Type|Description|
 |---|---|---|
 |dataList|[[AccountAssetSnapshot](#schemaaccountassetsnapshot)]|Data List|
-|nextPageOffsetData|string|Next Page Offset|
+|nextPageOffsetData|string|Offset token for the next page. Empty when there is no next page.|
 
 <a id="schemaaccountassetsnapshot"></a>
 ### AccountAssetSnapshotPayload
@@ -1113,7 +1119,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |errorParam|object|Error Parameters|
 |requestTime|string(timestamp)|Server Request Time|
 |responseTime|string(timestamp)|Server Response Time|
-|traceId|string|Trace ID|
+|traceId|string|Trace ID for request tracing and support follow-up.|
 
 
 <a id="schemagetaccountasset"></a>
@@ -1337,7 +1343,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |errorParam|object|Error Parameters|
 |requestTime|string(timestamp)|Server Request Time|
 |responseTime|string(timestamp)|Server Response Time|
-|traceId|string|Trace ID|
+|traceId|string|Trace ID for request tracing and support follow-up.|
 
 
 <a id="getaccountdeleveragelight"></a>
@@ -1350,7 +1356,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |errorParam|object|Error Parameters|
 |requestTime|string(timestamp)|Server Request Time|
 |responseTime|string(timestamp)|Server Response Time|
-|traceId|string|Trace ID|
+|traceId|string|Trace ID for request tracing and support follow-up.|
 
 <a id="schemagetaccountdeleveragelight"></a>
 ### DeleverageLightResponse
@@ -1370,7 +1376,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |errorParam|object|Error Parameters|
 |requestTime|string(timestamp)|Server Request Time|
 |responseTime|string(timestamp)|Server Response Time|
-|traceId|string|Trace ID|
+|traceId|string|Trace ID for request tracing and support follow-up.|
 
 
 <a id="schemapagedataaccount"></a>
@@ -1379,7 +1385,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |Name|Type|Description|
 |---|---|---|
 |dataList|[[Account](#schemaaccount)]|Data List|
-|nextPageOffsetData|string|Next Page Offset|
+|nextPageOffsetData|string|Offset token for the next page. Empty when there is no next page.|
 
 <a id="collateral"></a>
 ### CollateralRecord
@@ -1391,7 +1397,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |errorParam|object|Error Parameters|
 |requestTime|string(timestamp)|Server Request Time|
 |responseTime|string(timestamp)|Server Response Time|
-|traceId|string|Trace ID|
+|traceId|string|Trace ID for request tracing and support follow-up.|
 
 
 <a id="collateraltransaction"></a>
@@ -1404,7 +1410,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |errorParam|object|Error Parameters|
 |requestTime|string(timestamp)|Server Request Time|
 |responseTime|string(timestamp)|Server Response Time|
-|traceId|string|Trace ID|
+|traceId|string|Trace ID for request tracing and support follow-up.|
 
 
 <a id="schemacollateraltransaction"></a>
@@ -1505,7 +1511,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |errorParam|object|Error Parameters|
 |requestTime|string(timestamp)|Server Request Time|
 |responseTime|string(timestamp)|Server Response Time|
-|traceId|string|Trace ID|
+|traceId|string|Trace ID for request tracing and support follow-up.|
 
 
 <a id="schemapagedatacollateraltransaction"></a>
@@ -1514,7 +1520,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |Name|Type|Description|
 |---|---|---|
 |dataList|[[CollateralTransaction](#schemacollateraltransaction)]|Data List|
-|nextPageOffsetData|string|Next Page Offset|
+|nextPageOffsetData|string|Offset token for the next page. Empty when there is no next page.|
 
 
 ### PositionRecord
@@ -1526,7 +1532,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |errorParam|object|Error Parameters|
 |requestTime|string(timestamp)|Server Request Time|
 |responseTime|string(timestamp)|Server Response Time|
-|traceId|string|Trace ID|
+|traceId|string|Trace ID for request tracing and support follow-up.|
 
 
 <a id="positionterm"></a>
@@ -1539,7 +1545,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |errorParam|object|Error Parameters|
 |requestTime|string(timestamp)|Server Request Time|
 |responseTime|string(timestamp)|Server Response Time|
-|traceId|string|Trace ID|
+|traceId|string|Trace ID for request tracing and support follow-up.|
 
 
 <a id="schemapagedatapositionterm"></a>
@@ -1548,7 +1554,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |Name|Type|Description|
 |---|---|---|
 |dataList|[[PositionTerm](#schemapositionterm)]|Data List|
-|nextPageOffsetData|string|Next Page Offset|
+|nextPageOffsetData|string|Offset token for the next page. Empty when there is no next page.|
 
 
 <a id="schemapositionterm"></a>
@@ -1584,7 +1590,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |errorParam|object|Error Parameters|
 |requestTime|string(timestamp)|Server Request Time|
 |responseTime|string(timestamp)|Server Response Time|
-|traceId|string|Trace ID|
+|traceId|string|Trace ID for request tracing and support follow-up.|
 
 
 <a id="schemapositiontransaction"></a>
@@ -1671,7 +1677,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |errorParam|object|Error Parameters|
 |requestTime|string(timestamp)|Server Request Time|
 |responseTime|string(timestamp)|Server Response Time|
-|traceId|string|Trace ID|
+|traceId|string|Trace ID for request tracing and support follow-up.|
 
 
 <a id="schemapagedatapositiontransaction"></a>
@@ -1680,7 +1686,7 @@ GET /api/v2/private/account/getAccountAssetSnapshotPage
 |Name|Type|Description|
 |---|---|---|
 |dataList|[[PositionTransaction](#schemapositiontransaction)]|Data List|
-|nextPageOffsetData|string|Next Page Offset|
+|nextPageOffsetData|string|Offset token for the next page. Empty when there is no next page.|
 
 
 
@@ -1819,7 +1825,7 @@ Get historical orders associated with a specific position term.
 |errorParam|object|Error Parameters|
 |requestTime|string(timestamp)|Server Request Time|
 |responseTime|string(timestamp)|Server Response Time|
-|traceId|string|Trace ID|
+|traceId|string|Trace ID for request tracing and support follow-up.|
 
 <a id="schemapositionorderpagemodel"></a>
 ### PositionOrderPagePayload

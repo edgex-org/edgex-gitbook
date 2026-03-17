@@ -562,6 +562,12 @@ Get stocks market status and limit price information.
 |-------------|-------------------------|-------------------|------------|
 | 200         | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | successful response | [Result](#getmarketstatusmodel) |
 
+## Data Model Notes
+
+- The models below are grouped by endpoint so you can find the payload shape quickly.
+- For onboarding, focus first on `DepthPayload`, `KlineRecord`, `TickerRecord`, and `GetMarketStatusPayload`.
+- If you only need a single widget or chart, you usually do not need every model on this page.
+
 ## Data Models
 
 <a id="schemaresultlistdepth"></a>
@@ -569,11 +575,11 @@ Get stocks market status and limit price information.
 
 |Name|Type|Description|
 |---|---|---|
-|code|string|Status code. "SUCCESS" for success, others for failures|
-|data|[[Depth](#schemadepth)]|Correct response data|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request reception time|
-|responseTime|string(timestamp)|Server response return time|
+|code|string|Status code. `SUCCESS` means the request succeeded; other values indicate failure.|
+|data|[[Depth](#schemadepth)]|Order-book depth payload returned by the server.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 <a id="schemadepth"></a>
@@ -612,11 +618,11 @@ Get stocks market status and limit price information.
 
 |Name|Type|Description|
 |---|---|---|
-|code|string|Status code. "SUCCESS" for success, others for failures|
-|data|[PageDataKline](#schemapagedatakline)|Generic paginated response|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request reception time|
-|responseTime|string(timestamp)|Server response return time|
+|code|string|Status code. `SUCCESS` means the request succeeded; other values indicate failure.|
+|data|[PageDataKline](#schemapagedatakline)|Paginated K-line data.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 <a id="schemapagedatakline"></a>
@@ -624,8 +630,8 @@ Get stocks market status and limit price information.
 
 |Name|Type|Description|
 |---|---|---|
-|dataList|[[Kline](#schemakline)]|Data list|
-|nextPageOffsetData|string|Offset for the next page. If there is no next page, it's an empty string|
+|dataList|[[Kline](#schemakline)]|K-line records for the current page.|
+|nextPageOffsetData|string|Offset token for the next page. Empty when there is no next page.|
 
 <a id="schemakline"></a>
 ### KlineRecord
@@ -681,11 +687,11 @@ Get stocks market status and limit price information.
 
 |Name|Type|Description|
 |---|---|---|
-|code|string|Status code. "SUCCESS" for success, others for failures|
-|data|[[ContractMultiKline](#schemacontractmultikline)]|Correct response data|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request reception time|
-|responseTime|string(timestamp)|Server response return time|
+|code|string|Status code. `SUCCESS` means the request succeeded; other values indicate failure.|
+|data|[[ContractMultiKline](#schemacontractmultikline)]|Multi-contract K-line payload returned by the server.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 <a id="schemacontractmultikline"></a>
@@ -701,11 +707,11 @@ Get stocks market status and limit price information.
 
 |Name|Type|Description|
 |---|---|---|
-|code|string|Status code. "SUCCESS" for success, others for failures|
-|data|[[OpenInterest](#schemaopeninterest)]|Correct response data|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request reception time|
-|responseTime|string(timestamp)|Server response return time|
+|code|string|Status code. `SUCCESS` means the request succeeded; other values indicate failure.|
+|data|[[OpenInterest](#schemaopeninterest)]|Open-interest data returned by the server.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 <a id="schemaopeninterest"></a>
@@ -714,19 +720,19 @@ Get stocks market status and limit price information.
 |Name|Type|Description|
 |---|---|---|
 |contractId|string(int64)|Contract ID|
-|timestamp|string|Statistic timestamp|
-|size|string(int64)|Open interest size|
+|timestamp|string|Timestamp for the reported open-interest value.|
+|size|string(int64)|Open-interest size at the reported timestamp.|
 
 <a id="schemaresultlistticker"></a>
 ### TickerResult
 
 |Name|Type|Description|
 |---|---|---|
-|code|string|Status code. "SUCCESS" for success, others for failures|
-|data|[[Ticker](#schematicker)]|Correct response data|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request reception time|
-|responseTime|string(timestamp)|Server response return time|
+|code|string|Status code. `SUCCESS` means the request succeeded; other values indicate failure.|
+|data|[[Ticker](#schematicker)]|24-hour ticker data returned by the server.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 <a id="schematicker"></a>
@@ -754,20 +760,20 @@ Get stocks market status and limit price information.
 |oraclePrice|string(decimal)|Current oracle price|
 |markPrice|string(decimal)|Current mark price|
 |openInterest|string(decimal)|Open Interest|
-|fundingRate|string|Current already settled funding rate|
-|fundingTime|string(int64)|Funding rate settlement time|
-|nextFundingTime|string(int64)|Next funding rate settlement time|
+|fundingRate|string|Latest settled funding rate in the current ticker window.|
+|fundingTime|string(int64)|Timestamp of the latest funding settlement.|
+|nextFundingTime|string(int64)|Timestamp of the next scheduled funding settlement.|
 
 <a id="gettickersummarymodel"></a>
 ### GetTickerSummaryResult
 
 |Name|Type|Description|
 |---|---|---|
-|code|string|Status code. "SUCCESS" for success, others for failures|
-|data|[GetTickerSummary](#schemagettickersummary)|Get quote summary response|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request reception time|
-|responseTime|string(timestamp)|Server response return time|
+|code|string|Status code. `SUCCESS` means the request succeeded; other values indicate failure.|
+|data|[GetTickerSummary](#schemagettickersummary)|Exchange-wide ticker summary returned by the server.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 <a id="schemagettickersummary"></a>
@@ -783,9 +789,9 @@ Get stocks market status and limit price information.
 |Name|Type|Description|
 |---|---|---|
 |period|string|Summary period|
-|trades|string|Total exchange number of trades|
-|value|string|Total traded value|
-|openInterest|string|Current total open interest|
+|trades|string|Total number of trades in the selected summary period.|
+|value|string|Total traded value in the selected summary period.|
+|openInterest|string|Total open interest in the selected summary period.|
 
 #### Enum Values
 
@@ -802,11 +808,11 @@ Get stocks market status and limit price information.
 
 |Name|Type|Description|
 |---|---|---|
-|code|string|Status code. "SUCCESS" for success, others for failures|
-|data|[[StatDayTrade](#schemastatdaytrade)]|Correct response data|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request reception time|
-|responseTime|string(timestamp)|Server response return time|
+|code|string|Status code. `SUCCESS` means the request succeeded; other values indicate failure.|
+|data|[[StatDayTrade](#schemastatdaytrade)]|Daily trade statistics returned by the server.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 <a id="schemastatdaytrade"></a>
@@ -824,11 +830,11 @@ Get stocks market status and limit price information.
 
 |Name|Type|Description|
 |---|---|---|
-|code|string|Status code. "SUCCESS" for success, others for failures|
-|data|[GetExchangeLongShortRatio](#schemagetexchangelongshortratio)|Exchange long short ratio response|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request reception time|
-|responseTime|string(timestamp)|Server response return time|
+|code|string|Status code. `SUCCESS` means the request succeeded; other values indicate failure.|
+|data|[GetExchangeLongShortRatio](#schemagetexchangelongshortratio)|Exchange long/short ratio data returned by the server.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 <a id="schemagetexchangelongshortratio"></a>
@@ -837,7 +843,7 @@ Get stocks market status and limit price information.
 |Name|Type|Description|
 |---|---|---|
 |exchangeLongShortRatioList|[[ExchangeLongShortRatio](#schemaexchangelongshortratio)]|Exchange long short ratio data list|
-|allRangeList|[string]|All range data, related to account configuration. Possible values: 1m, 3m, 5m, 15m, 30m, 1h, 4h, 6h, 8h, 12h, 1d, 1w|
+|allRangeList|[string]|All supported time ranges for this dataset, for example `1m`, `5m`, `1h`, or `1d`.|
 
 <a id="schemaexchangelongshortratio"></a>
 ### ExchangeLongShortRatioRecord
@@ -859,11 +865,11 @@ Get stocks market status and limit price information.
 
 |Name|Type|Description|
 |---|---|---|
-|code|string|Status code. "SUCCESS" for success, others for failures|
-|data|[[DailyEstimatedFee](#schemadailyestimatedfee)]|Correct response data|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request reception time|
-|responseTime|string(timestamp)|Server response return time|
+|code|string|Status code. `SUCCESS` means the request succeeded; other values indicate failure.|
+|data|[[DailyEstimatedFee](#schemadailyestimatedfee)]|Daily fee estimates returned by the server.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 <a id="schemadailyestimatedfee"></a>
@@ -871,7 +877,7 @@ Get stocks market status and limit price information.
 
 |Name|Type|Description|
 |---|---|---|
-|dayTimestamp|integer(int64)|Day timestamp|
+|dayTimestamp|integer(int64)|Start timestamp of the reported day.|
 |fee|string(decimal)|Fee amount|
 |revenue|string(decimal)|Revenue amount|
 
@@ -880,11 +886,11 @@ Get stocks market status and limit price information.
 
 |Name|Type|Description|
 |---|---|---|
-|code|string|Status code. "SUCCESS" for success, others for failures|
-|data|[GetMarketStatus](#schemagetmarketstatus)|Market status response|
-|errorParam|object|Parameter information in error messages|
-|requestTime|string(timestamp)|Server request reception time|
-|responseTime|string(timestamp)|Server response return time|
+|code|string|Status code. `SUCCESS` means the request succeeded; other values indicate failure.|
+|data|[GetMarketStatus](#schemagetmarketstatus)|Market-status payload returned by the server.|
+|errorParam|object|Structured error details returned by the server.|
+|requestTime|string(timestamp)|Timestamp when the server received the request.|
+|responseTime|string(timestamp)|Timestamp when the server returned the response.|
 |traceId|string|Call trace ID|
 
 <a id="schemagetmarketstatus"></a>
@@ -892,9 +898,9 @@ Get stocks market status and limit price information.
 
 |Name|Type|Description|
 |---|---|---|
-|status|boolean|Current market status, true indicates open|
-|force|boolean|Whether status is forcibly set by backend|
-|contractId|integer(int64)|Current returned contract ID|
-|markPrice|string|Contract latest mark price|
+|status|boolean|Whether the market is currently open. `true` means open.|
+|force|boolean|Whether the status was manually forced by backend control.|
+|contractId|integer(int64)|Contract ID included in the market-status response.|
+|markPrice|string|Latest mark price for the contract.|
 |limitLowPrice|string|Lower limit price|
 |limitHighPrice|string|Upper limit price|
