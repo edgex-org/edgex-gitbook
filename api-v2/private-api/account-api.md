@@ -9,7 +9,7 @@ Use account endpoints after authentication succeeds and you need to read balance
 ## Minimal Call
 
 ```bash
-curl -X GET "https://edgex-prod-v2.edgex.exchange/api/v2/private/account/getAccountAsset?accountId=123456"   -H "X-edgeX-Api-Key: your_api_key"   -H "X-edgeX-Passphrase: your_api_passphrase"   -H "X-edgeX-Api-Timestamp: 1234567890123"   -H "X-edgeX-Api-Signature: calculated_signature"
+curl -X GET "https://<api-domain>/api/v2/private/account/getAccountAsset?accountId=123456"   -H "X-edgeX-Api-Key: your_api_key"   -H "X-edgeX-Passphrase: your_api_passphrase"   -H "X-edgeX-Api-Timestamp: 1234567890123"   -H "X-edgeX-Api-Signature: calculated_signature"
 ```
 
 ## Common Notes

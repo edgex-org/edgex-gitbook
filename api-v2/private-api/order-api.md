@@ -14,7 +14,7 @@ Use order endpoints when you need to create, cancel, or query orders. This page 
 ## Minimal Create Order Example
 
 ```bash
-curl -X POST "https://edgex-prod-v2.edgex.exchange/api/v2/private/order/createOrder"   -H "Content-Type: application/json"   -H "X-edgeX-Api-Key: your_api_key"   -H "X-edgeX-Passphrase: your_api_passphrase"   -H "X-edgeX-Api-Timestamp: 1234567890123"   -H "X-edgeX-Api-Signature: calculated_signature"   -d '{
+curl -X POST "https://<api-domain>/api/v2/private/order/createOrder"   -H "Content-Type: application/json"   -H "X-edgeX-Api-Key: your_api_key"   -H "X-edgeX-Passphrase: your_api_passphrase"   -H "X-edgeX-Api-Timestamp: 1234567890123"   -H "X-edgeX-Api-Signature: calculated_signature"   -d '{
     "accountId": "123456",
     "contractId": "10000001",
     "side": "BUY",

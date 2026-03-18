@@ -48,7 +48,7 @@ For L2 signature implementation details, refer to the [L2 Signature Documentatio
 ## Usage Example
 
 ```bash
-curl -X GET "https://[domain]/api/v2/private/account/getAccountAsset?accountId=123456" \
+curl -X GET "https://<api-domain>/api/v2/private/account/getAccountAsset?accountId=123456" \
   -H "X-edgeX-Api-Key: your_api_key" \
   -H "X-edgeX-Passphrase: your_api_passphrase" \
   -H "X-edgeX-Api-Timestamp: 1234567890123" \
@@ -73,8 +73,10 @@ All private API responses follow the standard format:
 
 ## Base URL
 
-- `https://[domain]`
+- **HTTP REST base URL**: `https://<api-domain>`
 - Private REST path prefix: `/api/v2/private/...`
+
+Replace `<api-domain>` with the production HTTP API domain provided by EdgeX. Internal or non-production domains are not included in this public documentation.
 
 ## Navigation
 

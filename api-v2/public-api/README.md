@@ -48,13 +48,13 @@ Query funding rate information:
 ## Minimal Public Calls
 
 ### Get server time
-curl -X GET "https://api.edgex.exchange/api/v2/public/meta/getServerTime"
+curl -X GET "https://<api-domain>/api/v2/public/meta/getServerTime"
 
 ### Get market depth for BTC contract
-curl -X GET "https://api.edgex.exchange/api/v2/public/quote/getDepth?contractId=10000001&level=15"
+curl -X GET "https://<api-domain>/api/v2/public/quote/getDepth?contractId=10000001&level=15"
 
 ### Get latest funding rate
-curl -X GET "https://api.edgex.exchange/api/v2/public/funding/getLatestFundingRate?contractId=10000001"
+curl -X GET "https://<api-domain>/api/v2/public/funding/getLatestFundingRate?contractId=10000001"
 ```
 
 ## Response Format
@@ -75,8 +75,9 @@ All public API responses follow the standard format:
 
 ## Base URL
 
-- **Production**: `https://edgex-prod-v2.edgex.exchange`
-- **Testnet**: `https://testnet.edgex.exchange`
+- **HTTP REST base URL**: `https://<api-domain>`
+
+Replace `<api-domain>` with the production HTTP API domain provided by EdgeX. Internal or non-production domains are not included in this public documentation.
 
 ## Best Practices
 

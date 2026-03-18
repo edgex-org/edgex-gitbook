@@ -28,31 +28,13 @@ EdgeX V2 uses **EIP-712** (Ethereum Improvement Proposal 712) for structured typ
 
 ---
 
-## How To Get Your Signer Key
+## Getting the Signer Key
 
-To sign L2 messages, you need your **Signer Key** (Private Key).
+The Signer Key is obtained from the same **API Management -> Perps V2 -> SDK Signer** dialog used for API credentials.
 
-### Obtaining Your Signer Key
+For the full retrieval flow, screenshots, and security notes, see [Authentication](authentication.md#how-to-get-api-credentials).
 
-The Signer Key is generated in the same SDK Signer dialog as API credentials.
-
-**Steps:**
-1. Log in to EdgeX platform
-2. Click your profile icon (top-right) → **API Management**
-3. Open **Perps V2** tab
-4. In the **SDK Signer** column, click **Detail**
-5. Copy **Private Key** from the dialog (this is your Signer Key)
-
-You can also copy API Key / Secret / Passphrase in the same dialog. For HTTP authentication usage, see [Authentication Guide](authentication.md).
-
-<figure><img src="../../.gitbook/assets/get-l2-private-key.png" alt=""><figcaption><p>SDK Signer dialog showing Private Key (Signer Key) and API credentials</p></figcaption></figure>
-
-**⚠️ Security Warning**: 
-- Keep your Signer Key secure and never share it
-- Anyone with access to this key can sign trades and withdrawals on your behalf
-- This key is separate from your API Secret (used for HTTP authentication)
-- Store it encrypted and never commit to version control
-- Binding your L2 Key to third-party platforms may pose security risks
+Use the **Private Key (Signer Key)** from that dialog for the L2 signatures described in this guide.
 
 ---
 
@@ -334,7 +316,7 @@ func SignLimitOrder(
 
 ### Using EdgeX Golang SDK
 
-The SDK handles all signature generation automatically:
+The SDK handles all signature generation automatically. Replace `<api-domain>` with `edgex-prod-v2.edgex.exchange` when connecting to the production HTTP API:
 
 ```go
 package main
@@ -351,7 +333,7 @@ import (
 func main() {
     // Create client with trading private key
     client, err := sdk.NewClient(&sdk.Config{
-        BaseURL:       "https://edgex-testnet-internal-v2.edgex.exchange",
+        BaseURL:       "https://<api-domain>",
         AccountID:     724625476626153743,
         APIKey:        "your-api-key",
         APIPassphrase: "your-api-passphrase",
@@ -753,8 +735,3 @@ amountBigInt := new(big.Int)
 - **EdgeX Golang SDK**: https://github.com/edgex-Tech/edgex-golang-sdk
 - **EdgeX API Documentation**: https://docs.edgex.exchange
 
----
-
-**Document Version**: V2.0  
-**Last Updated**: 2026-03-12  
-**Based On**: EdgeX Golang SDK V2 Implementation (EIP-712)

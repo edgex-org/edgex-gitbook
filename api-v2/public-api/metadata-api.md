@@ -11,13 +11,13 @@ Read this page first when integrating EdgeX V2. Metadata endpoints provide the c
 Get server time:
 
 ```bash
-curl -X GET "https://edgex-prod-v2.edgex.exchange/api/v2/public/meta/getServerTime"
+curl -X GET "https://<api-domain>/api/v2/public/meta/getServerTime"
 ```
 
 Get full platform metadata:
 
 ```bash
-curl -X GET "https://edgex-prod-v2.edgex.exchange/api/v2/public/meta/getMetaData"
+curl -X GET "https://<api-domain>/api/v2/public/meta/getMetaData"
 ```
 
 ## Common Notes
@@ -73,7 +73,7 @@ GET /api/v2/public/meta/getMetaData
         "global": {
             "appName": "edgeX",
             "appEnv": "testnet",
-            "appOnlySignOn": "https://testnet.edgex.exchange",
+            "appOnlySignOn": "https://<api-domain>",
             "feeAccountId": "123456",
             "feeAccountL2Key": "0x1e240",
             "poolAccountId": "542076087396467085",

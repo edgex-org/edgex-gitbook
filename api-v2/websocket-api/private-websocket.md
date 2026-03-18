@@ -1,53 +1,68 @@
 # Private WebSocket API
 
-## Overview
+The Private WebSocket API provides real-time account and trading updates for the authenticated account.
 
-The Private WebSocket API provides real-time updates for user account information, including trading events and account state changes. This interface automatically pushes data to connected clients without requiring explicit subscriptions.
+## Connection Information
 
-**Key Features:**
-- **Auto-push mechanism**: Data is automatically pushed after successful connection; no subscription required
-- **Authentication required**: Must authenticate before receiving private data
-- **Real-time updates**: Instant notifications for account, position, order, and collateral changes
-- **Bidirectional heartbeat**: Both server and client can initiate ping-pong for connection health monitoring
+**WebSocket URL:** `wss://<ws-domain>/api/v1/private/ws`
 
-## Connection URL
+Replace `<ws-domain>` with the production WebSocket domain `edgex-quote-prod-v2.edgex.exchange`.
 
-```
-wss://[domain]/api/v1/private/ws
-```
+**Authentication:** Required.
 
-**Note:** The WebSocket endpoint continues to use the `/api/v1/` path for backward compatibility.
+Private WebSocket authentication uses the same **HMAC-SHA256** rules as the private HTTP APIs. For credential requirements, header definitions, and signature generation, see the [Authentication Guide](../authentication.md).
 
-## Authentication
+## Common Usage Flow
 
-Private WebSocket connections require **HMAC-SHA256 authentication**, consistent with private HTTP APIs.
+All private account-event streams follow the same connection lifecycle:
 
-### Authentication Method 1: App/API (Custom Headers)
+1. Build the connection URL with `accountId` and `timestamp`
+2. Sign the request with the same HMAC-SHA256 logic used by private HTTP APIs
+3. Connect to `wss://<ws-domain>/api/v1/private/ws`
+4. Receive the initial `Snapshot` after authentication succeeds
+5. Continue processing incremental `trade-event` messages
+6. Respond to `ping` with `pong`
+7. Keep a local cache by applying updates in event order
 
-This is the primary method used by SDK and server-side clients.
+## How to Read a Private WebSocket Message
+
+There are three important concepts in private WebSocket messages:
+
+- `type` - the top-level message category, such as `connected`, `trade-event`, or `ping`
+- `content.event` - the business event inside a `trade-event`, such as `Snapshot`, `ACCOUNT_UPDATE`, or `ORDER_UPDATE`
+- `content.data` - the event payload grouped by entity type, such as `account`, `position`, `order`, or `transferOut`
+
+In practice:
+
+- `type` tells you what kind of envelope this is
+- `content.event` tells you which account or order event happened
+- `content.data` tells you which business entities changed in that event
+
+## Common Request and Response Models
+
+### Connect and Authenticate
+
+#### Description
+
+Establish an authenticated private WebSocket connection.
 
 #### Request Parameters
 
-| Name | Type | Required | Description |
+##### Query Parameters
+
+| Field | Type | Required | Description |
 |------|------|----------|-------------|
-| `query.accountId` | string(int64) | true | Account ID in WebSocket URL query string |
-| `query.timestamp` | string(int64) | true | Millisecond timestamp in WebSocket URL query string |
+| `accountId` | integer | yes | EdgeX account identifier |
+| `timestamp` | integer | yes | Current millisecond timestamp |
 
-#### Request Headers
+##### Headers
 
-| Name | Type | Required | Description |
+| Field | Type | Required | Description |
 |------|------|----------|-------------|
-| `X-edgeX-Api-Key` | string | true | API Key |
-| `X-edgeX-Passphrase` | string | true | API Passphrase |
-| `X-edgeX-Api-Signature` | string | true | HMAC-SHA256 signature |
-| `X-edgeX-Api-Timestamp` | string(int64) | true | Millisecond timestamp in request header (should match `query.timestamp`) |
-
-#### Signature Notes
-
-- WebSocket handshake is `GET`
-- Request URI for signature: `/api/v1/private/ws`
-- Request body for signature: sorted query string (for example: `accountId=xxx&timestamp=yyy`)
-- Signature algorithm: same HMAC flow as [Authentication Guide](../authentication.md)
+| `X-edgeX-Api-Key` | string | yes | API key |
+| `X-edgeX-Passphrase` | string | yes | API passphrase |
+| `X-edgeX-Api-Signature` | string | yes | HMAC-SHA256 signature |
+| `X-edgeX-Api-Timestamp` | string | yes | Timestamp used for signing |
 
 #### Request Example
 
@@ -55,86 +70,121 @@ This is the primary method used by SDK and server-side clients.
 GET /api/v1/private/ws?accountId=724625476626153743&timestamp=1705720068228
 X-edgeX-Api-Key: your-api-key
 X-edgeX-Passphrase: your-api-passphrase
-X-edgeX-Api-Signature: your-hmac-signature
+X-edgeX-Api-Signature: <signature generated as described in the Authentication Guide>
 X-edgeX-Api-Timestamp: 1705720068228
 ```
 
-**Important Notes:**
-- WebSocket is a GET request; there is no request body to sign
-- Authentication uses HMAC credentials (`API Key`, `Passphrase`, `API Secret`), not L2 signer key signatures
-- `query.timestamp` and `X-edgeX-Api-Timestamp` should be current and consistent
+#### Response Model
 
-## Heartbeat Mechanism
+After authentication succeeds, the server starts pushing private events. The first business message is usually the initial `Snapshot`.
 
-The Private WebSocket implements a bidirectional ping-pong mechanism for connection health monitoring and latency measurement.
+### Trade Event
 
-### Server Ping (Heartbeat)
+#### Description
 
-The server sends periodic Ping messages to verify client connectivity.
+Receive account and trading updates for the authenticated account.
 
-**Server Ping Message:**
-```json
-{
-  "type": "ping",
-  "time": "1693208170000"
-}
-```
+#### Response Model
 
-**Client Must Respond with Pong:**
-```json
-{
-  "type": "pong",
-  "time": "1693208170000"
-}
-```
+##### Top-Level Envelope
 
-**Timeout Policy:**
-- If the server doesn't receive a Pong response after **5 consecutive Pings**, the connection will be terminated
+| Field | Type | Description |
+|------|------|-------------|
+| `sid` | string | Session identifier assigned by the server |
+| `type` | string | Top-level message type. For account pushes, this is `trade-event` |
+| `content` | object | Message-specific payload |
+| `time` | string | Timestamp used by heartbeat messages |
 
-### Client Ping (Latency Measurement)
+##### Top-level `type` Values
 
-Clients can also initiate Ping messages to measure round-trip latency.
+| `type` | Meaning |
+|-------|---------|
+| `connected` | Connection established |
+| `trade-event` | Account or order event push |
+| `ping` | Server heartbeat |
+| `error` | Authentication or business error |
 
-**Client Ping Message:**
-```json
-{
-  "type": "ping",
-  "time": "1693208170000"
-}
-```
+##### `content.event` Values
 
-**Server Responds with Pong:**
-```json
-{
-  "type": "pong",
-  "time": "1693208170000"
-}
-```
+| `content.event` | Meaning |
+|----------------|---------|
+| `Snapshot` | Initial full account state after connection |
+| `ACCOUNT_UPDATE` | Account-level balances, margin, or state changed |
+| `DEPOSIT_UPDATE` | Deposit record updated |
+| `WITHDRAW_UPDATE` | Withdrawal record updated |
+| `TRANSFER_IN_UPDATE` | Transfer-in record updated |
+| `TRANSFER_OUT_UPDATE` | Transfer-out record updated |
+| `ORDER_UPDATE` | Order lifecycle update |
+| `FORCE_WITHDRAW_UPDATE` | Forced withdrawal update |
+| `FORCE_TRADE_UPDATE` | Forced trade update |
+| `FUNDING_SETTLEMENT` | Funding settlement update |
+| `ORDER_FILL_FEE_INCOME` | Fill fee income or rebate update |
+| `START_LIQUIDATING` | Liquidation started |
+| `FINISH_LIQUIDATING` | Liquidation finished |
 
-The `time` field in the Pong response matches the `time` field from the client's Ping, allowing latency calculation.
+##### `trade-event` Payload
 
-## Message Format
+| Field | Type | Description |
+|------|------|-------------|
+| `content.event` | string | Business event type |
+| `content.version` | integer | Event version used for ordered processing |
+| `content.time` | integer | Event creation time |
+| `content.accountId` | integer | EdgeX account identifier |
+| `content.data` | object | Business payload grouped by entity type |
 
-All messages from the Private WebSocket follow a consistent structure.
+##### `content.data` Fields
 
-### Message Structure
+| Field | Type | Description |
+|------|------|-------------|
+| `account` | array | Account-level updates |
+| `collateral` | array | Collateral balance updates |
+| `collateralTransaction` | array | Collateral transaction updates |
+| `position` | array | Position snapshots or changes |
+| `positionTransaction` | array | Position transaction updates |
+| `deposit` | array | Deposit record updates |
+| `withdraw` | array | Withdrawal record updates |
+| `transferIn` | array | Transfer-in updates |
+| `transferOut` | array | Transfer-out updates |
+| `order` | array | Order updates |
+| `orderFillTransaction` | array | Fill-level execution updates |
+| `forceWithdrawList` | array | Forced withdrawal updates |
+| `forceTradeList` | array | Forced trade updates |
+| `oraclePriceList` | array | Oracle price related updates |
+| `positionTermList` | array | Position term updates |
+
+#### Response Examples
+
+##### Initial Snapshot
 
 ```json
 {
   "type": "trade-event",
   "content": {
-    "event": "ACCOUNT_UPDATE",
-    "version": "1000",
+    "event": "Snapshot",
+    "version": 1000,
+    "time": 1693208170000,
+    "accountId": 724625476626153743,
     "data": {
       "account": [],
       "collateral": [],
-      "collateralTransaction": [],
       "position": [],
-      "positionTransaction": [],
-      "deposit": [],
-      "withdraw": [],
-      "transferIn": [],
-      "transferOut": [],
+      "order": []
+    }
+  }
+}
+```
+
+##### Order Update
+
+```json
+{
+  "type": "trade-event",
+  "content": {
+    "event": "ORDER_UPDATE",
+    "version": 1001,
+    "time": 1693208171000,
+    "accountId": 724625476626153743,
+    "data": {
       "order": [],
       "orderFillTransaction": []
     }
@@ -142,360 +192,203 @@ All messages from the Private WebSocket follow a consistent structure.
 }
 ```
 
-### Message Types
-
-| Type | Description |
-|------|-------------|
-| `trade-event` | Trading-related updates (account, position, order changes) |
-| `ping` | Heartbeat message from server or client |
-| `pong` | Response to ping message |
-| `error` | Error message from server |
-
-### Event Types
-
-The `event` field in `trade-event` messages indicates what triggered the data update:
-
-| Event | Description |
-|-------|-------------|
-| `Snapshot` | Initial snapshot of account state after connection |
-| `ACCOUNT_UPDATE` | Account information updated |
-| `DEPOSIT_UPDATE` | Deposit record updated |
-| `WITHDRAW_UPDATE` | Withdrawal record updated |
-| `TRANSFER_IN_UPDATE` | Transfer-in record updated |
-| `TRANSFER_OUT_UPDATE` | Transfer-out record updated |
-| `ORDER_UPDATE` | Order status or details updated |
-| `FORCE_WITHDRAW_UPDATE` | Forced withdrawal event |
-| `FORCE_TRADE_UPDATE` | Forced trade event (liquidation/deleveraging) |
-| `FUNDING_SETTLEMENT` | Funding fee settlement |
-| `ORDER_FILL_FEE_INCOME` | Order fill fee income event |
-| `START_LIQUIDATING` | Account liquidation started |
-| `FINISH_LIQUIDATING` | Account liquidation finished |
-| `UNRECOGNIZED` | Unrecognized event type |
-
-## Minimal Schema Reference
-
-### PrivateWsEnvelope
-
-| Field | Type | Description |
-|------|------|-------------|
-| `type` | string | Top-level message type such as `trade-event`, `ping`, `pong`, or `error` |
-| `content` | object or null | Event payload for `trade-event` or error payload for `error` |
-| `time` | string(int64) or null | Timestamp used by heartbeat messages |
-
-### PrivateWsHeartbeat
-
-| Field | Type | Description |
-|------|------|-------------|
-| `type` | string | `ping` or `pong` |
-| `time` | string(int64) | Heartbeat timestamp echoed between client and server |
-
-### PrivateWsError
-
-| Field | Type | Description |
-|------|------|-------------|
-| `type` | string | Always `error` |
-| `content.code` | string | Machine-readable error code |
-| `content.msg` | string | Human-readable error message |
-| `content.details` | string or null | Optional additional details |
-
-### TradeEventDataSummary
-
-| Array Field | Item Meaning |
-|------------|--------------|
-| `account` | Account-level updates |
-| `collateral` | Collateral balance updates |
-| `collateralTransaction` | Collateral transaction updates |
-| `position` | Position snapshots or changes |
-| `positionTransaction` | Position transaction updates |
-| `deposit` | Deposit record updates |
-| `withdraw` | Withdrawal record updates |
-| `transferIn` | Transfer-in updates |
-| `transferOut` | Transfer-out updates |
-| `order` | Order updates |
-| `orderFillTransaction` | Fill-level execution updates |
-
-**Event usage note:** `Snapshot` may contain multiple populated arrays, while update events such as `ORDER_UPDATE` or `ACCOUNT_UPDATE` usually populate only the arrays related to the changed entities.
-
-## Data Object Structure
-
-The `data` object contains arrays of various entities. Each array is populated based on the event type. Not all arrays will be present or populated in every message.
-
-### Account Array
-
-Contains account information updates.
-
-**Fields:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string(int64) | Account ID |
-| `userId` | string(int64) | User ID - Owner of this account |
-| `ethAddress` | string | Ethereum address associated with this account |
-| `l2Key` | string | L2 public key for signing transactions |
-| `l2KeyYCoordinate` | string | Y-coordinate of L2 public key |
-| `status` | string | Account status: `NORMAL`, `LIQUIDATING`, etc. |
-| `isLiquidating` | boolean | Whether the account is currently being liquidated |
-| `createdTime` | string(int64) | Account creation timestamp (milliseconds) |
-| `updatedTime` | string(int64) | Last update timestamp (milliseconds) |
-
-### Collateral Array
-
-Contains collateral (margin) information for different coins.
-
-**Fields:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `userId` | string(int64) | User ID - Owner of this collateral |
-| `accountId` | string(int64) | Account ID - Parent account |
-| `coinId` | string(int64) | Collateral coin ID (e.g., 1000 for USDT) |
-| `amount` | string(decimal) | Current collateral amount |
-| `legacyAmount` | string(decimal) | Legacy amount (for historical compatibility) |
-| `totalAmount` | string(decimal) | Total collateral amount including locked funds |
-| `availableAmount` | string(decimal) | Available collateral amount (can be used for trading) |
-| `lockedAmount` | string(decimal) | Locked collateral amount (reserved for open orders/positions) |
-| `createdTime` | string(int64) | Creation timestamp (milliseconds) |
-| `updatedTime` | string(int64) | Last update timestamp (milliseconds) |
-
-### Collateral Transaction Array
-
-Contains transaction records that modify collateral balances.
-
-**Fields:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string(int64) | Transaction ID |
-| `userId` | string(int64) | User ID |
-| `accountId` | string(int64) | Account ID |
-| `coinId` | string(int64) | Collateral coin ID |
-| `contractId` | string(int64) | Related contract ID (if applicable) |
-| `orderId` | string(int64) | Related order ID (if transaction is order-related) |
-| `type` | string | Transaction type: `DEPOSIT`, `WITHDRAW`, `TRANSFER_IN`, `TRANSFER_OUT`, `OPEN_POSITION_FEE`, `CLOSE_POSITION_FEE`, `FUNDING_FEE`, etc. |
-| `deltaAmount` | string(decimal) | Change in collateral amount (positive for credit, negative for debit) |
-| `fee` | string(decimal) | Transaction fee (if applicable) |
-| `censorStatus` | string | Censorship status: `CENSOR_SUCCESS`, `CENSOR_FAILURE` |
-| `createdTime` | string(int64) | Transaction timestamp (milliseconds) |
-| `updatedTime` | string(int64) | Last update timestamp (milliseconds) |
-
-### Position Array
-
-Contains current position information for each contract.
-
-**Fields:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `userId` | string(int64) | User ID - Owner of this position |
-| `accountId` | string(int64) | Account ID - Parent account |
-| `coinId` | string(int64) | Collateral coin ID |
-| `contractId` | string(int64) | Contract ID (e.g., 10000001 for BTC-PERP) |
-| `openSize` | string(decimal) | Current position size (positive for long, negative for short) |
-| `openValue` | string(decimal) | Current position value (in collateral currency) |
-| `openFee` | string(decimal) | Accumulated opening fees |
-| `fundingFee` | string(decimal) | Accumulated funding fees |
-| `longTermCount` | integer | Number of long position terms |
-| `shortTermCount` | integer | Number of short position terms |
-| `longOpenSize` | string(decimal) | Total long position size |
-| `longOpenValue` | string(decimal) | Total long position value |
-| `longOpenFee` | string(decimal) | Total long position opening fees |
-| `longFundingFee` | string(decimal) | Total long funding fees |
-| `shortOpenSize` | string(decimal) | Total short position size (absolute value) |
-| `shortOpenValue` | string(decimal) | Total short position value (absolute value) |
-| `shortOpenFee` | string(decimal) | Total short position opening fees |
-| `shortFundingFee` | string(decimal) | Total short funding fees |
-| `createdTime` | string(int64) | Position creation timestamp (milliseconds) |
-| `updatedTime` | string(int64) | Last update timestamp (milliseconds) |
-
-### Position Transaction Array
-
-Contains transaction records that modify position states (opens, closes, funding settlements).
-
-**Fields:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string(int64) | Position transaction ID |
-| `userId` | string(int64) | User ID |
-| `accountId` | string(int64) | Account ID |
-| `coinId` | string(int64) | Collateral coin ID |
-| `contractId` | string(int64) | Contract ID |
-| `type` | string | Transaction type: `SELL_POSITION`, `BUY_POSITION`, `SETTLE_FUNDING_FEE`, `LIQUIDATE`, etc. |
-| `deltaOpenSize` | string(decimal) | Change in open position size |
-| `deltaOpenValue` | string(decimal) | Change in open position value |
-| `deltaOpenFee` | string(decimal) | Change in open position fees |
-| `deltaFundingFee` | string(decimal) | Change in funding fees |
-| `fillCloseSize` | string(decimal) | Size closed by this fill |
-| `fillCloseValue` | string(decimal) | Value closed by this fill |
-| `fillCloseFee` | string(decimal) | Fee for closing position |
-| `fillOpenSize` | string(decimal) | Size opened by this fill |
-| `fillOpenValue` | string(decimal) | Value opened by this fill |
-| `fillOpenFee` | string(decimal) | Fee for opening position |
-| `fillPrice` | string(decimal) | Fill execution price |
-| `realizePnl` | string(decimal) | Realized profit/loss from this transaction |
-| `isLiquidate` | boolean | Whether this is a liquidation transaction |
-| `isDeleverage` | boolean | Whether this is a deleveraging transaction |
-| `orderId` | string(int64) | Related order ID |
-| `orderFillTransactionId` | string(int64) | Related order fill transaction ID |
-| `collateralTransactionId` | string(int64) | Related collateral transaction ID |
-| `censorStatus` | string | Censorship status |
-| `createdTime` | string(int64) | Transaction timestamp (milliseconds) |
-| `updatedTime` | string(int64) | Last update timestamp (milliseconds) |
-
-### Deposit Array
-
-Contains deposit records.
-
-**Fields:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string(int64) | Deposit record ID |
-| `userId` | string(int64) | User ID |
-| `accountId` | string(int64) | Account ID |
-| `coinId` | string(int64) | Deposited coin ID |
-| `amount` | string(decimal) | Deposit amount |
-| `ethAddress` | string | Ethereum address from which deposit was made |
-| `status` | string | Deposit status: `PENDING`, `SUCCESS`, `FAILED`, etc. |
-| `l1TxHash` | string | Layer 1 transaction hash |
-| `l1ConfirmedTime` | string(int64) | L1 confirmation timestamp |
-| `createdTime` | string(int64) | Deposit initiation timestamp |
-| `updatedTime` | string(int64) | Last update timestamp |
-
-### Withdraw Array
-
-Contains withdrawal records.
-
-**Fields:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string(int64) | Withdrawal record ID |
-| `userId` | string(int64) | User ID |
-| `accountId` | string(int64) | Account ID |
-| `coinId` | string(int64) | Withdrawn coin ID |
-| `amount` | string(decimal) | Withdrawal amount |
-| `ethAddress` | string | Ethereum address to which withdrawal is sent |
-| `status` | string | Withdrawal status: `PENDING`, `SUCCESS`, `FAILED`, `PENDING_L2_APPROVING`, `PENDING_L1_CONFIRMING`, etc. |
-| `l2Signature` | object | L2 signature information |
-| `l1TxHash` | string | Layer 1 transaction hash |
-| `l1ConfirmedTime` | string(int64) | L1 confirmation timestamp |
-| `createdTime` | string(int64) | Withdrawal initiation timestamp |
-| `updatedTime` | string(int64) | Last update timestamp |
-
-### Transfer In Array
-
-Contains incoming transfer records (from other accounts or platforms).
-
-**Fields:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string(int64) | Transfer record ID |
-| `userId` | string(int64) | User ID |
-| `accountId` | string(int64) | Receiving account ID |
-| `coinId` | string(int64) | Transferred coin ID |
-| `amount` | string(decimal) | Transfer amount |
-| `fromAccountId` | string(int64) | Source account ID |
-| `status` | string | Transfer status |
-| `createdTime` | string(int64) | Transfer timestamp |
-| `updatedTime` | string(int64) | Last update timestamp |
-
-### Transfer Out Array
-
-Contains outgoing transfer records (to other accounts or platforms).
-
-**Fields:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string(int64) | Transfer record ID |
-| `userId` | string(int64) | User ID |
-| `accountId` | string(int64) | Sending account ID |
-| `coinId` | string(int64) | Transferred coin ID |
-| `amount` | string(decimal) | Transfer amount |
-| `toAccountId` | string(int64) | Destination account ID |
-| `status` | string | Transfer status |
-| `createdTime` | string(int64) | Transfer timestamp |
-| `updatedTime` | string(int64) | Last update timestamp |
-
-### Order Array
-
-Contains order information and status updates.
-
-**Fields:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string(int64) | Order ID |
-| `userId` | string(int64) | User ID - Order owner |
-| `accountId` | string(int64) | Account ID - Parent account |
-| `coinId` | string(int64) | Collateral coin ID |
-| `contractId` | string(int64) | Contract ID for this order |
-| `side` | string | Order side: `BUY` or `SELL` |
-| `price` | string(decimal) | Order price (limit orders) |
-| `size` | string(decimal) | Order size (quantity) |
-| `clientOrderId` | string | Client-provided order ID (optional, for idempotency) |
-| `type` | string | Order type: `LIMIT`, `MARKET`, `STOP_LIMIT`, `STOP_MARKET`, `TAKE_PROFIT_LIMIT`, `TAKE_PROFIT_MARKET` |
-| `timeInForce` | string | Time in force: `GOOD_TIL_CANCEL`, `IMMEDIATE_OR_CANCEL`, `FILL_OR_KILL`, `POST_ONLY` |
-| `reduceOnly` | boolean | Whether this order only reduces existing position |
-| `triggerPrice` | string(decimal) | Trigger price (for stop/take-profit orders) |
-| `triggerPriceType` | string | Trigger price type: `LAST_PRICE`, `INDEX_PRICE`, `MARK_PRICE` |
-| `status` | string | Order status: `PENDING`, `OPEN`, `PARTIALLY_FILLED`, `FILLED`, `CANCELLED`, `REJECTED`, `EXPIRED` |
-| `filledSize` | string(decimal) | Cumulative filled size |
-| `filledValue` | string(decimal) | Cumulative filled value |
-| `filledFee` | string(decimal) | Cumulative trading fees |
-| `averageFilledPrice` | string(decimal) | Average fill price |
-| `isLiquidate` | boolean | Whether this is a liquidation order |
-| `isDeleverage` | boolean | Whether this is a deleveraging order |
-| `isPositionTpsl` | boolean | Whether this is a position TP/SL order |
-| `censorStatus` | string | Censorship status: `CENSOR_SUCCESS`, `CENSOR_FAILURE` |
-| `createdTime` | string(int64) | Order creation timestamp (milliseconds) |
-| `updatedTime` | string(int64) | Last update timestamp (milliseconds) |
-| `expireTime` | string(int64) | Order expiration timestamp |
-
-### Order Fill Transaction Array
-
-Contains individual trade execution records (fills).
-
-**Fields:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string(int64) | Fill transaction ID |
-| `userId` | string(int64) | User ID |
-| `accountId` | string(int64) | Account ID |
-| `coinId` | string(int64) | Collateral coin ID |
-| `contractId` | string(int64) | Contract ID |
-| `orderId` | string(int64) | Parent order ID |
-| `side` | string | Trade side: `BUY` or `SELL` |
-| `price` | string(decimal) | Execution price |
-| `size` | string(decimal) | Executed size |
-| `fee` | string(decimal) | Trading fee for this fill |
-| `feeRate` | string(decimal) | Fee rate applied |
-| `isMaker` | boolean | Whether this fill was a maker trade (provides liquidity) |
-| `isTaker` | boolean | Whether this fill was a taker trade (takes liquidity) |
-| `positionTransactionId` | string(int64) | Related position transaction ID |
-| `collateralTransactionId` | string(int64) | Related collateral transaction ID |
-| `createdTime` | string(int64) | Fill execution timestamp (milliseconds) |
-| `updatedTime` | string(int64) | Last update timestamp (milliseconds) |
-
-## Example Messages
-
-The following event patterns are the most important ones to support in a client:
-
-- `Snapshot`: initial account state after authentication succeeds
-- `ACCOUNT_UPDATE`: account-level state changes
-- `ORDER_UPDATE`: order, fill, collateral, or position changes triggered by trading activity
-- `DEPOSIT_UPDATE` / `WITHDRAW_UPDATE`: transfer lifecycle changes
-
-Use the schema sections above as the canonical structure reference. In production clients, route on `content.event` first and then inspect only the populated arrays inside `content.data`.
-
-## Client Handling Notes
-
-- Treat `Snapshot` as the initial full-state sync for the authenticated account.
-- Treat later events as incremental business updates.
-- Do not assume every array is populated on every event.
-- Preserve ordering and id fields exactly as returned by the server.
-- Reuse the same HMAC rules as private REST for the handshake.
+### Heartbeat
 
+#### Description
+
+Maintain the connection by responding to server heartbeat messages.
+
+#### Server Message Example
+
+```json
+{
+  "type": "ping",
+  "time": "1693208170000"
+}
+```
+
+#### Client Response Example
+
+```json
+{
+  "type": "pong",
+  "time": "1693208170000"
+}
+```
+
+## Business Streams
+
+### Initial Account Snapshot
+
+#### Use Case
+
+Use the first `Snapshot` message to initialize the local account cache immediately after the private connection is established.
+
+#### Trigger
+
+This message is pushed automatically after authentication succeeds.
+
+#### Response Model
+
+The server returns a `trade-event` message where:
+
+- `content.event = Snapshot`
+- `content.version` is the initial event version for the session
+- `content.data` contains the initial account state grouped by entity type
+
+#### Response Example
+
+```json
+{
+  "type": "trade-event",
+  "content": {
+    "event": "Snapshot",
+    "version": 1000,
+    "time": 1693208170000,
+    "accountId": 724625476626153743,
+    "data": {
+      "account": [],
+      "collateral": [],
+      "position": [],
+      "order": []
+    }
+  }
+}
+```
+
+### Account State Updates
+
+#### Use Case
+
+Use account-state events to refresh balances, margin, collateral, positions, and related account state.
+
+#### Trigger
+
+These updates are pushed automatically when account-level data changes.
+
+#### Event Types
+
+- `ACCOUNT_UPDATE`
+- `DEPOSIT_UPDATE`
+- `WITHDRAW_UPDATE`
+- `TRANSFER_IN_UPDATE`
+- `TRANSFER_OUT_UPDATE`
+- `FUNDING_SETTLEMENT`
+
+#### Response Model
+
+The server returns a `trade-event` message where:
+
+- `content.event` is one of the account-state event types listed above
+- `content.version` increases with each update
+- `content.data` usually populates arrays such as `account`, `collateral`, `position`, `deposit`, `withdraw`, `transferIn`, or `transferOut`
+
+#### Response Example
+
+```json
+{
+  "type": "trade-event",
+  "content": {
+    "event": "ACCOUNT_UPDATE",
+    "version": 1002,
+    "time": 1693208172000,
+    "accountId": 724625476626153743,
+    "data": {
+      "account": [],
+      "collateral": [],
+      "position": []
+    }
+  }
+}
+```
+
+### Order Lifecycle Updates
+
+#### Use Case
+
+Use order-lifecycle events to track order creation, cancellation, partial fill, full fill, and fee-related changes.
+
+#### Trigger
+
+These updates are pushed automatically after order state changes.
+
+#### Event Types
+
+- `ORDER_UPDATE`
+- `ORDER_FILL_FEE_INCOME`
+
+#### Response Model
+
+The server returns a `trade-event` message where:
+
+- `content.event` is `ORDER_UPDATE` or `ORDER_FILL_FEE_INCOME`
+- `content.data.order` contains order-level updates
+- `content.data.orderFillTransaction` contains fill-level execution updates when applicable
+
+#### Response Example
+
+```json
+{
+  "type": "trade-event",
+  "content": {
+    "event": "ORDER_UPDATE",
+    "version": 1003,
+    "time": 1693208173000,
+    "accountId": 724625476626153743,
+    "data": {
+      "order": [],
+      "orderFillTransaction": []
+    }
+  }
+}
+```
+
+### Risk and Forced Events
+
+#### Use Case
+
+Use these events to detect forced withdrawals, forced trades, and liquidation state changes.
+
+#### Trigger
+
+These updates are pushed automatically during risk-control workflows.
+
+#### Event Types
+
+- `FORCE_WITHDRAW_UPDATE`
+- `FORCE_TRADE_UPDATE`
+- `START_LIQUIDATING`
+- `FINISH_LIQUIDATING`
+
+#### Response Model
+
+The server returns a `trade-event` message where:
+
+- `content.event` is one of the risk-related event types listed above
+- `content.data.forceWithdrawList` or `content.data.forceTradeList` is populated for forced-event updates
+- other account arrays may also be present when the event affects balances or positions
+
+#### Response Example
+
+```json
+{
+  "type": "trade-event",
+  "content": {
+    "event": "FORCE_TRADE_UPDATE",
+    "version": 1004,
+    "time": 1693208174000,
+    "accountId": 724625476626153743,
+    "data": {
+      "forceTradeList": []
+    }
+  }
+}
+```
+
+## Integration Notes
+
+- Reuse the private HTTP authentication code instead of implementing a second signing flow for WebSocket
+- Treat `Snapshot` as your initial cache and later `trade-event` messages as incremental updates
+- Route messages by `type`, then route business events by `content.event`
+- Keep heartbeat handling independent from business event handling
+- Expect different event types to populate different arrays under `content.data`

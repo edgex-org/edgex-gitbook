@@ -11,13 +11,13 @@ Use funding endpoints when you need the latest funding rate, historical funding 
 Get latest funding rate:
 
 ```bash
-curl -X GET "https://edgex-prod-v2.edgex.exchange/api/v2/public/funding/getLatestFundingRate?contractId=10000001"
+curl -X GET "https://<api-domain>/api/v2/public/funding/getLatestFundingRate?contractId=10000001"
 ```
 
 Get funding rate history:
 
 ```bash
-curl -X GET "https://edgex-prod-v2.edgex.exchange/api/v2/public/funding/getFundingRatePageByContractId?contractId=10000001&page=1&limit=20"
+curl -X GET "https://<api-domain>/api/v2/public/funding/getFundingRatePageByContractId?contractId=10000001&page=1&limit=20"
 ```
 
 ## Common Notes

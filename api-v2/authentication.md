@@ -21,6 +21,18 @@ No authentication is required for public endpoints such as:
 
 Private APIs require **HMAC-SHA256 signature authentication** to ensure that only authorized users can access them. Authentication is achieved using custom HTTP headers that include a timestamp and a cryptographic signature.
 
+### Production Access Domains
+
+- **HTTP REST production domain**: `https://edgex-prod-v2.edgex.exchange`
+- **WebSocket production domain**: `wss://edgex-quote-prod-v2.edgex.exchange`
+
+Use placeholders in code and endpoint examples for consistency:
+
+- `<api-domain>` -> `edgex-prod-v2.edgex.exchange`
+- `<ws-domain>` -> `edgex-quote-prod-v2.edgex.exchange`
+
+Internal or non-production domains are not documented in this public guide.
+
 ### REST Authentication Headers
 
 The following headers **must** be included in requests to private REST API endpoints:
@@ -33,7 +45,7 @@ The following headers **must** be included in requests to private REST API endpo
 ### Authentication Scope
 
 - **REST private APIs** use the 4 headers listed below.
-- **Private WebSocket** uses the same HMAC credential set, but the handshake details are documented separately in [WebSocket API](./websocket-api/README.md).
+- **Private WebSocket** uses the same HMAC credential set and HMAC-SHA256 signing flow as private REST APIs; only the handshake transport details differ. See [WebSocket API](./websocket-api/README.md).
 - **L2 operation signatures** for orders, withdrawals, and transfers are documented in [L2 Signature Guide](./sign.md) and are separate from HTTP authentication.
 
 ### API Credentials
@@ -48,31 +60,37 @@ To use private APIs, you need to obtain three credentials from the EdgeX platfor
 
 ### How to Get API Credentials
 
-#### Step 1: Navigate to API Management
+Private REST APIs and private WebSocket APIs use the credentials from the same **API Management -> Perps V2 -> SDK Signer** dialog in the EdgeX web app.
 
-1. **Log in** to EdgeX platform
-2. Click your **profile icon** in the top-right corner
-3. Select **"API Management"** from the dropdown menu
-4. Go to the **"Perps V2"** tab
+#### What You Get from the Same Dialog
 
-#### Step 2: Generate API Credentials
+- **API Key** - Used by private REST APIs and private WebSocket authentication
+- **API Secret** - Used to generate HMAC-SHA256 signatures for private REST APIs and private WebSocket authentication
+- **API Passphrase** - Used together with API Key and API Secret for private REST APIs and private WebSocket authentication
+- **Private Key (Signer Key)** - Used to generate EIP-712 signatures for L2 actions such as orders, withdrawals, and transfers
 
-1. Find your account (e.g., "Main Account") in the list
-2. In the **SDK Signer** column, click the **"Detail"** button
-3. A dialog will appear showing all credentials:
-   - **API Key** - For authentication
-   - **Secret** - For HMAC signature
-   - **Passphrase** - Your set password
-4. **Copy and save all credentials immediately**
+#### Steps
 
-For Signer Key retrieval steps and security notes, see [Signer Key Signature Guide](sign.md#obtaining-your-signer-key).
+1. Log in to EdgeX platform
+2. Click your profile icon (top-right) -> **API Management**
+3. Open the **Perps V2** tab
+4. In the **SDK Signer** column, click **Detail**
+5. Copy the credentials you need from the dialog
 
-<figure><img src="../../.gitbook/assets/get-api-credentials.png" alt=""><figcaption><p>How to get API credentials from EdgeX dashboard</p></figcaption></figure>
+#### When to Use Which Credential
 
-**⚠️ Security Warnings**: 
-- All credentials are shown **only once**. Save them immediately in a secure location.
-- Each address can create a maximum of 10 L2 Keys (Signer Keys).
-- Keep your credentials secure to prevent possible asset losses.
+- Use **API Key / API Secret / API Passphrase** for private REST APIs and private WebSocket authentication
+- Use **Private Key (Signer Key)** for the L2 signatures described in [L2 Signature Guide](sign.md)
+
+<figure><img src="../../.gitbook/assets/get-api-credentials.png" alt=""><figcaption><p>SDK Signer dialog for API Key, API Secret, and API Passphrase</p></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/get-l2-private-key.png" alt=""><figcaption><p>The same SDK Signer dialog also provides the Private Key used as your Signer Key</p></figcaption></figure>
+
+**Security Warnings:**
+- All credentials are shown only once. Save them immediately in a secure location.
+- Keep your API Secret and Signer Key secure and never share them.
+- Anyone with access to these credentials can authenticate or sign actions on your behalf.
+- Store credentials encrypted and never commit them to version control.
 - Binding your L2 Key to third-party platforms may pose security risks.
 
 ---
@@ -277,7 +295,7 @@ func MakeAuthenticatedRequest(method, path string, params map[string]string) (*h
     requestBody := BuildSortedQueryString(params)
     
     // 4. Build full URL
-    baseURL := "https://edgex-testnet-internal-v2.edgex.exchange"
+    baseURL := "https://<api-domain>"
     fullURL := baseURL + path
     if method == "GET" && requestBody != "" {
         fullURL += "?" + requestBody
@@ -355,7 +373,7 @@ import (
 func main() {
     // Create client with API credentials
     client, err := sdk.NewClient(&sdk.Config{
-        BaseURL:       "https://edgex-testnet-internal-v2.edgex.exchange",
+        BaseURL:       "https://<api-domain>",
         AccountID:     724625476626153743,
         APIKey:        "your-api-key",
         APIPassphrase: "your-api-passphrase",
@@ -404,7 +422,7 @@ SIGNATURE=$(echo -n "$MESSAGE" | openssl dgst -sha256 -hmac "$BASE64_KEY" -hex |
 
 // Make request
 curl --location --request GET \
-  "https://edgex-testnet-internal-v2.edgex.exchange${REQUEST_URI}?${REQUEST_BODY}" \
+  "https://<api-domain>${REQUEST_URI}?${REQUEST_BODY}" \
   --header "X-edgeX-Api-Key: ${API_KEY}" \
   --header "X-edgeX-Passphrase: ${API_PASSPHRASE}" \
   --header "X-edgeX-Api-Signature: ${SIGNATURE}" \
@@ -542,9 +560,3 @@ func GetValue(data interface{}) string {
 5. **Monitor API usage**
    - Track unusual activity
    - Set up alerts for suspicious patterns
-
----
-
-**Document Version**: V2.0  
-**Last Updated**: 2026-03-12  
-**Based On**: EdgeX Golang SDK V2 Implementation

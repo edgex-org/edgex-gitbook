@@ -9,13 +9,13 @@ Use quote endpoints for market data reads such as order book depth, K-line histo
 Get depth:
 
 ```bash
-curl -X GET "https://edgex-prod-v2.edgex.exchange/api/v2/public/quote/getDepth?contractId=10000001&level=15"
+curl -X GET "https://<api-domain>/api/v2/public/quote/getDepth?contractId=10000001&level=15"
 ```
 
 Get ticker summary:
 
 ```bash
-curl -X GET "https://edgex-prod-v2.edgex.exchange/api/v2/public/quote/getTickerSummary?contractId=10000001"
+curl -X GET "https://<api-domain>/api/v2/public/quote/getTickerSummary?contractId=10000001"
 ```
 
 ## Common Notes

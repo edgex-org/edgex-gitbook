@@ -54,11 +54,25 @@ Private API endpoints and private WebSocket connections require authentication. 
 - **[Authentication Guide](./authentication.md)** - HTTP header authentication for REST APIs
 - **[L2 Signature Guide](./sign.md)** - EIP-712 Layer 2 signature requirements for trading operations
 
+## Access Domains
+
+Use the following production access domains when integrating with EdgeX:
+
+- **HTTP REST production domain**: `https://edgex-prod-v2.edgex.exchange`
+- **WebSocket production domain**: `wss://edgex-quote-prod-v2.edgex.exchange`
+
+All examples in this documentation use placeholders to keep endpoint examples consistent:
+
+- Replace `<api-domain>` with `edgex-prod-v2.edgex.exchange`
+- Replace `<ws-domain>` with `edgex-quote-prod-v2.edgex.exchange`
+- Internal, non-production, and test-only domains are not part of the public documentation
+
 ## API Conventions
 
 ### Request Format
 
-- **Base URL**: `https://[domain]`
+- **HTTP REST base URL**: `https://<api-domain>`
+- **WebSocket base URL**: `wss://<ws-domain>`
 - **Content-Type**: `application/json`
 - **Character Encoding**: UTF-8
 
