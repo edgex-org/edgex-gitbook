@@ -1,60 +1,38 @@
 # Private WebSocket API
 
-The Private WebSocket API provides real-time account and trading updates for the authenticated account.
+The private WebSocket endpoint is `wss://<ws-domain>/api/v1/private/ws`.
 
-## Connection Information
+Private WebSocket uses the same authentication rules as the private HTTP APIs. No subscribe message is required. After authentication succeeds, the server sends `connected`, then the initial `Snapshot`, and then later account-scoped business updates.
 
-**WebSocket URL:** `wss://<ws-domain>/api/v1/private/ws`
+For credential requirements and signature generation, see the [Authentication Guide](../authentication.md).
 
-Replace `<ws-domain>` with the production WebSocket domain `edgex-quote-prod-v2.edgex.exchange`.
+## Connect and Authenticate
 
-**Authentication:** Required.
+### WebSocket URL
 
-Private WebSocket authentication uses the same **HMAC-SHA256** rules as the private HTTP APIs. For credential requirements, header definitions, and signature generation, see the [Authentication Guide](../authentication.md).
+Use the private WebSocket endpoint:
 
-## Connection Mode
+`wss://<ws-domain>/api/v1/private/ws`
 
-Private WebSocket uses an **authenticate once, then receive events continuously** model.
+### WebSocket Query Parameters
 
-- No separate `subscribe` request is required.
-- After authentication succeeds, the server first pushes the initial account snapshot.
-- After the baseline snapshot is established, the server continues to push incremental business updates.
-- The client is expected to handle heartbeat messages during the session.
+The following query parameters **must** be included on the private WebSocket connection URL:
 
-## Common Usage Flow
+- `accountId` (integer, required): EdgeX account identifier
+- `timestamp` (integer, required): Current millisecond timestamp
 
-1. Build the connection URL with `accountId` and `timestamp`.
-2. Sign the request with the same HMAC-SHA256 logic used by private HTTP APIs.
-3. Connect to `wss://<ws-domain>/api/v1/private/ws`.
-4. Receive `connected`.
-5. Receive the initial `Snapshot`.
-6. Continue processing incremental business updates.
-7. Respond to `ping` with `pong`.
-8. Reconnect and rebuild local state from a new `Snapshot` if the connection is closed.
+### WebSocket Authentication Headers
 
-## Common Request and Response Models
+The following headers **must** be included in the private WebSocket handshake request:
 
-### Connect and Authenticate
+- `X-edgeX-Api-Key` (string, required): Your API Key obtained from the EdgeX platform
+- `X-edgeX-Passphrase` (string, required): Your API Passphrase set during API key creation
+- `X-edgeX-Api-Timestamp` (string, required): Request timestamp in milliseconds
+- `X-edgeX-Api-Signature` (string, required): HMAC-SHA256 signature of the request
 
-#### Request Parameters
+Private WebSocket uses the same HMAC credential set and HMAC-SHA256 signing flow as private REST APIs. This page does not repeat the signing algorithm. Use the [Authentication Guide](../authentication.md) to generate `X-edgeX-Api-Signature`.
 
-##### Query Parameters
-
-| Field | Type | Required | Description |
-|------|------|----------|-------------|
-| `accountId` | integer | yes | EdgeX account identifier |
-| `timestamp` | integer | yes | Current millisecond timestamp |
-
-##### Headers
-
-| Field | Type | Required | Description |
-|------|------|----------|-------------|
-| `X-edgeX-Api-Key` | string | yes | API key |
-| `X-edgeX-Passphrase` | string | yes | API passphrase |
-| `X-edgeX-Api-Signature` | string | yes | HMAC-SHA256 signature |
-| `X-edgeX-Api-Timestamp` | string | yes | Timestamp used for signing |
-
-#### Request Example
+### Minimal Connection Request
 
 ```http
 GET /api/v1/private/ws?accountId=724625476626153743&timestamp=1705720068228
@@ -64,217 +42,218 @@ X-edgeX-Api-Signature: <signature generated as described in the Authentication G
 X-edgeX-Api-Timestamp: 1705720068228
 ```
 
-#### Response Sequence
-
-After authentication succeeds, the server returns messages in this order:
-
-1. `connected`
-2. initial account snapshot
-3. later business updates when account-related data changes
-
-#### Connection Success Example
-
-```json
-{
-  "sid": "session-id-string",
-  "type": "connected",
-  "time": 1693208170000
-}
-```
-
-### Message Envelope
-
-There are three important concepts in private WebSocket messages:
-
-- `type` is the top-level message category, such as `connected`, `trade-event`, `ping`, or `error`.
-- `content.event` is the business event inside a push message, such as `Snapshot`, `ORDER_UPDATE`, or `FUNDING_SETTLEMENT`.
-- `content.data` is the payload grouped by entity type, such as `account`, `collateral`, `position`, `order`, `deposit`, or `transferOut`.
-
-In practice:
-
-- `type` tells you which message family you received.
-- `content.event` tells you which business event happened.
-- `content.data` tells you which business entities changed in that event.
-
-#### Top-Level Envelope
-
-| Field | Type | Description |
-|------|------|-------------|
-| `sid` | string | Session identifier assigned by the server |
-| `type` | string | Top-level message type |
-| `content` | object | Message-specific payload |
-| `time` | integer | Timestamp used by heartbeat messages |
-
-#### Top-Level `type` Values
-
-| `type` | Meaning |
-|-------|---------|
-| `connected` | Connection established |
-| `trade-event` | Private business push |
-| `ping` | Server or client heartbeat |
-| `pong` | Heartbeat response |
-| `error` | Authentication error, invalid client message, or business error |
-
-#### `content.data` Field Rules
-
-- `content.data` includes only the fields relevant to the current event.
-- Fields that are not affected by the current event may be omitted or empty.
-- The initial `Snapshot` is the baseline payload used to initialize local state.
-- Later business updates are incremental messages applied after the snapshot.
-
 ## Heartbeat
 
-The private WebSocket connection uses a bidirectional heartbeat mechanism to keep the session alive and measure latency.
+The connection uses a bidirectional ping-pong heartbeat.
 
-### Server Ping
+- The server sends `ping`.
+- The client should reply with `pong` and echo the same `time`.
+- The client can also send `ping` proactively to measure latency.
 
-After the connection is established, the server periodically sends a `ping` message.
-
-```json
-{
-  "type": "ping",
-  "time": 1693208170000
-}
-```
-
-When the client receives this message, it should return a `pong` message with the same `time` value.
-
-```json
-{
-  "type": "pong",
-  "time": 1693208170000
-}
-```
-
-### Client Ping
-
-The client can also send a `ping` message to measure round-trip latency.
+Server ping example:
 
 ```json
 {
   "type": "ping",
-  "time": 1693208170000
+  "time": "1773833240000"
 }
 ```
 
-The server responds immediately with a `pong` message and echoes the same `time` value.
+Client pong example:
 
 ```json
 {
   "type": "pong",
-  "time": 1693208170000
+  "time": "1773833240000"
 }
 ```
 
 ## Initial Snapshot
 
-After a successful connection and authentication, the server first pushes an initial snapshot message. This snapshot provides the current account state and acts as the baseline for all later incremental business updates.
+After authentication succeeds, the server first confirms the session and then pushes the current full account state.
+
+Connection success example from a live session:
+
+```json
+{
+  "sid": "371619ee-b099-751a-74b1-b46e98606322",
+  "type": "connected",
+  "time": "1773832863182"
+}
+```
+
+Trimmed live snapshot excerpt with representative fields:
+
+```json
+{
+  "type": "trade-event",
+  "content": {
+    "event": "Snapshot",
+    "version": 907,
+    "time": 1773832863190,
+    "accountId": 0,
+    "data": {
+      "account": [
+        {
+          "id": "729074578726322703",
+          "userId": "600162890833461506",
+          "clientAccountId": "main",
+          "status": "NORMAL",
+          "createdTime": "1773826958034",
+          "updatedTime": "1773832101293"
+        }
+      ],
+      "collateral": [
+        {
+          "coinId": "1000",
+          "amount": "83.512690",
+          "cumDepositAmount": "160.000000",
+          "cumWithdrawAmount": "0",
+          "cumTransferInAmount": "0",
+          "cumTransferOutAmount": "0",
+          "updatedTime": "1773832800161"
+        }
+      ],
+      "position": [
+        {
+          "contractId": "10000002",
+          "openSize": "0.03",
+          "openValue": "69.600200",
+          "fundingFee": "-0.000289",
+          "updatedTime": "1773832690744"
+        }
+      ],
+      "order": [
+        {
+          "id": "729107150223180559",
+          "contractId": "10000002",
+          "side": "SELL",
+          "type": "STOP_MARKET",
+          "status": "UNTRIGGERED",
+          "updatedTime": "1773832690765"
+        }
+      ]
+    }
+  }
+}
+```
+
+## Event Updates
+
+All business pushes use the same top-level event envelope.
+
+This page documents the stable envelope and representative business fields only. It does not attempt to enumerate the complete schema of every nested record under `account`, `collateral`, `position`, `order`, `deposit`, `withdraw`, `transferIn`, or `transferOut`.
+
+For complete nested record details, use verified responses together with the corresponding gateway model as the source of truth.
+
+### Message Envelope
+
+| Field | Type | Description |
+|------|------|-------------|
+| `type` | string | Top-level message family. Business pushes use `trade-event`. |
+| `content.event` | string | Business event name such as `Snapshot`, `ORDER_UPDATE`, or `TRANSFER_OUT_UPDATE`. |
+| `content.version` | integer | Event version for ordering incremental updates. |
+| `content.time` | integer | Server timestamp in milliseconds for the business event. |
+| `content.accountId` | integer | Present in live samples. Current sampled value is `0`, so clients should not treat it as the authoritative account identifier. |
+| `content.data` | object | Business payload grouped by entity type. |
+| `sid` | string | Present on the `connected` message, not on `trade-event` payloads. |
+| `time` | string | Present on `connected`, `ping`, and `pong`. |
+
+### Business Category Mapping
+
+| Business Category | `content.event` |
+|------|------|
+| Account Snapshot | `Snapshot` |
+| Trade Updates | `ORDER_UPDATE` |
+| Asset Updates | `DEPOSIT_UPDATE`, `WITHDRAW_UPDATE`, `TRANSFER_IN_UPDATE`, `TRANSFER_OUT_UPDATE` |
+| Funding Settlement | `FUNDING_SETTLEMENT` |
+
+### Common `content.data` Groups
+
+| Field | Description |
+|------|-------------|
+| `account` | Account summary records. |
+| `collateral` | Current collateral balances. |
+| `collateralTransaction` | Balance movement records. |
+| `position` | Current position records. |
+| `positionTransaction` | Position movement records. |
+| `deposit` | Deposit records. |
+| `withdraw` | Withdrawal records. |
+| `transferIn` | Internal transfer-in records. |
+| `transferOut` | Internal transfer-out records. |
+| `order` | Order records. |
+| `orderFillTransaction` | Fill records generated by matched orders. |
+
+Not every event populates every group. Unaffected groups may be empty.
+
+## Account Snapshot
+
+### Trigger Scenario
+
+The server pushes this message immediately after a successful authenticated connection. Clients should also treat the next `Snapshot` after reconnect as the new local baseline.
 
 ### Message Mapping
 
 - `type`: `trade-event`
 - `content.event`: `Snapshot`
 
-### Response Model
-
-```json
-{
-  "type": "trade-event",
-  "content": {
-    "event": "Snapshot",
-    "version": 1000,
-    "time": 1693208170000,
-    "data": {
-      "account": [],
-      "collateral": [],
-      "position": [],
-      "order": []
-    }
-  }
-}
-```
-
-### Field Details
-
-| Field | Type | Description |
-|------|------|-------------|
-| `type` | string | Message type. The initial snapshot is sent as `trade-event`. |
-| `content.event` | string | Always `Snapshot` for the initial full-state payload. |
-| `content.version` | integer | Snapshot version. Later incremental events continue from this version sequence. |
-| `content.time` | integer | Server timestamp in milliseconds. |
-| `content.data.account` | array | Current account state. |
-| `content.data.collateral` | array | Current collateral balances. |
-| `content.data.position` | array | Current open positions. |
-| `content.data.order` | array | Current active orders. |
-
-## Event Updates
-
-After the initial snapshot, the server pushes incremental updates grouped by business meaning rather than listing raw event names as flat top-level sections.
-
-This page organizes the business updates into four categories:
-
-- `Account Snapshot`
-- `Trade Updates`
-- `Asset Updates`
-- `Funding Settlement`
-
-Other non-covered event families are intentionally left out of this page body.
-
-### Account Snapshot
-
-This category represents the baseline account-state message that clients use to initialize local state before applying incremental updates.
-
-#### Trigger Scenario
-
-The server pushes this message immediately after a successful authenticated connection. Clients should also use the same snapshot category to rebuild local state after reconnecting.
-
-#### Message Mapping
-
-- `type`: `trade-event`
-- `content.event`: `Snapshot`
-
-#### Common `content.data` Fields
+### Common `content.data` Fields
 
 | Field | Description |
 |------|-------------|
-| `account` | Current account summary for the authenticated account. |
-| `collateral` | Current collateral balances at snapshot time. |
+| `account` | Current account-level status and account settings. |
+| `collateral` | Current collateral balances and cumulative balance counters. |
 | `position` | Current open positions. |
-| `order` | Current active orders. |
+| `order` | Current open or waiting orders. |
 
-#### Response Example
+### Response Example
+
+The example below is a trimmed live snapshot excerpt with representative fields only.
 
 ```json
 {
   "type": "trade-event",
   "content": {
     "event": "Snapshot",
-    "version": 1000,
-    "time": 1693208170000,
+    "version": 907,
+    "time": 1773832863190,
+    "accountId": 0,
     "data": {
       "account": [
         {
-          "id": 724625476626153743,
-          "status": "NORMAL"
+          "id": "729074578726322703",
+          "userId": "600162890833461506",
+          "clientAccountId": "main",
+          "status": "NORMAL",
+          "updatedTime": "1773832101293"
         }
       ],
       "collateral": [
         {
-          "coinId": 1,
-          "balance": "1200"
+          "coinId": "1000",
+          "amount": "83.512690",
+          "cumDepositAmount": "160.000000",
+          "cumTransferOutAmount": "0",
+          "updatedTime": "1773832800161"
         }
       ],
       "position": [
         {
-          "contractId": 1000001,
-          "size": "1"
+          "contractId": "10000002",
+          "openSize": "0.03",
+          "openValue": "69.600200",
+          "fundingFee": "-0.000289",
+          "updatedTime": "1773832690744"
         }
       ],
       "order": [
         {
-          "id": 900001,
-          "contractId": 1000001,
-          "status": "OPEN"
+          "id": "729107150223180559",
+          "contractId": "10000002",
+          "side": "SELL",
+          "type": "STOP_MARKET",
+          "status": "UNTRIGGERED",
+          "updatedTime": "1773832690765"
         }
       ]
     }
@@ -282,60 +261,86 @@ The server pushes this message immediately after a successful authenticated conn
 }
 ```
 
-### Trade Updates
+## Trade Updates
 
-This category covers trade-driven account changes. In practice, the most important incremental event for client processing is `ORDER_UPDATE`.
+This page uses one trimmed live `ORDER_UPDATE` example as the primary trade update example.
 
-#### Trigger Scenario
+### Trigger Scenario
 
-The server pushes this message when an order is created, updated, partially filled, fully filled, or canceled, and when the resulting trade changes related account or position state.
+The server pushes this category when an order is created, accepted, triggered, canceled, partially filled, or fully filled, and when that order changes positions or collateral.
 
-#### Message Mapping
+### Message Mapping
 
 - `type`: `trade-event`
 - `content.event`: `ORDER_UPDATE`
 
-#### Common `content.data` Fields
+### Common `content.data` Fields
 
 | Field | Description |
 |------|-------------|
-| `account` | Updated account summary after the trade-related change. |
-| `collateral` | Updated collateral balances if margin or balance changes. |
-| `collateralTransaction` | Collateral transaction records related to the order lifecycle. |
-| `position` | Updated position state if the order opens, reduces, or closes a position. |
-| `positionTransaction` | Position change records created by fills or position transitions. |
-| `order` | Updated order records. |
-| `orderFillTransaction` | Fill records when the order is matched. |
-| `positionTermList` | Updated position term information when applicable. |
+| `order` | The updated order record. |
+| `orderFillTransaction` | Fill records created by matching. |
+| `position` | Updated position state after the order changes exposure. |
+| `positionTransaction` | Position movement records related to the order result. |
+| `collateral` | Updated collateral balances after realized PnL, fees, or margin changes. |
+| `collateralTransaction` | Collateral movement records related to the order lifecycle. |
+| `account` | Optional account summary updates. |
 
-#### Response Example
+### Response Example
+
+The example below is a trimmed live `ORDER_UPDATE` excerpt with representative fields only.
 
 ```json
 {
   "type": "trade-event",
   "content": {
     "event": "ORDER_UPDATE",
-    "version": 1001,
-    "time": 1693208175000,
+    "version": 916,
+    "time": 1773833120269,
+    "accountId": 0,
     "data": {
       "order": [
         {
-          "id": 900001,
-          "contractId": 1000001,
-          "status": "FILLED"
+          "id": "729107150223180559",
+          "contractId": "10000002",
+          "side": "SELL",
+          "type": "STOP_MARKET",
+          "status": "FILLED",
+          "triggerPrice": "2310.00",
+          "cumMatchSize": "0.02",
+          "cumMatchValue": "46.1952",
+          "cumMatchFee": "0.017554",
+          "updatedTime": "1773833120256"
         }
       ],
       "orderFillTransaction": [
         {
-          "id": 800001,
-          "orderId": 900001,
-          "fillSize": "1"
+          "id": "729108951626416911",
+          "orderId": "729107150223180559",
+          "fillSize": "0.02",
+          "fillValue": "46.1952",
+          "fillFee": "0.017554",
+          "fillPrice": "2309.76",
+          "direction": "TAKER",
+          "matchTime": "1773833120252"
         }
       ],
       "position": [
         {
-          "contractId": 1000001,
-          "size": "1"
+          "contractId": "10000002",
+          "openSize": "0.01",
+          "openValue": "23.200067",
+          "fundingFee": "-0.000096",
+          "updatedTime": "1773833120269"
+        }
+      ],
+      "collateral": [
+        {
+          "coinId": "1000",
+          "amount": "129.690336",
+          "cumPositionSellAmount": "46.1952",
+          "cumFillFeeAmount": "-0.046603",
+          "updatedTime": "1773833120269"
         }
       ]
     }
@@ -343,67 +348,85 @@ The server pushes this message when an order is created, updated, partially fill
 }
 ```
 
-### Asset Updates
+## Asset Updates
 
-This category groups balance-affecting updates caused by deposits, withdrawals, and internal transfers.
+This category groups deposit, withdrawal, and internal transfer state changes under one business-facing section.
 
-#### Trigger Scenario
+### Trigger Scenario
 
-The server pushes this category when an asset movement changes account balances or updates the state of the related asset-flow record.
+The server pushes this category when an asset movement changes account balances or when the related asset-flow record changes status.
 
-#### Message Mapping
+### Message Mapping
 
 - `type`: `trade-event`
 - `content.event`: one of `DEPOSIT_UPDATE`, `WITHDRAW_UPDATE`, `TRANSFER_IN_UPDATE`, or `TRANSFER_OUT_UPDATE`
 
-| `content.event` | Business meaning | Primary record field |
-|------|-------------|----------------------|
-| `DEPOSIT_UPDATE` | Deposit status or balance change | `deposit` |
-| `WITHDRAW_UPDATE` | Withdrawal status or balance change | `withdraw` |
-| `TRANSFER_IN_UPDATE` | Internal transfer-in state change | `transferIn` |
-| `TRANSFER_OUT_UPDATE` | Internal transfer-out state change | `transferOut` |
+| `content.event` | Business Meaning | Primary Record Group |
+|------|------|------|
+| `DEPOSIT_UPDATE` | Deposit state or balance change | `deposit` |
+| `WITHDRAW_UPDATE` | Withdrawal state or balance change | `withdraw` |
+| `TRANSFER_IN_UPDATE` | Internal transfer-in state or balance change | `transferIn` |
+| `TRANSFER_OUT_UPDATE` | Internal transfer-out state or balance change | `transferOut` |
 
-#### Common `content.data` Fields
+### Common `content.data` Fields
 
 | Field | Description |
 |------|-------------|
-| `account` | Updated account summary after the asset change. |
-| `collateral` | Updated collateral balances after funds arrive or leave. |
-| `collateralTransaction` | Balance movement records generated by the asset flow. |
 | `deposit` | Deposit records when `content.event` is `DEPOSIT_UPDATE`. |
 | `withdraw` | Withdrawal records when `content.event` is `WITHDRAW_UPDATE`. |
 | `transferIn` | Transfer-in records when `content.event` is `TRANSFER_IN_UPDATE`. |
 | `transferOut` | Transfer-out records when `content.event` is `TRANSFER_OUT_UPDATE`. |
+| `collateral` | Updated collateral balances after funds are credited or debited. |
+| `collateralTransaction` | Balance movement records created by the asset flow. |
+| `account` | Optional account summary updates. |
 
-#### Response Example
+### Response Example
 
-The same envelope applies to all four asset events. The example below uses `TRANSFER_OUT_UPDATE`.
+The example below is a trimmed live `TRANSFER_OUT_UPDATE` excerpt with representative fields only.
 
 ```json
 {
   "type": "trade-event",
   "content": {
     "event": "TRANSFER_OUT_UPDATE",
-    "version": 1005,
-    "time": 1693208195000,
+    "version": 920,
+    "time": 1773833140579,
+    "accountId": 0,
     "data": {
       "transferOut": [
         {
-          "id": 730001,
-          "coinId": 1,
-          "amount": "20"
+          "id": "729109036640764687",
+          "accountId": "729074578726322703",
+          "coinId": "1000",
+          "amount": "1.000000",
+          "receiverAccountId": "729108352151323326",
+          "clientTransferId": "870080323493747",
+          "transferReason": "USER_TRANSFER",
+          "status": "SUCCESS_CENSOR_SUCCESS",
+          "receiverTransferInId": "729109036745622206",
+          "collateralTransactionId": "729109036863062799",
+          "createdTime": "1773833140526",
+          "updatedTime": "1773833140579"
         }
       ],
       "collateral": [
         {
-          "coinId": 1,
-          "balance": "1130"
+          "coinId": "1000",
+          "amount": "128.690336",
+          "cumTransferOutAmount": "-1.000000",
+          "updatedTime": "1773833140579"
         }
       ],
       "collateralTransaction": [
         {
-          "id": 740001,
-          "amount": "-20"
+          "id": "729109036863062799",
+          "type": "TRANSFER_OUT",
+          "deltaAmount": "-1.000000",
+          "beforeAmount": "129.690336",
+          "transferOutId": "729109036640764687",
+          "censorStatus": "CENSOR_SUCCESS",
+          "createdTime": "1773833140575",
+          "updatedTime": "1773833140579"
         }
       ]
     }
@@ -411,96 +434,17 @@ The same envelope applies to all four asset events. The example below uses `TRAN
 }
 ```
 
-### Funding Settlement
+## Funding Settlement
 
-This category describes periodic account changes caused by funding fee settlement for open positions.
+Funding settlement is a dedicated business category in the private event set.
 
-#### Trigger Scenario
+### Trigger Scenario
 
-The server pushes this message when the system settles funding for eligible open positions.
+The server pushes this category when the system settles funding fees for eligible open positions.
 
-#### Message Mapping
+### Message Mapping
 
 - `type`: `trade-event`
 - `content.event`: `FUNDING_SETTLEMENT`
 
-#### Common `content.data` Fields
-
-| Field | Description |
-|------|-------------|
-| `account` | Updated account summary after settlement. |
-| `collateral` | Updated collateral balances after funding payment or funding income is applied. |
-| `collateralTransaction` | Funding-related balance movement records. |
-| `position` | Updated position state when settlement affects position-related values. |
-| `positionTermList` | Updated term-related position data when applicable. |
-
-#### Response Example
-
-```json
-{
-  "type": "trade-event",
-  "content": {
-    "event": "FUNDING_SETTLEMENT",
-    "version": 1006,
-    "time": 1693208200000,
-    "data": {
-      "collateral": [
-        {
-          "coinId": 1,
-          "balance": "1128.5"
-        }
-      ],
-      "collateralTransaction": [
-        {
-          "id": 740001,
-          "amount": "-1.5"
-        }
-      ],
-      "position": [
-        {
-          "contractId": 1000001,
-          "fundingFee": "-1.5"
-        }
-      ]
-    }
-  }
-}
-```
-
-## Error Response
-
-Return an error when authentication fails, the client sends an invalid message, or the server cannot load the initial snapshot.
-
-### Response Model
-
-| Field | Type | Description |
-|------|------|-------------|
-| `type` | string | Always `error` |
-| `content` | object | Error payload |
-| `time` | integer | Present when applicable |
-
-The exact fields inside `content` depend on the error source, but they represent a structured error object returned by the gateway.
-
-### Common Error Situations
-
-- Invalid API key, passphrase, signature, or timestamp
-- Invalid `accountId` or malformed query parameters
-- Client sends an unsupported message type after the connection is established
-- Snapshot retrieval fails immediately after connection establishment
-
-### Error Example
-
-```json
-{
-  "type": "error",
-  "content": {
-    "code": "GATEWAY_UNRECOGNIZED_MESSAGE",
-    "msg": "unsupported private ws message"
-  }
-}
-```
-
-### Connection Behavior Notes
-
-- If the client sends invalid messages repeatedly, the server may close the connection.
-- If snapshot retrieval fails immediately after connection establishment, the server may close the connection and require the client to reconnect.
+This page does not attempt to enumerate the nested settlement record model here. Use verified responses and the corresponding gateway model when documenting settlement-specific fields.
