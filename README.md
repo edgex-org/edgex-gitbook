@@ -8,15 +8,11 @@ description: >-
 
 ## EDGE Stack: Deterministic Parallel and Modular Execution for Trading Engine
 
-
-
 ### Background: Structural Contradictions in DeFi Infrastructure
 
 Decentralized Finance has evolved quickly, but perpetual futures still face fundamental constraints: slow execution, trust assumptions, and poor scalability. Most chains continue to run transactions through sequential execution over a single global state machine, creating a bottleneck where throughput and latency can’t meet ultra-low-latency demands of high-frequency and quantitative trading. Some systems improved speed but compromised on fairness, transparency, or fully verifiable order matching. Meanwhile, monolithic DEX designs struggle to scale, hosting both perpetuals and broader DeFi functionality becomes costly, rigid, and difficult to expand.
 
-
-
-### EDGE Stack: App-Specific Rollup on Ethereum
+### EDGE Stack: Modular Execution Environment for Trading Engines
 
 EDGE Stack is built as an App-Specific Execution Layer optimized for high-performance on-chain trading. Instead of adapting generic blockchain infrastructure, we redesign the system at the execution layer. With a modular multi-VM architecture and a deterministic Parallel Transaction Execution (PTE), EDGE Stack delivers high throughput, low latency, and fully verifiable matching for complex derivatives like perpetuals. As part of the rollup ecosystem, EDGE Stack ultimately benefits from Ethereum's security guarantees, allowing users to adhere to DeFi's trust minimization principles while enjoying an ultra-low-latency on-chain experience.<br>
 
@@ -29,8 +25,6 @@ EDGE Stack uses a modular Multi-VM architecture optimized for trading workloads.
 * **FlashLane**: Quality of Service (QoS) scheduling and multi-lane execution.
 
 <figure><img src=".gitbook/assets/Arch (1).png" alt=""><figcaption></figcaption></figure>
-
-
 
 #### I. Modular Multi-VM
 
@@ -58,6 +52,3 @@ This prevents non-critical activity from degrading matching engine performance.F
 ### State & Security
 
 All parallel execution results converge into a single State Root Commitment. Using **Parallel Merklization**, edge Stack computes state tree hashes concurrently within a block, producing a deterministic State Root and Block Hash.These commitments settle to the underlying rollup layer and inherit Ethereum security. Any participant can independently replay the same transaction batch to verify correctness, ensuring full transparency, verifiability, and Ethereum-grade finality - without compromising performance.
-
-
-
