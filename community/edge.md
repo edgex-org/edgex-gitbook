@@ -17,9 +17,7 @@ The total supply of EDGE is 1,000,000,000 tokens:
 
 
 
-Tokens allocated to the genesis distribution will be fully unlocked at genesis.
-
-Pre-TGE Season allocation will be fully unlocked 24 hours after the genesis.
+Tokens allocated to Early Users will be fully unlocked at genesis.
 
 
 
