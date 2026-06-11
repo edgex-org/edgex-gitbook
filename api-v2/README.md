@@ -54,6 +54,13 @@ Private API endpoints and private WebSocket connections require authentication. 
 - **[Authentication Guide](./authentication.md)** - HTTP header authentication for REST APIs
 - **[L2 Signature Guide](./sign.md)** - EIP-712 Layer 2 signature requirements for trading operations
 
+## SDKs
+
+Use the official SDKs for V2 API integration:
+
+- **[EdgeX Golang SDK](https://github.com/edgex-Tech/edgex-golang-sdk)** - Go client for V2 REST, signing, and WebSocket flows
+- **[EdgeX Python SDK](https://github.com/edgex-Tech/edgex-python-sdk)** - Python client for V2 REST, signing, asset, and bridge flows
+
 ## Access Domains
 
 Use the following production access domains when integrating with EdgeX:
@@ -192,5 +199,5 @@ For API support and questions:
 
 ---
 
-**Last Updated**: 2026-03-10  
+**Last Updated**: 2026-06-11  
 **API Version**: V2
