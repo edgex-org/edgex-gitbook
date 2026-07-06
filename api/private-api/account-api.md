@@ -16,8 +16,8 @@ GET /api/v1/private/account/getPositionTransactionPage
 | filterCoinIdList                | query    | string | No       | Filter position transaction records by specified coin IDs. If not provided, all collateral transaction records are retrieved |
 | filterContractIdList            | query    | string | No       | Filter position transaction records by specified contract IDs. If not provided, all position transaction records are retrieved|
 | filterTypeList                  | query    | string | No       | Filter position transaction records by specified types. If not provided, all position transaction records are retrieved|
-| filterStartCreatedTimeInclusive | query    | string | No       | Filter position transaction records created after or at the specified start time (inclusive). If not provided or 0, retrieves records from the earliest time |
-| filterEndCreatedTimeExclusive   | query    | string | No       | Filter position transaction records created before the specified end time (exclusive). If not provided or 0, retrieves records up to the latest time    |
+| filterStartCreatedTimeInclusive | query    | string | No       | Filter position transaction records created after or at the specified start time (inclusive). The time range between start and end cannot exceed 90 days. If not provided, defaults to 90 days ago |
+| filterEndCreatedTimeExclusive   | query    | string | No       | Filter position transaction records created before the specified end time (exclusive). The time range between start and end cannot exceed 90 days. If not provided, defaults to current time       |
 | filterCloseOnly                 | query    | string | No       | Whether to return only position transactions that include closing positions.  `true`: only return records with closing; `false`: return all records|
 | filterOpenOnly                  | query    | string | No       | Whether to return only position transactions that include opening positions. `true`: only return records with opening; `false`: return all records|
 
@@ -378,8 +378,8 @@ GET /api/v1/private/account/getCollateralTransactionPage
 | offsetData                      | query    | string | No       | Pagination offset. If empty or not provided, the first page is retrieved                                     |
 | filterCoinIdList                | query    | string | No       | Filter collateral transaction records by specified coin IDs. If not provided, all collateral transaction records are retrieved |
 | filterTypeList                  | query    | string | No       | Filter collateral transaction records by specified transaction types. If not provided, all collateral transaction records are retrieved |
-| filterStartCreatedTimeInclusive | query    | string | No       | Filter collateral transaction records created after or at the specified start time (inclusive). If not provided or 0, retrieves records from the earliest time |
-| filterEndCreatedTimeExclusive   | query    | string | No       | Filter collateral transaction records created before the specified end time (exclusive). If not provided or 0, retrieves records up to the latest time    |
+| filterStartCreatedTimeInclusive | query    | string | No       | Filter collateral transaction records created after or at the specified start time (inclusive). The time range between start and end cannot exceed 90 days. If not provided, defaults to 90 days ago |
+| filterEndCreatedTimeExclusive   | query    | string | No       | Filter collateral transaction records created before the specified end time (exclusive). The time range between start and end cannot exceed 90 days. If not provided, defaults to current time   |
 
 > Response Example
 
